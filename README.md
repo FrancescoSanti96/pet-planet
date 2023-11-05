@@ -7,3 +7,8 @@
 ### Wireframe : Visisibile all'intenro della cartella *wireframe* nel progetto
 
 ### Flow Agile Task: [link](https://github.com/users/FrancescoSanti96/projects/6)
+
+
+### Team
+- Umberto Schiavone
+- Francesco Santi
