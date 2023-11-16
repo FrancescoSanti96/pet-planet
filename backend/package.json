@@ -1,6 +1,14 @@
 {
   "dependencies": {
     "@fastify/mongodb": "^6.0.0",
-    "fastify": "^4.24.3"
+    "fastify": "^4.24.3",
+    "mongoose": "^8.0.0"
+  },
+
+  "scripts": {
+    "start": "node server.js",
+    "start-mongodb": "docker run --name new-mongodb -p 27017:27017 -v mongodb_data:/data/db -d mongo",
+    "stop-mongodb": "docker stop new-mongodb",
+    "remove-mongodb": "docker rm new-mongodb"
   }
 }
