@@ -12,7 +12,7 @@
 ### Avviare il server costruito con Fastify:
 1. Entrare nella cartella backend
 2. npm install
-3. Serve avere una istanza di mongodb community avviata ho in locale oppure consigliato usare docker
+3. Serve avere una istanza di mongodb community avviata o in locale oppure consigliato usare docker
 4. npm run start (avvia il server)
 
 ### Avviare docker:
