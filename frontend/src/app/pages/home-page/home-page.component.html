@@ -1,1 +1,31 @@
-<p>home-page works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>PetPlanet</h1>
+
+    <div class="form-group">
+        <label for="nome">Phone number, username, or email address:</label>
+        <input type="text" id="nome" name="nome">
+    </div>
+
+    <div class="password-input-container">
+        <label for="password">
+            Password:
+            <input type="password" id="password" name="password">
+            <mat-icon class="mat-icon" (click)="togglePassword()">
+                {{ hidePassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+        </label>
+    </div>
+
+</body>
+
+</html>

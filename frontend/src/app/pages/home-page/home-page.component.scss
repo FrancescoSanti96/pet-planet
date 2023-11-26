@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #3498db;
+    margin-bottom: 10px; /* Aggiunto margine inferiore a h1 */
+}
+
+label {
+    margin-top: 10px; /* Aggiunto margine superiore a label */
+    margin-bottom: 10px; /* Aggiunto margine inferiore a label */
+    position: relative;
+}
+
+.password-input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.password-input-container input {
+    flex: 1;
+    padding: 8px;
+}
+
+.password-input-container .mat-icon {
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

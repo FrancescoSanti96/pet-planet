@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
+  hidePassword: boolean = true;
 
+  togglePassword(): void {
+    this.hidePassword = !this.hidePassword;
+  }
 }
