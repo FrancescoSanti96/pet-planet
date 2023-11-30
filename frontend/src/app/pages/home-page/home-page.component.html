@@ -8,24 +8,59 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="left-side">
+            <h1 class="custom-h1">petplanet</h1>
+            <p class="custom-paragraph">PetPlanet è il rifugio perfetto per chi ama gli animali, un luogo in cui le
+                zampe incontrano i cuori e le code si intrecciano in un mondo digitale di amore e divertimento!</p>
+        </div>
+        <div class="right-side">
+            <div class="form-container">
+                <label for="email">Email o numero di telefono</label>
+                <input type="text" id="email" name="email" required>
 
-    <h1>PetPlanet</h1>
+                <label for="password" style="position: relative;">
+                    Password
+                    <input type="{{ hidePassword ? 'password' : 'text' }}" id="password" name="password"
+                        [(ngModel)]="password">
+                    <mat-icon class="mat-icon" style="position: absolute; right: 8px;" (click)="togglePassword()">
+                        {{ hidePassword ? 'visibility_off' : 'visibility' }}
+                    </mat-icon>
+                </label>
+                <button type="submit">Accedi</button>
 
-    <div class="form-group">
-        <label for="nome">Phone number, username, or email address:</label>
-        <input type="text" id="nome" name="nome">
+                <p><a href="#">Password dimenticata?</a></p>
+                <button type="button" class="create-account-button" (click)="navigateToRegistration()">Crea nuovo
+                    account</button>
+
+                <p class="create-account-description">Crea una Pagina per un personaggio famoso, un brand o un'azienda.
+                </p>
+            </div>
+        </div>
     </div>
 
-    <div class="password-input-container">
-        <label for="password">
-            Password:
-            <input type="password" id="password" name="password">
-            <mat-icon class="mat-icon" (click)="togglePassword()">
-                {{ hidePassword ? 'visibility_off' : 'visibility' }}
-            </mat-icon>
-        </label>
+    <div class="footer">
+        <div class="languages">
+            <button>Italiano</button>
+            <button>English (US)</button>
+            <button>Română</button>
+            <button>Français (France)</button>
+            <button>Sardu</button>
+            <button>Furlan</button>
+            <button>Deutsch</button>
+            <button>Español</button>
+            <button>Shqip</button>
+            <button>Português (Brasil)</button>
+            <button>العربية</button>
+            <button>+</button>
+        </div>
+        <p>Iscriviti | Accedi | Messenger | Facebook Lite | Video | Luoghi | Giochi | Marketplace | Meta Pay | Meta
+            Store | Meta Quest | Instagram | Threads | Raccolte fondi | Servizi | Centro informazioni sul voto |
+            Informativa sulla privacy | Centro sulla privacy | Gruppi | Informazioni | Crea un'inserzione | Crea una
+            Pagina | Sviluppatori | Opportunità di lavoro | Cookie | Scegli tu! | Condizioni | Centro assistenza |
+            Caricamento dei contatti e non-utenti | Impostazioni | Registro attività</p>
+        <p>Meta © 2023</p>
     </div>
-
 </body>
 
 </html>
