@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    text-align: center;
+    /* Aggiunto per centrare il testo del footer */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-paragraph {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    /* Dimensione del font per il paragrafo */
+    color: #606770;
+    /* Colore del testo per il paragrafo */
+    line-height: 1.6;
+    /* Altezza della riga per migliorare la leggibilità */
+}
+
+.custom-h1 {
+    color: #1877f2;
+    /* Colore blu di Facebook */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Font simile a quello di Facebook */
+    font-size: 2em;
+    /* Dimensione del font, puoi regolarla secondo le tue preferenze */
+    font-weight: bold;
+    /* Grassetto */
+    letter-spacing: -1px;
+    /* Spaziatura delle lettere */
+    margin-bottom: 0;
+    /* Rimuovi il margine inferiore predefinito */
+}
+
+.left-side {
+    width: 40%;
+    text-align: center;
+}
+
+.left-side img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.right-side {
+    width: 55%;
+}
+
+.form-container {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form-container label {
+    position: relative;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+.form-container .mat-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+}
+
+.form-container button {
+    width: 100%;
+    height: 40px; /* Regola l'altezza del bottone */
+    padding: 8px; /* Regola il padding del bottone */
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-container .create-account-button {
+    width: 100%;
+    height: 40px; /* Regola l'altezza del bottone */
+    padding: 8px; /* Regola il padding del bottone */
+    background-color: #42b72a; /* Colore verde per il bottone "Crea nuovo account" */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-container .create-account-description {
+    color: #606770; /* Colore del testo */
+    font-size: 14px; /* Dimensione del font */
+    margin-top: 8px; /* Spaziatura superiore */
+}
+
+.footer {
+    text-align: left;
+    /* Modificato per spostare il testo a sinistra */
+    margin-top: 20px;
+    font-size: 14px;
+    color: #606770;
+}
+
+.languages {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.languages button {
+    margin: 0 5px;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
