@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../auth.service';
+// import { AuthService } from '../../../auth.service';
 
 @Component({
   selector: 'app-registration-page',
@@ -18,11 +18,11 @@ export class RegistrationPageComponent {
     nomeUtente: '',
     password: ''
   };
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
-  registrati() {
-    this.authService.registrazioneUtente(this.datiRegistrazione).subscribe(response => {
-      console.log(response);
-    });
-  }
+  // registrati() {
+  //   this.authService.registrazioneUtente(this.datiRegistrazione).subscribe(response => {
+  //     console.log(response);
+  //   });
+  // }
 }
