@@ -3,6 +3,42 @@ const fastify = require("fastify")({ logger: true });
 // ODM (Object Data Modeling) library
 const mongoose = require("mongoose");
 
+
+fastify.register(require('fastify-cors'), { origin: '*' });
+
+const utentiRegistrati = [];
+
+fastify.post('/registrazione', async (richiesta, risposta) => {
+  try {
+    const datiUtente = richiesta.body;
+    utentiRegistrati.push(datiUtente);
+    risposta.send({ messaggio: 'Registrazione completata con successo!' });
+  } catch (errore) {
+    console.error('Errore durante la registrazione:', errore);
+    risposta.code(500).send({ messaggio: 'Errore durante la registrazione. Riprova più tardi.' });
+  }
+});
+
+fastify.post('/accesso', async (richiesta, risposta) => {
+  try {
+    const credenziali = richiesta.body;
+    const utenteAutenticato = utentiRegistrati.find(
+      utente => utente.nomeUtente === credenziali.nomeUtente && utente.password === credenziali.password
+    );
+
+    if (utenteAutenticato) {
+      risposta.send({ messaggio: 'Accesso riuscito!' });
+    } else {
+      risposta.code(401).send({ messaggio: 'Credenziali errate. Riprova.' });
+    }
+  } catch (errore) {
+    console.error('Errore durante l\'accesso:', errore);
+    risposta.code(500).send({ messaggio: 'Errore durante l\'accesso. Riprova più tardi.' });
+  }
+});
+
+
+
 // Import my routes
 const userRoutes = require("./routes/user.routes");
 const animalRoutes = require("./routes/animal.routes");
