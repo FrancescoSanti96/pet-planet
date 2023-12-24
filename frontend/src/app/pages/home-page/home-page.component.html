@@ -1,13 +1,60 @@
 <!-- TODO -->
 <!-- Sistemare navbar -->
 
-<h1>PetPlanet</h1>
-<button mat-button>Crea un nuovo post</button>
-<mat-card>
-    <mat-card-content>
-        Test post 1
-        <br>
+<div class="display">
+<h1 class="title">PetPlanet</h1>
+<button mat-raised-button color="primary">Crea un nuovo post</button>
+</div>
 
-        Come state? Spero bene, io sto bene 
-    </mat-card-content>
-</mat-card>
+<div class="display margin">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Titolo: pst 1 Test (obbligatorio)</mat-card-title>
+          <mat-card-subtitle>Nome utente: Maggie (obbligatorio)</mat-card-subtitle>
+        </mat-card-header>
+        <!-- Non obbligatoria -->
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+        <!-- Non obbligatoria -->
+          <p>
+            Una bella giornata in montagna e voi invece come state? Spero bene, io sto benissimo.
+          </p>
+        </mat-card-content>
+        <!-- (o foto o corpo devono essere obbligatori anche tutti e due si possono isnerire) -->
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>COMMENT</button>
+        </mat-card-actions>
+        <mat-card-footer>
+            <mat-progress-bar mode="buffer"></mat-progress-bar>
+          </mat-card-footer>
+    </mat-card>
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <!-- (obbligatorio) -->
+          <mat-card-title>La natura</mat-card-title>
+          <!-- (obbligatorio) -->
+          <mat-card-subtitle>Maggie</mat-card-subtitle>
+        </mat-card-header>
+        <!-- Non obbligatoria -->
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+        <!-- Non obbligatoria -->
+          <p>
+            Una bella giornata in montagna e voi invece come state? Spero bene, io sto benissimo.
+          </p>
+        </mat-card-content>
+        <!-- (o foto o corpo devono essere obbligatori anche tutti e due si possono isnerire) -->
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>COMMENT</button>
+        </mat-card-actions>
+        <mat-card-footer>
+            <mat-progress-bar mode="buffer"></mat-progress-bar>
+          </mat-card-footer>
+    </mat-card>
+</div>
+
+  
