@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -10,7 +11,19 @@ import {MatCardModule} from '@angular/material/card';
 export class HomePageComponent {
 
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-
+  getData() {
+    this.http
+    .get('https://jsonplaceholder.typicode.com/todos/1')
+      .subscribe(
+        data => {
+          // handle the data
+          console.log(data);
+        },
+        error => {
+          // handle the error
+        }
+      );
+  }
 }

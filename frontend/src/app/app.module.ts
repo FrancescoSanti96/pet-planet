@@ -13,6 +13,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
