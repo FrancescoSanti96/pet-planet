@@ -10,6 +10,7 @@
 
 
 
+## Backend:
 ### Avviare il server costruito con Fastify:
 1. Entrare nella cartella backend
 2. npm install
@@ -19,7 +20,10 @@
 ### Avviare docker:
 1. npm run start-mongodb (lanciando il comando verra istanziato e avviato il container)
 2. npm run stop-mongodb (lanciare il comando prima di chiudere il progetto)
-3. npm run remove-mongodb (lanciare il comando prima di chiudere il progetto)
+3. clea (lanciare il comando prima di chiudere il progetto)
+
+
+## Frontend:
 
 
 ### Team

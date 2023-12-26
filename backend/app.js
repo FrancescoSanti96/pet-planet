@@ -1,6 +1,5 @@
-// Import plugins
 const fastify = require("fastify")({ logger: true });
-// ODM (Object Data Modeling) library
+const fastifyCors = require("@fastify/cors");
 const mongoose = require("mongoose");
 
 // Import my routes
@@ -24,12 +23,20 @@ const connectToDatabase = async () => {
 
 connectToDatabase();
 
-// start my server
+// Use @fastify/cors plugin
+fastify.register(fastifyCors, {
+  origin: "*", // Puoi specificare l'origine o "*" per accettare da qualsiasi origine
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true,
+});
+
+// Register routes
 fastify.register(userRoutes, { prefix: "/api/v1/users" });
 fastify.register(animalRoutes, { prefix: "/api/v1/animals" });
 fastify.register(postRoutes, { prefix: "/api/v1/posts" });
 fastify.register(friendRoutes, { prefix: "/api/v1/friends" });
 
+// Start the server
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -71,3 +78,5 @@ start();
 // curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/friends -d '{"utente":"Francesco", "amico":"Umberto"}'
 // curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/friends -d '{"utente":"Umberto", "amico":"Francesco"}'
 // curl localhost:3000/api/v1/friends/...id -X DELETE
+
+// npm install @fastify/cors    
