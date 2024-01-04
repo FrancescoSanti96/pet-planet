@@ -12,7 +12,7 @@ export class HomePageComponent {
 
   getData() {
     this.http
-      .get('http://localhost:3000/api/v1/animals')
+      .get('http://localhost:3000/api/v1/users')
       .subscribe(
         data => {
           // handle the data
