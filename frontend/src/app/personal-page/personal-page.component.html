@@ -1,0 +1,48 @@
+<div class="display margin">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+        </mat-card-header>
+        <mat-card-content>
+            <h2>Nome Utente</h2>
+            <p>Descrizione del profilo...</p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="friend-list">
+        <mat-card-header>
+            <mat-card-title>Amici</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <ul class="friend-list-items">
+                <li *ngFor="let friend of friendsList">
+                    <div class="friend-info">
+                        <div mat-card-avatar class="friend-avatar"></div>
+                        <span>{{ friend.name }}</span>
+                        <div class="friend-buttons">
+                            <button mat-icon-button (click)="openConfirmationDialog(friend)">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="startChat(friend.id)">
+                                <mat-icon>message</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="post-list">
+        <mat-card-header>
+            <mat-card-title>Lista di Post</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <ul>
+                <li *ngFor="let post of postList">
+                    {{ post.content }}
+                </li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+</div>

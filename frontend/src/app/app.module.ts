@@ -14,13 +14,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { PersonalPageComponent } from './personal-page/personal-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     RegistrationPageComponent,
-    LoginComponent
+    LoginComponent,
+    PersonalPageComponent,
+    ConfirmationDialogComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatDividerModule,
     MatProgressBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

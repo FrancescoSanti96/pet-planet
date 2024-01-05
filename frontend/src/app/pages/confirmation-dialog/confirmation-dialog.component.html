@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Conferma eliminazione</h1>
+<div mat-dialog-content>
+    <p>Vuoi procedere all'eliminazione dell'amico "{{ data.friendName }}"?</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Rifiuta</button>
+    <button mat-button color="warn" [mat-dialog-close]="true">Conferma</button>
+</div>
