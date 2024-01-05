@@ -1,12 +1,28 @@
-const fastify = require("fastify")({ logger: true });
-const fastifyCors = require("@fastify/cors");
-const mongoose = require("mongoose");
+const fastify = require('fastify')({ logger: true });
+const fastifyCors = require('@fastify/cors');
+const mongoose = require('mongoose');
+const oauthPlugin = require('@fastify/oauth2')
 
 // Import my routes
 const userRoutes = require("./routes/user.routes");
 const animalRoutes = require("./routes/animal.routes");
 const postRoutes = require("./routes/post.routes");
 const friendRoutes = require("./routes/friend.routes");
+
+// Register fastify-oauth2 plugin
+fastify.register(oauthPlugin, {
+  name: 'googleOAuth2',
+  scope: ['profile', 'email'],
+  credentials: {
+    client: {
+      id: '',
+      secret: ''
+    },
+    auth: oauthPlugin.FACEBOOK_CONFIGURATION
+  },
+  startRedirectPath: '/oauth2/google',
+  callbackUri: `http://localhost:3000/oauth2/google/callback`,
+});
 
 // Connect to my database
 const connectToDatabase = async () => {
@@ -29,6 +45,20 @@ fastify.register(fastifyCors, {
   methods: "GET,POST,PUT,DELETE",
   credentials: true,
 });
+
+
+fastify.get('/google/callback', async function (request, reply) {
+  console.log('Reached the OAuth callback route');  
+  try {
+    const { token } = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
+    reply.redirect("http://localhost:4200/?access_token=" + token.access_token);
+  } catch (error) {
+    console.error("OAuth callback error:", error);
+    reply.code(500).send({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 // Register routes
 fastify.register(userRoutes, { prefix: "/api/v1/users" });

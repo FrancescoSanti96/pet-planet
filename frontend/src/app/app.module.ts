@@ -14,13 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { GoogleAuthComponent } from './google-auth/google-auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     RegistrationPageComponent,
-    LoginComponent
+    LoginComponent,
+    GoogleAuthComponent
   ],
   imports: [
     BrowserModule,
