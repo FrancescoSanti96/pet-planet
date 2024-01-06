@@ -27,7 +27,7 @@ import { ChatComponent } from './pages/chat/chat.component';
     HomePageComponent,
     RegistrationPageComponent,
     LoginComponent,
-    GoogleAuthComponent
+    GoogleAuthComponent,
     PersonalPageComponent,
     ConfirmationDialogComponent,
     ChatComponent
