@@ -15,13 +15,21 @@ fastify.register(oauthPlugin, {
   scope: ['profile', 'email'],
   credentials: {
     client: {
-      id: '',
-      secret: ''
+      id: '550193410156-onmeemjnqs49ppdpjh81v7lo6iasobsn.apps.googleusercontent.com',
+      secret: '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'
     },
-    auth: oauthPlugin.FACEBOOK_CONFIGURATION
+    auth: oauthPlugin.GOOGLE_CONFIGURATION
   },
   startRedirectPath: '/oauth2/google',
   callbackUri: `http://localhost:3000/oauth2/google/callback`,
+
+});
+
+fastify.get('/oauth2/google/callback', async function (request, reply) {
+  const { token } = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
+  console.log(token.access_token)
+  reply.send({ access_token: token.access_token })
+ 
 });
 
 // Connect to my database
@@ -45,19 +53,6 @@ fastify.register(fastifyCors, {
   methods: "GET,POST,PUT,DELETE",
   credentials: true,
 });
-
-
-fastify.get('/google/callback', async function (request, reply) {
-  console.log('Reached the OAuth callback route');  
-  try {
-    const { token } = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
-    reply.redirect("http://localhost:4200/?access_token=" + token.access_token);
-  } catch (error) {
-    console.error("OAuth callback error:", error);
-    reply.code(500).send({ error: 'Internal Server Error' });
-  }
-});
-
 
 
 // Register routes
