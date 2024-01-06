@@ -1,12 +1,40 @@
-const fastify = require("fastify")({ logger: true });
-const fastifyCors = require("@fastify/cors");
-const mongoose = require("mongoose");
+const fastify = require('fastify')({ logger: true });
+const fastifyCors = require('@fastify/cors');
+const mongoose = require('mongoose');
+const oauthPlugin = require('@fastify/oauth2')
 
 // Import my routes
 const userRoutes = require("./routes/user.routes");
 const animalRoutes = require("./routes/animal.routes");
 const postRoutes = require("./routes/post.routes");
 const friendRoutes = require("./routes/friend.routes");
+
+// Register fastify-oauth2 plugin
+fastify.register(oauthPlugin, {
+  name: 'googleOAuth2',
+  scope: ['profile', 'email'],
+  credentials: {
+    client: {
+      id: '550193410156-onmeemjnqs49ppdpjh81v7lo6iasobsn.apps.googleusercontent.com',
+      secret: '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'
+    },
+    auth: oauthPlugin.GOOGLE_CONFIGURATION
+  },
+  startRedirectPath: '/oauth2/google',
+  callbackUri: `http://localhost:3000/oauth2/google/callback`,
+
+});
+
+fastify.get('/oauth2/google/callback', async function (request, reply) {
+  try {
+    const { token } = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
+    reply.redirect("http://localhost:4200/homepage/?access_token=" + token.access_token);
+  } catch (error) {
+    console.error("OAuth callback error:", error);
+    reply.code(500).send({ error: 'Internal Server Error' });
+  }
+ 
+});
 
 // Connect to my database
 const connectToDatabase = async () => {
@@ -29,6 +57,7 @@ fastify.register(fastifyCors, {
   methods: "GET,POST,PUT,DELETE",
   credentials: true,
 });
+
 
 // Register routes
 fastify.register(userRoutes, { prefix: "/api/v1/users" });
