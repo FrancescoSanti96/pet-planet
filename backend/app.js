@@ -26,9 +26,13 @@ fastify.register(oauthPlugin, {
 });
 
 fastify.get('/oauth2/google/callback', async function (request, reply) {
-  const { token } = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
-  console.log(token.access_token)
-  reply.send({ access_token: token.access_token })
+  try {
+    const { token } = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
+    reply.redirect("http://localhost:4200/?access_token=" + token.access_token);
+  } catch (error) {
+    console.error("OAuth callback error:", error);
+    reply.code(500).send({ error: 'Internal Server Error' });
+  }
  
 });
 
