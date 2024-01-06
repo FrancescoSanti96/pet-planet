@@ -1,0 +1,14 @@
+.nav-container {
+    display: flex;
+    /* Imposta il layout a flexbox */
+    justify-content: center;
+    /* Distribuisce gli elementi a spaziatura uniforme tra di loro */
+    padding: 10px;
+    /* Aggiunge un po' di spazio intorno ai link */
+}
+
+nav a {
+    font-size: 16px;
+    margin: 0 10px;
+    /* Aggiunge margine a destra e sinistra per separare i link */
+}

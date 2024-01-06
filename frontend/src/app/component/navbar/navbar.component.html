@@ -1,0 +1,12 @@
+<div class="nav-container">
+<nav>
+    <ng-container *ngIf="isUserAuthenticated(); else loginNav">
+      <a routerLink="/homepage">Homepage</a>
+      <a routerLink="/profile">Profile</a>
+      <a (click)="logout()">Logout</a>
+    </ng-container>
+    <ng-template #loginNav>
+      <a routerLink="/login">Login</a>
+    </ng-template>
+  </nav>
+</div>

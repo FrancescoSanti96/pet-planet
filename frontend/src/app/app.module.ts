@@ -14,11 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleAuthComponent } from './google-auth/google-auth.component';
-import { PersonalPageComponent } from './personal-page/personal-page.component';
+import { GoogleAuthComponent } from './component/google-auth/google-auth.component';
+import { PersonalPageComponent } from './pages/personal-page/personal-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ChatComponent } from './pages/chat/chat.component';
     GoogleAuthComponent,
     PersonalPageComponent,
     ConfirmationDialogComponent,
-    ChatComponent
+    ChatComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
