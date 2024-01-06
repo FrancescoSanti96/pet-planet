@@ -15,6 +15,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
+import { PersonalPageComponent } from './personal-page/personal-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
+import { ChatComponent } from './pages/chat/chat.component';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +28,9 @@ import { GoogleAuthComponent } from './google-auth/google-auth.component';
     RegistrationPageComponent,
     LoginComponent,
     GoogleAuthComponent
+    PersonalPageComponent,
+    ConfirmationDialogComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +42,8 @@ import { GoogleAuthComponent } from './google-auth/google-auth.component';
     MatButtonModule,
     MatDividerModule,
     MatProgressBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

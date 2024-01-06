@@ -1,0 +1,16 @@
+<div class="chat-container">
+    <div class="header">
+        <h2>Chat con Amico {{ friendId }}</h2>
+    </div>
+
+    <div class="message-container">
+        <div *ngFor="let message of messages" class="message">
+            <div class="message-content">{{ message }}</div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <input [(ngModel)]="message" placeholder="Scrivi un messaggio..." />
+        <button (click)="sendMessage()">Invia</button>
+    </div>
+</div>
