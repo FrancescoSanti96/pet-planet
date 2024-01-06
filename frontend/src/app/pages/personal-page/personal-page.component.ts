@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,51 +11,65 @@ export class PersonalPageComponent implements OnInit {
   friendsList: any[] = [];
   postList: any[] = [];
 
+  isLoadingFriends: boolean = false;
+  isLoadingPosts: boolean = false;
+
+  isPostListVisible: boolean = false;
+  isFriendListVisible: boolean = false;
+
   constructor(
     private dialog: MatDialog,
-    private router: Router,
     private http: HttpClient
   ) { }
 
   ngOnInit(): void {
+    this.loadPostsData();
+    this.loadFriendsData();
+  }
+
+  loadFriendsData(): void {
+    this.isLoadingFriends = true;
     this.http.get<any[]>('http://localhost:3000/api/v1/friends')
       .subscribe(
         friends => {
           this.friendsList = friends;
+          this.isFriendListVisible = true;
+          this.isLoadingFriends = false;
         },
         error => {
           console.error('Errore nella chiamata API per ottenere la lista di amici:', error);
+          this.isLoadingFriends = false;
         }
       );
+  }
 
+  loadPostsData(): void {
+    this.isLoadingPosts = true;
     this.http.get<any[]>('http://localhost:3000/api/v1/posts')
       .subscribe(
         posts => {
           this.postList = posts;
+          this.isPostListVisible = true;
+          this.isLoadingPosts = false;
         },
         error => {
           console.error('Errore nella chiamata API per ottenere la lista di post:', error);
+          this.isLoadingPosts = false;
         }
       );
   }
 
-  openConfirmationDialog(friend: any): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
-      data: { friendName: friend.name }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const index = this.friendsList.findIndex(f => f.id === friend.id);
-        if (index !== -1) {
-          this.friendsList.splice(index, 1);
-        }
-      }
-    });
+  toggleFriendListVisibility(): void {
+    this.isFriendListVisible = !this.isFriendListVisible;
+    if (this.isFriendListVisible) {
+      this.isPostListVisible = false;
+    }
   }
 
-  startChat(friendId: number): void {
-    this.router.navigate(['/chat', friendId]);
+  togglePostListVisibility(): void {
+    this.isPostListVisible = !this.isPostListVisible;
+    if (this.isPostListVisible) {
+      this.isFriendListVisible = false;
+    }
   }
 }

@@ -54,14 +54,60 @@
     margin-left: 10px;
 }
 
+.post-list {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 25%;
+    margin-top: 20px;
+}
+
+.post-list-content {
+    padding: 10px;
+}
+
+.post-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-list li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.profile-navbar {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    background-color: #1877f2;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 40px;
+}
+
+.profile-navbar a {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 15px;
+}
+
+.profile-navbar a:hover {
+    color: #ffd700;
+}
+
 .registration-link {
     position: fixed;
     top: 10px;
-    right: 70px; 
+    right: 10px;
+    margin-top: 10px;
 }
 
 .logout-link {
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 120px; /* Imposta la distanza orizzontale tra i due router outlet */
+    margin-top: 10px;
 }
+
