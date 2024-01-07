@@ -33,7 +33,7 @@ async function follow(request, reply) {
 
         console.log("Post creato:", result);
         console.log("Utente aggiornato:", updatedUser);
-        
+
         reply.status(201).send(result);
     } catch (error) {
         reply.status(500).send({ error: 'Errore durante la creazione dell\'amico' });
@@ -65,7 +65,7 @@ async function deleteFriend(request, reply) {
 module.exports = {
     getAllFriends,
     getFriendById,
-    createFriend,
+    follow,
     updateFriend,
-    deleteFriend,
+    deleteFriend
 };

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Post = require("./post.model");
+const Friend = require("./friend.model");
 
 // use trim for remove white space
 
