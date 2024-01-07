@@ -27,7 +27,7 @@ export class FriendService {
         return this.http.post<any>(`${this.apiUrl}/friends/${friendId}/follow`, { followStatus });
     }
 
-    unfollowFriend(friendId: string): Observable<any> {
-        return this.http.delete<any>(`${this.apiUrl}/friends/${friendId}/unfollow`);
+    unfollow(followId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/friends/user/${followId}`);
     }
 }

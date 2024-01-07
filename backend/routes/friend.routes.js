@@ -6,7 +6,7 @@ async function routes(fastify, options) {
     fastify.get("/:id", friendController.getFriendById);
     fastify.post("/", friendController.follow);
     fastify.put("/:id", friendController.updateFriend);
-    fastify.delete("/:id", friendController.deleteFriend);
+    fastify.delete("/user/:id", friendController.unfollow);
 }
 
 module.exports = routes;

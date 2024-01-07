@@ -11,7 +11,6 @@ async function getAllFriends(request, reply) {
 }
 
 async function getAllFriendsByUser(request, reply) {
-    console.log("fino a qui arrivo", request.params.id);
     try {
         const userId = request.params.id;
 
@@ -76,10 +75,10 @@ async function updateFriend(request, reply) {
         reply.status(500).send({ error: 'Errore durante l\'aggiornamento dell\'amico' });
     }
 }
-async function deleteFriend(request, reply) {
+async function unfollow(request, reply) {
     try {
-        const deletedFriend = await Friend.findByIdAndDelete(request.params.id);
-        if (deletedFriend) {
+        const unfollowFriend = await Friend.findByIdAndDelete(request.params.id);
+        if (unfollowFriend) {
             reply.send({ message: 'Amico cancellato con successo' });
         } else {
             reply.status(404).send({ error: 'Amico non trovato' });
@@ -94,6 +93,6 @@ module.exports = {
     getAllFriendsByUser,
     getFriendById,
     follow,
+    unfollow,
     updateFriend,
-    deleteFriend
 };

@@ -41,9 +41,9 @@
                             <div class="friend-info">
                                 <div mat-card-avatar class="friend-avatar"></div>
                                 <span>{{ friend.amico }}</span>
-                            <!--<div class="friend-buttons">
-                                    <button (click)="unfollowFriend(friend)">Unfollow</button>
-                                </div>-->
+                            <div class="friend-buttons">
+                                    <button (click)="unfollow(friend._id)">Unfollow</button>
+                                </div>
                             </div>
                         </li>
                     </ul>

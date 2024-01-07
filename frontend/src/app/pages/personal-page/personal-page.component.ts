@@ -95,26 +95,17 @@ export class PersonalPageComponent implements OnInit {
           friend.isFollowing = followStatus;
         }
       );
-  }
+  }*/
 
-  unfollowFriend(friend: Friend): void {
-    const friendId = friend._id;
-
-    // Aggiungi indicatore di caricamento specifico per l'amico
-    friend.isLoading = true;
-
-    this.friendService.unfollowFriend(friendId).subscribe(
-      () => {
-        // Rimuovi l'amico dall'array friendsList
-        this.friendsList = this.friendsList.filter((f) => f._id !== friendId);
+  unfollow(followId: string): void {
+    this.friendService.unfollow(followId).subscribe(
+      response => {
+        console.log('Friend deleted successfully. Friend ID:', followId);
       },
-      (error) => {
-        console.error('Errore nella chiamata API per Unfollow:', error);
-      },
-      () => {
-        // Rimuovi l'indicatore di caricamento dopo che la chiamata API è completata (sia che sia riuscita o meno)
-        friend.isLoading = false;
+      error => {
+        console.error('Error deleting friend:', error);
+        // Gestisci eventuali errori
       }
     );
-  }*/
+  }
 }  
