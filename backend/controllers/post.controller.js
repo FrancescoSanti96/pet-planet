@@ -24,13 +24,13 @@ async function getPostById(request, reply) {
 }
 async function createPost(request, reply) {
     try {
-        const { utente, testo, dataInserimento } = request.body;
+        const { utente,titolo, corpo} = request.body;
 
         // Crea il post
         const newPost = new Post({
             utente,
-            testo,
-            dataInserimento,
+            titolo,
+            corpo,
         });
 
         // Salva il post

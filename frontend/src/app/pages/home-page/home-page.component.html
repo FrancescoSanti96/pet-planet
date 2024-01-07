@@ -1,8 +1,18 @@
 <div class="display">
 <h1 class="title">PetPlanet</h1>
+</div>
 
+<div class="display margin postBox">
+  <mat-form-field>
+    <mat-label>Titolo</mat-label>
+    <input matInput [(ngModel)]="titolo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Corpo</mat-label>
+    <textarea matInput [(ngModel)]="corpo"></textarea>
+  </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="getData()">Crea un nuovo post</button>
+  <button mat-raised-button color="primary" (click)="createPost()">Crea un nuovo post</button>
 </div>
 
 <div class="display margin">

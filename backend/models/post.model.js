@@ -8,15 +8,20 @@ const PostSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
       },
-    testo: {
+    titolo: {
         type: String,
         required: true,
         trim: true,
     },
-    dataInserimento: {
-        type: Date,
-        default: Date.now, // Imposta la data di default a quella corrente
+    corpo: {
+        type: String,
+        required: false,
+        trim: true,
     }
+    // dataInserimento: {
+    //     type: Date,
+    //     default: Date.now, // Imposta la data di default a quella corrente
+    // }
 });
 
 const Post = mongoose.model("Post", PostSchema);

@@ -11,6 +11,8 @@ import { find } from 'rxjs';
 export class HomePageComponent {
   accessToken!: string;
   userInfo: any; // Ovvero il tuo oggetto UserInfo
+  titolo: string = '';
+  corpo: string = '';
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
@@ -65,12 +67,36 @@ export class HomePageComponent {
         surname: response.name
       })
       .subscribe(
-        (data) => {
-          // handle the data
-          console.log(data);
+        (data: any) => {
+          // Verifica se l'ID è presente nella risposta
+          if (data && data._id) {
+            // Salva l'ID nello storage
+            localStorage.setItem('id', data._id);
+          } else {
+            console.error('L\'ID non è presente nella risposta del server');
+          }
         },
         (error) => {
           // handle the error
+  
+          // Se l'errore è dovuto a un utente già registrato, cerca l'utente per email
+          if (error.status === 400 && error.error && error.error.error === 'Utente già registrato con questa email') {
+            this.http
+              .get(`http://localhost:3000/api/v1/users/email/${response.email}`)
+              .subscribe(
+                (user: any) => {
+                  // Puoi fare qualcosa con l'utente recuperato, ad esempio, salvare l'ID nello storage
+                  if (user && user._id) {
+                    localStorage.setItem('id', user._id);
+                  } else {
+                    console.error('L\'ID dell\'utente non è presente nella risposta del server');
+                  }
+                },
+                (getUserError) => {
+                  console.error('Errore durante il recupero dell\'utente per email', getUserError);
+                }
+              );
+          }
         }
       );
   }
@@ -86,4 +112,23 @@ export class HomePageComponent {
       }
     );
   }
+  
+  createPost() {
+    this.http
+      .post('http://localhost:3000/api/v1/posts', {
+        utente: '659ac101a037e999c99c5494',
+        titolo: 'test',
+        corpo: 'test'
+      })
+      .subscribe(
+        (data) => {
+          // handle the data
+          console.log(data);
+        },
+        (error) => {
+          // handle the error
+        }
+      );
+}
+
 }

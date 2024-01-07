@@ -18,7 +18,7 @@ export class NavbarComponent {
   logout() {
     // Rimuovi i dati dal local storage
     localStorage.removeItem('user_info');
-  
+    localStorage.removeItem('id');
     // Pulisci l'URL dall'access_token
     this.router.navigate([], {
       relativeTo: this.route,

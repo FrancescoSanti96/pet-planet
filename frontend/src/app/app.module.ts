@@ -20,6 +20,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -46,6 +49,9 @@ import { NavbarComponent } from './component/navbar/navbar.component';
     MatProgressBarModule,
     HttpClientModule,
     MatDialogModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

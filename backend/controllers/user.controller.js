@@ -21,6 +21,20 @@ async function getUserById(request, reply) {
     reply.status(500).send({ error: 'Errore durante il recupero dell\'utente' });
   }
 }
+async function getUserByEmail(request, reply) {
+  try {
+    const email = request.params.email; // Assicurati di ottenere l'email dalla richiesta
+    const user = await User.findOne({ email });
+
+    if (user) {
+      reply.send(user);
+    } else {
+      reply.status(404).send({ error: 'Utente non trovato' });
+    }
+  } catch (error) {
+    reply.status(500).send({ error: 'Errore durante il recupero dell\'utente' });
+  }
+}
 async function createUser(request, reply) {
   try {
     // Verifica se l'email è già presente nel database
@@ -65,6 +79,7 @@ async function deleteUser(request, reply) {
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserByEmail,
   createUser,
   updateUser,
   deleteUser,
