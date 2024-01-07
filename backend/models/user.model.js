@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
+const Post = require("./post.model");
 
 // use trim for remove white space
 
 const UserSchema = new mongoose.Schema({
+  idGoogle: {
+    type: String,
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,
@@ -20,24 +25,16 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
-  username: {
+  surname: {
     type: String,
     required: false,
     trim: true,
   },
-  fotoProfilo: {
-    type: String,
+  posts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
     required: false,
-    trim: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  //   animaliPosseduti: [String], // Cambia il tipo di dato in base ai tuoi requisiti
-  //   amici: [String], // Cambia il tipo di dato in base ai tuoi requisiti
-  //   post: [String], // Cambia il tipo di dato in base ai tuoi requisiti
+  }]
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
     utente: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
-        trim: true,
-    },
+      },
     testo: {
         type: String,
         required: true,

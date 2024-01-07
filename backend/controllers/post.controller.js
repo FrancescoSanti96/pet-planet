@@ -1,4 +1,6 @@
 const Post = require("../models/post.model");
+const User = require("../models/user.model");
+
 
 async function getAllPosts(request, reply) {
     try {
@@ -22,13 +24,32 @@ async function getPostById(request, reply) {
 }
 async function createPost(request, reply) {
     try {
-        const post = new Post(request.body);
-        const result = await post.save();
+        const { utente, testo, dataInserimento } = request.body;
+
+        // Crea il post
+        const newPost = new Post({
+            utente,
+            testo,
+            dataInserimento,
+        });
+
+        // Salva il post
+        const result = await newPost.save();
+
+        // Aggiorna l'utente aggiungendo l'ID del nuovo post alla sua array di posts
+        const updatedUser = await User.findByIdAndUpdate(utente, { $push: { posts: newPost._id } }, { new: true });
+
+        // Log per debug
+        console.log("Post creato:", result);
+        console.log("Utente aggiornato:", updatedUser);
+
         reply.status(201).send(result);
     } catch (error) {
+        console.error(error);
         reply.status(500).send({ error: 'Errore durante la creazione del post' });
     }
 }
+
 async function updatePost(request, reply) {
     try {
         const post = await Post.findByIdAndUpdate(request.params.id, request.body, {

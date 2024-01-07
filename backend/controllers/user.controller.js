@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const Post = require("../models/post.model");
 
 async function getAllUsers(request, reply) {
   try {
@@ -10,7 +11,7 @@ async function getAllUsers(request, reply) {
 }
 async function getUserById(request, reply) {
   try {
-    const user = await User.findById(request.params.id);
+    const user = await User.findById(request.params.id).populate('posts');
     if (user) {
       reply.send(user);
     } else {
@@ -22,9 +23,18 @@ async function getUserById(request, reply) {
 }
 async function createUser(request, reply) {
   try {
-    const user = new User(request.body);
-    const result = await user.save();
-    reply.status(201).send(result);
+    // Verifica se l'email è già presente nel database
+    const existingUser = await User.findOne({ email: request.body.email });
+
+    if (existingUser) {
+      // Se l'utente già esiste, restituisci un errore
+      reply.status(400).send({ error: 'Utente già registrato con questa email' });
+    } else {
+      // Se l'email non è presente, crea il nuovo utente
+      const user = new User(request.body);
+      const result = await user.save();
+      reply.status(201).send(result);
+    }
   } catch (error) {
     reply.status(500).send({ error: 'Errore durante la creazione dell\'utente' });
   }
