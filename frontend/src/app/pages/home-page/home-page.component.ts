@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { find } from 'rxjs';
+import { Post } from '../../model/post.model';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,50 +11,41 @@ import { find } from 'rxjs';
 })
 export class HomePageComponent {
   accessToken!: string;
-  userInfo: any; // Ovvero il tuo oggetto UserInfo
+  userInfo: any; // TODO definire interfaccia
   titolo: string = '';
   corpo: string = '';
+  id: string = '';
+  posts: Post[] = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private postService: PostService
+  ) {}
 
   ngOnInit(): void {
     // Recupera il valore dell'access_token dalla query param dell'URL
     this.route.queryParams.subscribe((params) => {
       this.accessToken = params['access_token'];
-
-      // Chiamata API per ottenere le informazioni dell'utente
       this.getUserInfo();
     });
+    this.loadPostsData();
   }
 
-  // TODO fare la chiamata solo una volta
   getUserInfo() {
     if(!localStorage.getItem('user_info') !== null) {
       const url = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${this.accessToken}`;
 
-      // Effettua la chiamata API utilizzando HttpClient
       this.http.get(url).subscribe(
         (data: any) => {
-          // Gestisci le informazioni ottenute dall'API
           this.userInfo = data;
-
-          // Salva le informazioni nell'oggetto local storage
           localStorage.setItem('user_info', JSON.stringify(this.userInfo));
-
-          console.log('User Info:', this.userInfo);
           this.postLogin(this.userInfo);
-
-          // TODO
-          // Se unte gia registrato fare una find
-          // si deve salvare l'id nel local storage
         },
         (error) => {
           console.error('Error fetching user info:', error);
         }
       );
-
-      // TODO
-      
     }
   }
 
@@ -64,36 +56,42 @@ export class HomePageComponent {
         idGoogle: response.id,
         firstName: response.given_name,
         lastName: response.family_name,
-        surname: response.name
+        surname: response.name,
       })
       .subscribe(
         (data: any) => {
-          // Verifica se l'ID è presente nella risposta
           if (data && data._id) {
-            // Salva l'ID nello storage
             localStorage.setItem('id', data._id);
+            this.id = data._id;
           } else {
-            console.error('L\'ID non è presente nella risposta del server');
+            console.error("L'ID non è presente nella risposta del server");
           }
         },
         (error) => {
-          // handle the error
-  
           // Se l'errore è dovuto a un utente già registrato, cerca l'utente per email
-          if (error.status === 400 && error.error && error.error.error === 'Utente già registrato con questa email') {
+          if (
+            error.status === 400 &&
+            error.error &&
+            error.error.error === 'Utente già registrato con questa email'
+          ) {
             this.http
               .get(`http://localhost:3000/api/v1/users/email/${response.email}`)
               .subscribe(
                 (user: any) => {
-                  // Puoi fare qualcosa con l'utente recuperato, ad esempio, salvare l'ID nello storage
                   if (user && user._id) {
                     localStorage.setItem('id', user._id);
+                    this.id = user._id;
                   } else {
-                    console.error('L\'ID dell\'utente non è presente nella risposta del server');
+                    console.error(
+                      "L'ID dell'utente non è presente nella risposta del server"
+                    );
                   }
                 },
                 (getUserError) => {
-                  console.error('Errore durante il recupero dell\'utente per email', getUserError);
+                  console.error(
+                    "Errore durante il recupero dell'utente per email",
+                    getUserError
+                  );
                 }
               );
           }
@@ -101,8 +99,8 @@ export class HomePageComponent {
       );
   }
 
-  getData() {
-    this.http.get('http://localhost:3000/api/v1/users').subscribe(
+  createPost() {
+    this.postService.createPost(this.id, this.titolo, this.corpo).subscribe(
       (data) => {
         // handle the data
         console.log(data);
@@ -112,13 +110,27 @@ export class HomePageComponent {
       }
     );
   }
-  
-  createPost() {
-    this.http
-      .post('http://localhost:3000/api/v1/posts', {
-        utente: '659ac101a037e999c99c5494',
-        titolo: 'test',
-        corpo: 'test'
+
+  loadPostsData(): void {
+    this.postService.getPosts().subscribe(
+      (posts) => {
+        this.posts = posts;
+      },
+      (error) => {
+        console.error(
+          'Errore nella chiamata API per ottenere la lista di post:',
+          error
+        );
+      }
+    );
+  }
+
+  // TODO da finire
+  createComment(postId: string) {
+    this.postService
+      .createComment(postId, {
+        utente: this.id,
+        testo: this.corpo,
       })
       .subscribe(
         (data) => {
@@ -129,6 +141,5 @@ export class HomePageComponent {
           // handle the error
         }
       );
-}
-
+  }
 }

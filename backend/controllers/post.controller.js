@@ -73,10 +73,96 @@ async function deletePost(request, reply) {
     }
 }
 
+
+async function createComment(request, reply) {
+    try {
+        const { utente, testo } = request.body;
+        const postId = request.params.id;
+
+        // Crea il commento
+        const newComment = {
+            utente,
+            testo,
+        };
+
+        // Aggiungi il commento al post
+        const updatedPost = await Post.findByIdAndUpdate(
+            postId,
+            { $push: { commenti: newComment } },
+            { new: true }
+        );
+
+        // Aggiorna l'utente aggiungendo l'ID del nuovo commento alla sua array di commenti
+        const updatedUser = await User.findByIdAndUpdate(
+            utente,
+            { $push: { comments: { post: postId, testo: newComment.testo } } },
+            { new: true }
+        );
+
+        // Log per debug
+        console.log("Commento creato:", newComment);
+        console.log("Post aggiornato:", updatedPost);
+        console.log("Utente aggiornato:", updatedUser);
+
+        reply.status(201).send(newComment);
+    } catch (error) {
+        console.error(error);
+        reply.status(500).send({ error: 'Errore durante la creazione del commento' });
+    }
+}
+
+async function getCommentsByPostId(request, reply) {
+    try {
+        const postId = request.params.id;
+        const post = await Post.findById(postId);
+        
+        if (post) {
+            const comments = post.commenti;
+            reply.send(comments);
+        } else {
+            reply.status(404).send({ error: 'Post non trovato' });
+        }
+    } catch (error) {
+        reply.status(500).send({ error: 'Errore durante il recupero dei commenti' });
+    }
+}
+
+async function deleteComment(request, reply) {
+    try {
+        const { postId, commentId } = request.params;
+
+        // Rimuovi il commento dal post
+        const updatedPost = await Post.findByIdAndUpdate(
+            postId,
+            { $pull: { commenti: { _id: commentId } } },
+            { new: true }
+        );
+
+        // Rimuovi il commento dall'utente
+        const updatedUser = await User.findOneAndUpdate(
+            { "comments.post": postId, "comments._id": commentId },
+            { $pull: { comments: { _id: commentId } } },
+            { new: true }
+        );
+
+        // Log per debug
+        console.log("Commento eliminato:", commentId);
+        console.log("Post aggiornato:", updatedPost);
+        console.log("Utente aggiornato:", updatedUser);
+
+        reply.send({ message: 'Commento cancellato con successo' });
+    } catch (error) {
+        reply.status(500).send({ error: 'Errore durante la cancellazione del commento' });
+    }
+}
+
 module.exports = {
     getAllPosts,
     getPostById,
     createPost,
     updatePost,
     deletePost,
+    createComment,
+    getCommentsByPostId,
+    deleteComment,
 };

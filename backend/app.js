@@ -85,7 +85,7 @@ start();
 //Utenti
 // curl http://localhost:3000/api/v1/users
 // curl http://localhost:3000/api/v1/users/...id
-// curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/users -d '{"firstName":"Francesco", "lastName": "Santi", "email": "francesco.santi@.com", "password": "Admin"}'
+// curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/users -d '{"idGoogle":"108387050657370466331", "firstName":"Francesco", "lastName": "Santi", "email": "francesco.santi@.com"}'
 // curl -X PUT -H 'Content-type: application/json' http://localhost:3000/api/v1/users/...id -d '{"firstName":"Umberto", "lastName": "Schiavone", "email": "umberto.schiavone@.com", "password": "Admin"}'
 // curl localhost:3000/api/v1/users/...id -X DELETE
 
@@ -99,6 +99,7 @@ start();
 // curl http://localhost:3000/api/v1/posts
 // curl http://localhost:3000/api/v1/posts/...id
 // curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/posts -d '{"utente":"Francesco", "testo":"Primo post!", "dataInserimento":"2023-11-24T15:30:00"}'
+// curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/posts -d '{"utente":"659aade9e4471dae5ebc52fb", "testo":"Primo post!", "dataInserimento":"2023-11-24T15:30:00"}'
 // curl localhost:3000/api/v1/posts/...id -X DELETE
 
 //Amici
@@ -109,3 +110,6 @@ start();
 // curl localhost:3000/api/v1/friends/...id -X DELETE
 
 // npm install @fastify/cors    
+
+// curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/posts -d '{"utente":"659addc83a738caa847ff15c", "titolo":"Terzo post!", "corpo":"2023-11-26T12:00:00"}'
+// curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/friends -d '{"utente":"659addc83a738caa847ff15c", "amico":"Terzo post!"}'
