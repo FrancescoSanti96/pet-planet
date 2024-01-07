@@ -10,8 +10,10 @@ export class FriendService {
 
     constructor(private http: HttpClient) { }
 
+    private id = localStorage.getItem('id');
+
     getFriends(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/friends/user/659addc83a738caa847ff15c`)
+        return this.http.get<any[]>(`${this.apiUrl}/friends/user/${this.id}`)
             .pipe(
                 tap(friends => console.log('Friends from API:', friends))
             );
