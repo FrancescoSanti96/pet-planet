@@ -24,7 +24,14 @@
 
 
 ## Frontend:
+1. Entrare nella carte frontend
+2. npm install
+3. ng serve
 
+
+## Attenzione per effettuare la login occorre avere una Api cloud google dell'app ed inserire il client e il secret in app.js
+### Api Google Cloud: [link](https://cloud.google.com/apis?hl=it)
+### guida utile per creare Api per OAuth2: [link](https://dev.to/fozooni/google-oauth2-with-fastify-typescript-from-scratch-1a57)
 
 ### Team
 - Umberto Schiavone

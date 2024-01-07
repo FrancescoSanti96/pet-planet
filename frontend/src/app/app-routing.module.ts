@@ -4,7 +4,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
 import { LoginComponent } from './pages/login-page/login.component';
 import { PersonalPageComponent } from './pages/personal-page/personal-page.component';
-import { ChatComponent } from './pages/chat/chat.component';
+import { ChatComponent } from './component/chat/chat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
