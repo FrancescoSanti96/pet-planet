@@ -11,7 +11,7 @@ export class FriendService {
     constructor(private http: HttpClient) { }
 
     getFriends(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/friends/user/659adcb107130c39a7f98f68`)
+        return this.http.get<any[]>(`${this.apiUrl}/friends/user/659addc83a738caa847ff15c`)
             .pipe(
                 tap(friends => console.log('Friends from API:', friends))
             );

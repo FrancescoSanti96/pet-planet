@@ -2,7 +2,16 @@ const Friend = require("../models/friend.model");
 const User = require("../models/user.model");
 
 async function getAllFriends(request, reply) {
-    console.log("fino a qui arrivo");
+    try {
+        const friends = await Friend.find();
+        reply.send(friends);
+    } catch (error) {
+        reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
+    }
+}
+
+async function getAllFriendsByUser(request, reply) {
+    console.log("fino a qui arrivo", request.params.id);
     try {
         const userId = request.params.id;
 
@@ -26,6 +35,7 @@ async function getAllFriends(request, reply) {
 async function getFriendById(request, reply) {
     try {
         const friend = await Friend.findById(request.params.id);
+        console.log("amico", friend)
         if (friend) {
             reply.send(friend);
         } else {
@@ -81,6 +91,7 @@ async function deleteFriend(request, reply) {
 
 module.exports = {
     getAllFriends,
+    getAllFriendsByUser,
     getFriendById,
     follow,
     updateFriend,
