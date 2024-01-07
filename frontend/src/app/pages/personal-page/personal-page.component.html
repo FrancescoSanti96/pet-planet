@@ -18,18 +18,14 @@
 
         <!-- Barra di navigazione -->
         <nav class="profile-navbar">
-            <a (click)="togglePostListVisibility()">Post</a>
             <a routerLink="/profile/informazioni">Informazioni personali</a>
+            <a (click)="togglePostListVisibility()">Post</a>
             <a (click)="toggleFriendListVisibility()">PetFriend</a>
         </nav>
 
         <div class="registration-link">
             <a routerLink="/register">Registration</a>
-          </div>
-
-          <div class="logout-link">
-            <a routerLink="/logout">Logout</a>
-          </div>
+        </div>
 
         <!-- Lista di Amici condizionalmente visualizzata -->
         <mat-card class="friend-list" *ngIf="isFriendListVisible">
@@ -42,13 +38,12 @@
                 <ng-template #friendsContent>
                     <ul class="friend-list-items">
                         <li *ngFor="let friend of friendsList">
-                            <!-- Contenuto della lista di amici -->
                             <div class="friend-info">
                                 <div mat-card-avatar class="friend-avatar"></div>
-                                <span>{{ friend.name }}</span>
-                                <div class="friend-buttons">
-                                    <!-- I tuoi pulsanti per amici -->
-                                </div>
+                                <span>{{ friend.amico }}</span>
+                            <!--<div class="friend-buttons">
+                                    <button (click)="unfollowFriend(friend)">Unfollow</button>
+                                </div>-->
                             </div>
                         </li>
                     </ul>

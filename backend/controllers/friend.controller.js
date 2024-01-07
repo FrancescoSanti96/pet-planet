@@ -2,13 +2,27 @@ const Friend = require("../models/friend.model");
 const User = require("../models/user.model");
 
 async function getAllFriends(request, reply) {
+    console.log("fino a qui arrivo");
     try {
-        const friends = await Friend.find();
+        const userId = request.params.id;
+
+        // Trova l'utente specificato
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return reply.status(404).send({ error: 'Utente non trovato' });
+        }
+
+        // Ottenere gli amici associati all'utente
+        const friends = await Friend.find({ utente: userId });
+
         reply.send(friends);
     } catch (error) {
-        reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
+        reply.status(500).send({ error: 'Errore durante il recupero degli amici' });
     }
 }
+
+
 async function getFriendById(request, reply) {
     try {
         const friend = await Friend.findById(request.params.id);
