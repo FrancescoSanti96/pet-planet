@@ -20,10 +20,20 @@ async function getFriendById(request, reply) {
         reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
     }
 }
-async function createFriend(request, reply) {
+async function follow(request, reply) {
     try {
-        const friend = new Friend(request.body);
-        const result = await friend.save();
+        const { utente, amico } = request.body;
+
+        const newFriend = new Friend({
+            utente,
+            amico
+        });
+
+        const result = await newFriend.save();
+
+        console.log("Post creato:", result);
+        console.log("Utente aggiornato:", updatedUser);
+        
         reply.status(201).send(result);
     } catch (error) {
         reply.status(500).send({ error: 'Errore durante la creazione dell\'amico' });

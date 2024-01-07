@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 
 const FriendSchema = new mongoose.Schema({
     utente: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
-        trim: true,
     },
     amico: {
         type: String,

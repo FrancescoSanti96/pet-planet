@@ -34,6 +34,11 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post',
     required: false,
+  }],
+  friends: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Friend',
+    required: false,
   }]
 });
 
