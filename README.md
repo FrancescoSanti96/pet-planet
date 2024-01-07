@@ -26,7 +26,8 @@
 ## Frontend:
 1. Entrare nella carte frontend
 2. npm install
-3. ng serve
+3. ng add @angular/material
+4. ng serve
 
 
 ## Attenzione per effettuare la login occorre avere una Api cloud google dell'app ed inserire il client e il secret in app.js

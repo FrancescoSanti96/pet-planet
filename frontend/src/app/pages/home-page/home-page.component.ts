@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../model/post.model';
 import { PostService } from '../../services/post.service';
+import { CommentDialogComponent } from '../../component/comment-dialog/comment-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home-page',
@@ -20,7 +22,8 @@ export class HomePageComponent {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private postService: PostService
+    private postService: PostService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +36,7 @@ export class HomePageComponent {
   }
 
   getUserInfo() {
-    if(!localStorage.getItem('user_info') !== null) {
+    if (!localStorage.getItem('user_info') !== null) {
       const url = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${this.accessToken}`;
 
       this.http.get(url).subscribe(
@@ -104,6 +107,9 @@ export class HomePageComponent {
       (data) => {
         // handle the data
         console.log(data);
+
+        // Dopo aver creato un post, ricarica i post e i commenti associati
+        this.loadPostsData();
       },
       (error) => {
         // handle the error
@@ -115,6 +121,12 @@ export class HomePageComponent {
     this.postService.getPosts().subscribe(
       (posts) => {
         this.posts = posts;
+  
+        // Dopo aver caricato i post, ricarica i commenti associati a ciascun post
+        this.posts.forEach((post) => {
+          this.getComments(post._id);
+        });
+        console.log("e",posts);
       },
       (error) => {
         console.error(
@@ -124,22 +136,50 @@ export class HomePageComponent {
       }
     );
   }
+  
 
-  // TODO da finire
-  createComment(postId: string) {
+  openCommentDialog(postId: string): void {
+    const dialogRef = this.dialog.open(CommentDialogComponent, {
+      width: '400px',
+      data: { postId: postId },
+    });
+
+    dialogRef.afterClosed().subscribe((commentBody) => {
+      if (commentBody) {
+        this.createComment(postId, commentBody);
+      }
+    });
+  }
+
+  createComment(postId: string, commentBody: string): void {
     this.postService
       .createComment(postId, {
         utente: this.id,
-        testo: this.corpo,
+        testo: commentBody,
       })
       .subscribe(
         (data) => {
           // handle the data
           console.log(data);
+
+          // Dopo aver creato un commento, ricarica i commenti associati al post
+          this.getComments(postId);
         },
         (error) => {
           // handle the error
         }
       );
+  }
+
+  getComments(postId: string): void {
+    this.postService.getComments(postId).subscribe(
+      (comments) => {
+        // handle the data
+        console.log(comments);
+      },
+      (error) => {
+        // handle the error
+      }
+    );
   }
 }

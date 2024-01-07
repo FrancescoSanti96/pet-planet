@@ -1,8 +1,13 @@
-export class Post {
-    constructor(
-        public _id: string,
-        public utente: string,
-        public titolo: string,
-        public corpo: string,
-    ) { }
-}
+export interface Comment {
+    _id: string;
+    utente: string;
+    testo: string;
+  }
+  
+  export interface Post {
+    _id: string;
+    utente: string;
+    titolo: string;
+    corpo: string;
+    commenti: Comment[];
+  }

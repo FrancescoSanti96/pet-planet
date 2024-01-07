@@ -23,6 +23,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { CommentDialogComponent } from './component/comment-dialog/comment-dialog.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     PersonalPageComponent,
     ConfirmationDialogComponent,
     ChatComponent,
-    NavbarComponent
+    NavbarComponent,
+    CommentDialogComponent
   ],
   imports: [
     BrowserModule,
