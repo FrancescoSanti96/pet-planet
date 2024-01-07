@@ -10,6 +10,7 @@
     "start": "node app.js",
     "start-mongodb": "docker run --name new-mongodb -p 27017:27017 -v mongodb_data:/data/db -d mongo",
     "stop-mongodb": "docker stop new-mongodb",
-    "remove-mongodb": "docker rm new-mongodb"
+    "remove-mongodb": "docker rm new-mongodb",
+    "remove-data": "docker volume rm mongodb_data"
   }
 }

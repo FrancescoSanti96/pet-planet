@@ -1,4 +1,5 @@
 const Friend = require("../models/friend.model");
+const User = require("../models/user.model");
 
 async function getAllFriends(request, reply) {
     try {
@@ -30,6 +31,8 @@ async function follow(request, reply) {
         });
 
         const result = await newFriend.save();
+
+        const updatedUser = await User.findByIdAndUpdate(utente, { $push: { friends: newFriend._id } }, { new: true });
 
         console.log("Post creato:", result);
         console.log("Utente aggiornato:", updatedUser);
