@@ -31,6 +31,11 @@ const PostSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    profilePic: {
+      type: String,
+      required: false,
+      trim: true,
+    },
     commenti: [CommentSchema], 
 });
 

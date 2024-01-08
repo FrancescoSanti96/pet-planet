@@ -60,6 +60,7 @@ export class HomePageComponent {
         firstName: response.given_name,
         lastName: response.family_name,
         surname: response.name,
+        profilePicture: response.picture,
       })
       .subscribe(
         (data: any) => {
@@ -103,7 +104,7 @@ export class HomePageComponent {
   }
 
   createPost() {
-    this.postService.createPost(this.id, this.titolo, this.corpo).subscribe(
+    this.postService.createPost(this.id, this.titolo, this.corpo, this.userInfo.picture).subscribe(
       (data) => {
         // handle the data
         console.log(data);

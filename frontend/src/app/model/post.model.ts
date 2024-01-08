@@ -9,5 +9,6 @@ export interface Comment {
     utente: string;
     titolo: string;
     corpo: string;
+    profilePic: string;
     commenti: Comment[];
   }

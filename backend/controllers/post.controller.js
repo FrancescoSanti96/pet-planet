@@ -41,13 +41,14 @@ async function getPostById(request, reply) {
 }
 async function createPost(request, reply) {
     try {
-        const { utente,titolo, corpo} = request.body;
+        const { utente,titolo, corpo, profilePic} = request.body;
 
         // Crea il post
         const newPost = new Post({
             utente,
             titolo,
             corpo,
+            profilePic,
         });
 
         // Salva il post
