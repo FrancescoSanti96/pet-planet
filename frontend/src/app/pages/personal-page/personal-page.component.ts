@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendService } from '../../services/friend.service';
 import { Friend } from '../../model/friend.model';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../model/post.model';
 
 @Component({
   selector: 'app-personal-page',
@@ -9,7 +11,7 @@ import { Friend } from '../../model/friend.model';
 })
 export class PersonalPageComponent implements OnInit {
   friendsList: Friend[] = [];
-  postList: any[] = [];
+  posts: Post[] = [];
 
   isLoadingFriends: boolean = false;
   isLoadingPosts: boolean = false;
@@ -17,7 +19,8 @@ export class PersonalPageComponent implements OnInit {
   isPostListVisible: boolean = false;
   isFriendListVisible: boolean = false;
 
-  constructor(private friendService: FriendService) { }
+  constructor(private friendService: FriendService,
+    private postService: PostService,) { }
 
   ngOnInit(): void {
     this.loadPostsData();
@@ -51,19 +54,23 @@ export class PersonalPageComponent implements OnInit {
   }
 
   loadPostsData(): void {
-    this.isLoadingPosts = true;
-    this.friendService.getPosts()
-      .subscribe(
-        posts => {
-          this.postList = posts;
-          this.isPostListVisible = true;
-          this.isLoadingPosts = false;
-        },
-        error => {
-          console.error('Errore nella chiamata API per ottenere la lista di post:', error);
-          this.isLoadingPosts = false;
-        }
-      );
+    this.postService.getPostByUserID().subscribe(
+      (posts) => {
+        this.posts = posts;
+  
+        // Dopo aver caricato i post, ricarica i commenti associati a ciascun post
+        // this.posts.forEach((post) => {
+        //   this.getComments(post._id);
+        // });
+        console.log("e",posts);
+      },
+      (error) => {
+        console.error(
+          'Errore nella chiamata API per ottenere la lista di post:',
+          error
+        );
+      }
+    );
   }
 
   toggleFriendListVisibility(): void {

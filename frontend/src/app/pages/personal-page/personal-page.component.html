@@ -60,11 +60,28 @@
                 <!-- Indicatore di caricamento -->
                 <div *ngIf="isLoadingPosts; else postsContent">Caricamento in corso...</div>
                 <ng-template #postsContent>
-                    <ul>
-                        <li *ngFor="let post of postList">
-                            {{ post.content }}
-                        </li>
-                    </ul>
+                    <div class="display margin">
+                        <mat-card class="border" *ngFor="let post of posts">
+                          <mat-card-header>
+                            <!-- TODO: servirà richiamare l'avatar dell'animale -->
+                            <div mat-card-avatar class="example-header-image"></div>
+                            <mat-card-title>{{ post.titolo }}</mat-card-title>
+                            <!-- <mat-card-subtitle>Nome utente: Maggie (obbligatorio)</mat-card-subtitle> -->
+                          </mat-card-header>
+                          <!-- <img mat-card-image src="{{ post.url }}" alt="Photo of the post" *ngIf=post.url> -->
+                          <mat-card-content>
+                            <p>{{ post.corpo }}</p>
+                            <!-- Mostra i commenti -->
+                            <div *ngIf="post.commenti && post.commenti.length > 0">
+                              <h3>Commenti:</h3>
+                              <ul>
+                                <li *ngFor="let comment of post.commenti">{{ comment.testo }}</li>
+                              </ul>
+                            </div>
+                          </mat-card-content>
+                        </mat-card>
+                        
+                      </div>
                 </ng-template>
             </mat-card-content>
         </mat-card>

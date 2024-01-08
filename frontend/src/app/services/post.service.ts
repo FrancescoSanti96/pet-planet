@@ -11,8 +11,14 @@ export class PostService {
 
     constructor(private http: HttpClient) { }
 
+    private id = localStorage.getItem('id');
+
     getPosts(): Observable<Post[]> {
         return this.http.get<Post[]>(`${this.apiUrl}/posts`);
+    }
+
+    getPostByUserID(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/posts/${this.id}/user`);
     }
 
     createPost(utente: string, titolo: string, corpo: string): Observable<Post> {

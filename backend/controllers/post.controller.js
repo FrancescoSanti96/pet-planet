@@ -10,6 +10,23 @@ async function getAllPosts(request, reply) {
         reply.status(500).send({ error: 'Errore durante il recupero del post' });
     }
 }
+
+async function getPostsByUserId(request, reply) {
+    try {
+        const userId = request.params.id;
+        const user = await User.findById(userId);
+
+        if (user) {
+            // Recupera i post dell'utente con i commenti associati
+            const posts = await Post.find({ utente: userId }).populate('commenti');
+            reply.send(posts);
+        } else {
+            reply.status(404).send({ error: 'Post non trovati' });
+        }
+    } catch (error) {
+        reply.status(500).send({ error: 'Errore durante il recupero dei commenti' });
+    }
+}
 async function getPostById(request, reply) {
     try {
         const post = await Post.findById(request.params.id);
@@ -165,4 +182,5 @@ module.exports = {
     createComment,
     getCommentsByPostId,
     deleteComment,
+    getPostsByUserId
 };

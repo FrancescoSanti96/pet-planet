@@ -7,6 +7,7 @@ async function routes(fastify, options) {
     fastify.post("/", postController.createPost);
     fastify.put("/:id", postController.updatePost);
     fastify.delete("/:id", postController.deletePost);
+    fastify.get("/:id/user", postController.getPostsByUserId);
 
     // Rotte per i commenti
     fastify.post("/:id/comment", postController.createComment); // Creare un commento a un post

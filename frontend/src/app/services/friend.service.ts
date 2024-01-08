@@ -19,10 +19,6 @@ export class FriendService {
             );
     }
 
-    getPosts(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/posts`);
-    }
-
     followFriend(friendId: string, followStatus: boolean): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/friends/${friendId}/follow`, { followStatus });
     }
