@@ -7,7 +7,7 @@ import { Post } from '../../model/post.model';
 @Component({
   selector: 'app-personal-page',
   templateUrl: './personal-page.component.html',
-  styleUrls: ['./personal-page.component.scss']
+  styleUrls: ['./personal-page.component.scss'],
 })
 export class PersonalPageComponent implements OnInit {
   friendsList: Friend[] = [];
@@ -19,8 +19,10 @@ export class PersonalPageComponent implements OnInit {
   isPostListVisible: boolean = false;
   isFriendListVisible: boolean = false;
 
-  constructor(private friendService: FriendService,
-    private postService: PostService,) { }
+  constructor(
+    private friendService: FriendService,
+    private postService: PostService
+  ) {}
 
   ngOnInit(): void {
     this.loadPostsData();
@@ -29,46 +31,73 @@ export class PersonalPageComponent implements OnInit {
 
   loadFriendsData(): void {
     this.isLoadingFriends = true;
-    this.friendService.getFriends()
-      .subscribe(
-        friends => {
-          this.friendsList = friends.map(friend => {
-            const { _id, utente, amico } = friend;
-            if (_id && utente && amico) {
-              return new Friend(_id, utente, amico);
-            } else {
-              console.error('Oggetto amico non valido:', friend);
-              // Puoi gestire questa situazione restituendo un oggetto Friend con valori predefiniti o ignorando l'oggetto.
-              return new Friend('', '', '');
-            }
-          });
-          this.isFriendListVisible = true;
-          this.isLoadingFriends = false;
-        },
+    this.friendService.getFriends().subscribe(
+      (friends) => {
+        this.friendsList = friends.map((friend) => {
+          const { _id, utente, amico } = friend;
+          if (_id && utente && amico) {
+            return new Friend(_id, utente, amico);
+          } else {
+            console.error('Oggetto amico non valido:', friend);
+            // Puoi gestire questa situazione restituendo un oggetto Friend con valori predefiniti o ignorando l'oggetto.
+            return new Friend('', '', '');
+          }
+        });
+        this.isFriendListVisible = true;
+        this.isLoadingFriends = false;
+      },
 
-        error => {
-          console.error('Errore nella chiamata API per ottenere la lista di amici:', error);
-          this.isLoadingFriends = false;
-        }
-      );
+      (error) => {
+        console.error(
+          'Errore nella chiamata API per ottenere la lista di amici:',
+          error
+        );
+        this.isLoadingFriends = false;
+      }
+    );
   }
 
   loadPostsData(): void {
     this.postService.getPostByUserID().subscribe(
       (posts) => {
         this.posts = posts;
-  
-        // Dopo aver caricato i post, ricarica i commenti associati a ciascun post
-        // this.posts.forEach((post) => {
-        //   this.getComments(post._id);
-        // });
-        console.log("e",posts);
       },
       (error) => {
         console.error(
           'Errore nella chiamata API per ottenere la lista di post:',
           error
         );
+      }
+    );
+  }
+
+  // Metodo per aggiornare un post
+  updatePost(
+    postId: string,
+    updatedData: { titolo: string; corpo: string }
+  ): void {
+    this.postService.modifyPost(postId, updatedData).subscribe(
+      (updatedPost) => {
+        console.log('Post aggiornato con successo:', updatedPost);
+        // Dopo l'aggiornamento, ricarica i dati dei post
+        this.loadPostsData();
+      },
+      (error) => {
+        console.error("Errore nell'aggiornamento del post:", error);
+      }
+    );
+  }
+
+  // Metodo per eliminare un post
+  deletePost(postId: string): void {
+    this.postService.deletePost(postId).subscribe(
+      () => {
+        console.log('Post eliminato con successo');
+        // Dopo l'eliminazione, ricarica i dati dei post
+        this.loadPostsData();
+      },
+      (error) => {
+        console.error("Errore nell'eliminazione del post:", error);
       }
     );
   }
@@ -106,13 +135,13 @@ export class PersonalPageComponent implements OnInit {
 
   unfollow(followId: string): void {
     this.friendService.unfollow(followId).subscribe(
-      response => {
+      (response) => {
         console.log('Friend deleted successfully. Friend ID:', followId);
       },
-      error => {
+      (error) => {
         console.error('Error deleting friend:', error);
         // Gestisci eventuali errori
       }
     );
   }
-}  
+}

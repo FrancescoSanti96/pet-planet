@@ -54,7 +54,7 @@
         <!-- Lista di Post condizionalmente visualizzata -->
         <mat-card class="post-list" *ngIf="isPostListVisible">
             <mat-card-header>
-                <mat-card-title>Lista di Post</mat-card-title>
+                <mat-card-title>Lista dei miei Post</mat-card-title>
             </mat-card-header>
             <mat-card-content>
                 <!-- Indicatore di caricamento -->
@@ -62,24 +62,27 @@
                 <ng-template #postsContent>
                     <div class="display margin">
                         <mat-card class="border" *ngFor="let post of posts">
-                          <mat-card-header>
-                            <!-- TODO: servirà richiamare l'avatar dell'animale -->
-                            <div mat-card-avatar class="example-header-image"></div>
-                            <mat-card-title>{{ post.titolo }}</mat-card-title>
-                            <!-- <mat-card-subtitle>Nome utente: Maggie (obbligatorio)</mat-card-subtitle> -->
-                          </mat-card-header>
-                          <!-- <img mat-card-image src="{{ post.url }}" alt="Photo of the post" *ngIf=post.url> -->
-                          <mat-card-content>
-                            <p>{{ post.corpo }}</p>
-                            <!-- Mostra i commenti -->
-                            <div *ngIf="post.commenti && post.commenti.length > 0">
-                              <h3>Commenti:</h3>
-                              <ul>
-                                <li *ngFor="let comment of post.commenti">{{ comment.testo }}</li>
-                              </ul>
-                            </div>
-                          </mat-card-content>
-                        </mat-card>
+                            <mat-card-header>
+                              <!-- TODO: servirà richiamare l'avatar dell'animale -->
+                              <div mat-card-avatar class="example-header-image"></div>
+                              <mat-card-title>{{ post.titolo }}</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <p>{{ post.corpo }}</p>
+                              <!-- Mostra i commenti -->
+                              <div *ngIf="post.commenti && post.commenti.length > 0">
+                                <h3>Commenti:</h3>
+                                <ul>
+                                  <li *ngFor="let comment of post.commenti">{{ comment.testo }}</li>
+                                </ul>
+                              </div>
+                              <!-- Aggiungi un pulsante o un'icona per eliminare il post -->
+                              <button mat-icon-button color="warn" (click)="deletePost(post._id)">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                            </mat-card-content>
+                          </mat-card>
+                          
                         
                       </div>
                 </ng-template>

@@ -25,6 +25,14 @@ export class PostService {
         const postData = { utente, titolo, corpo };
         return this.http.post<Post>(`${this.apiUrl}/posts`, postData);
     }
+
+    modifyPost(postId: string, updatedData: { titolo: string; corpo: string }): Observable<Post> {
+        return this.http.put<Post>(`${this.apiUrl}/${postId}`, updatedData);
+    }
+
+    deletePost(postId: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/posts/${postId}`);
+    }
     
     createComment(postId: string, commentData: { utente: string; testo: string }): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/posts/${postId}/comment`, commentData);

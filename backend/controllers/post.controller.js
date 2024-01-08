@@ -69,26 +69,46 @@ async function createPost(request, reply) {
 
 async function updatePost(request, reply) {
     try {
-        const post = await Post.findByIdAndUpdate(request.params.id, request.body, {
+        const postId = request.params.id;
+        const updatedData = request.body;
+
+        const updatedPost = await Post.findByIdAndUpdate(postId, updatedData, {
             new: true,
         });
-        reply.send(post);
-    } catch (error) {
-        reply.status(500).send({ error: 'Errore durante l\'aggiornamento del post' });
-    }
-}
-async function deletePost(request, reply) {
-    try {
-        const deletedPost = await Post.findByIdAndDelete(request.params.id);
-        if (deletedPost) {
-            reply.send({ message: 'Post cancellato con successo' });
+
+        if (updatedPost) {
+            reply.send(updatedPost);
         } else {
             reply.status(404).send({ error: 'Post non trovato' });
         }
     } catch (error) {
-        reply.status(500).send({ error: 'Errore durante la cancellazione del post' });
+        reply.status(500).send({ error: 'Errore durante l\'aggiornamento del post' });
     }
 }
+
+async function deletePost(request, reply) {
+    try {
+        const postId = request.params.id;
+
+        // Trova il post da eliminare
+        const deletedPost = await Post.findByIdAndDelete(postId);
+
+        if (deletedPost) {
+            // Rimuovi il riferimento dal documento utente (se necessario)
+            await User.updateMany({ posts: postId }, { $pull: { posts: postId } });
+
+            // Rimuovi anche i commenti associati al post eliminato
+            await Comment.deleteMany({ post: postId });
+
+            reply.send({ message: 'Post e commenti associati cancellati con successo' });
+        } else {
+            reply.status(404).send({ error: 'Post non trovato' });
+        }
+    } catch (error) {
+        reply.status(500).send({ error: 'Errore durante la cancellazione del post e dei commenti associati' });
+    }
+}
+
 
 
 async function createComment(request, reply) {
