@@ -23,10 +23,6 @@
             <a (click)="toggleFriendListVisibility()">PetFriend</a>
         </nav>
 
-        <div class="registration-link">
-            <a routerLink="/register">Registration</a>
-        </div>
-
         <!-- Lista di Amici condizionalmente visualizzata -->
         <mat-card class="friend-list" *ngIf="isFriendListVisible">
             <mat-card-header>
