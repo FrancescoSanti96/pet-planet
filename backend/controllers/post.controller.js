@@ -99,7 +99,7 @@ async function deletePost(request, reply) {
             await User.updateMany({ posts: postId }, { $pull: { posts: postId } });
 
             // Rimuovi anche i commenti associati al post eliminato
-            await Comment.deleteMany({ post: postId });
+            // await Comment.deleteMany({ post: postId });
 
             reply.send({ message: 'Post e commenti associati cancellati con successo' });
         } else {

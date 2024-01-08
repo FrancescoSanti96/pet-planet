@@ -5,6 +5,7 @@ import { Post } from '../../model/post.model';
 import { PostService } from '../../services/post.service';
 import { CommentDialogComponent } from '../../component/comment-dialog/comment-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ReloadService } from '../../services/reload.service';
 
 @Component({
   selector: 'app-home-page',
@@ -23,7 +24,8 @@ export class HomePageComponent {
     private route: ActivatedRoute,
     private http: HttpClient,
     private postService: PostService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private reloadService: ReloadService,
   ) {}
 
   ngOnInit(): void {
@@ -104,6 +106,8 @@ export class HomePageComponent {
   }
 
   createPost() {
+    this.id = localStorage.getItem('id')!;
+    this.userInfo = JSON.parse(localStorage.getItem('user_info')!);
     this.postService.createPost(this.id, this.titolo, this.corpo, this.userInfo.picture).subscribe(
       (data) => {
         // handle the data
@@ -111,6 +115,7 @@ export class HomePageComponent {
 
         // Dopo aver creato un post, ricarica i post e i commenti associati
         this.loadPostsData();
+        // this.reloadService.reloadPage();
       },
       (error) => {
         // handle the error
@@ -160,14 +165,13 @@ export class HomePageComponent {
       })
       .subscribe(
         (data) => {
-          // handle the data
           console.log(data);
 
           // Dopo aver creato un commento, ricarica i commenti associati al post
           this.getComments(postId);
+          this.reloadService.reloadPage();
         },
         (error) => {
-          // handle the error
         }
       );
   }
@@ -175,11 +179,9 @@ export class HomePageComponent {
   getComments(postId: string): void {
     this.postService.getComments(postId).subscribe(
       (comments) => {
-        // handle the data
         console.log(comments);
       },
       (error) => {
-        // handle the error
       }
     );
   }

@@ -5,6 +5,7 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../model/post.model';
 import { ModifyPostDialogComponent } from '../../component/modify-post-dialog/modify-post-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ReloadService } from '../../services/reload.service';
 
 @Component({
   selector: 'app-personal-page',
@@ -24,7 +25,8 @@ export class PersonalPageComponent implements OnInit {
   constructor(
     private friendService: FriendService,
     private postService: PostService,
-    private dialog: MatDialog 
+    private dialog: MatDialog,
+    private reloadService: ReloadService, 
   ) {}
 
   ngOnInit(): void {
@@ -96,10 +98,14 @@ export class PersonalPageComponent implements OnInit {
       () => {
         console.log('Post eliminato con successo');
         // Dopo l'eliminazione, ricarica i dati dei post
-        this.loadPostsData();
+        // this.loadPostsData();
+        this.reloadService.reloadPage();
       },
       (error) => {
         console.error("Errore nell'eliminazione del post:", error);
+
+        console.log('Post ID:', postId);
+        console.log('Error Object:', error);
       }
     );
   }
@@ -139,6 +145,7 @@ export class PersonalPageComponent implements OnInit {
     this.friendService.unfollow(followId).subscribe(
       (response) => {
         console.log('Friend deleted successfully. Friend ID:', followId);
+        this.reloadService.reloadPage();
       },
       (error) => {
         console.error('Error deleting friend:', error);
