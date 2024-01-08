@@ -67,12 +67,12 @@
                 mat-card-avatar
                 [style.background-image]="'url(' + post.profilePic + ')'"
               ></div>
-              <mat-card-title>{{ post.titolo }}</mat-card-title>
+              <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <p>{{ post.corpo }}</p>
               <div *ngIf="post.commenti && post.commenti.length > 0">
-                <h3>Commenti:</h3>
+                <h3 class>Commenti:</h3>
                 <ul>
                   <li *ngFor="let comment of post.commenti">
                     {{ comment.testo }}
