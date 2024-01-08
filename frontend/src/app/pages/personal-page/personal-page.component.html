@@ -15,16 +15,9 @@
         <div *ngIf="!checkAnimal()">
             <button routerLink="/register" mat-raised-button color="primary">Inserisci informazioni animale</button>
         </div>
-          
-
-        <!-- Barra di navigazione -->
-        <nav class="profile-navbar">
-            <a (click)="togglePostListVisibility()">Post</a>
-            <a (click)="toggleFriendListVisibility()">PetFriend</a>
-        </nav>
 
         <!-- Lista di Amici condizionalmente visualizzata -->
-        <mat-card class="friend-list" *ngIf="isFriendListVisible">
+        <mat-card class="friend-list">
             <mat-card-header>
                 <mat-card-title>Amici</mat-card-title>
             </mat-card-header>
@@ -48,7 +41,7 @@
         </mat-card>
 
         <!-- Lista di Post condizionalmente visualizzata -->
-        <mat-card class="post-list" *ngIf="isPostListVisible">
+        <mat-card class="post-list">
             <mat-card-header>
                 <mat-card-title>Lista dei miei Post</mat-card-title>
             </mat-card-header>

@@ -22,9 +22,6 @@ export class PersonalPageComponent implements OnInit {
   isLoadingFriends: boolean = false;
   isLoadingPosts: boolean = false;
 
-  isPostListVisible: boolean = false;
-  isFriendListVisible: boolean = false;
-
   constructor(
     private friendService: FriendService,
     private postService: PostService,
@@ -53,7 +50,6 @@ export class PersonalPageComponent implements OnInit {
             return new Friend('', '', '');
           }
         });
-        this.isFriendListVisible = true;
         this.isLoadingFriends = false;
       },
 
@@ -135,20 +131,6 @@ export class PersonalPageComponent implements OnInit {
         console.log('Error Object:', error);
       }
     );
-  }
-
-  toggleFriendListVisibility(): void {
-    this.isFriendListVisible = !this.isFriendListVisible;
-    if (this.isFriendListVisible) {
-      this.isPostListVisible = false;
-    }
-  }
-
-  togglePostListVisibility(): void {
-    this.isPostListVisible = !this.isPostListVisible;
-    if (this.isPostListVisible) {
-      this.isFriendListVisible = false;
-    }
   }
 
   /*toggleFollowStatus(friend: Friend): void {
