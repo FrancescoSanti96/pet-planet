@@ -6,6 +6,8 @@ import { Post } from '../../model/post.model';
 import { ModifyPostDialogComponent } from '../../component/modify-post-dialog/modify-post-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
+import { Animal } from '../../model/animal.model';
+import { AnimalService } from '../../services/animal.service';
 
 @Component({
   selector: 'app-personal-page',
@@ -15,6 +17,7 @@ import { ReloadService } from '../../services/reload.service';
 export class PersonalPageComponent implements OnInit {
   friendsList: Friend[] = [];
   posts: Post[] = [];
+  animal: Animal = {} as Animal;
 
   isLoadingFriends: boolean = false;
   isLoadingPosts: boolean = false;
@@ -27,11 +30,13 @@ export class PersonalPageComponent implements OnInit {
     private postService: PostService,
     private dialog: MatDialog,
     private reloadService: ReloadService, 
+    private animalService: AnimalService
   ) {}
 
   ngOnInit(): void {
     this.loadPostsData();
     this.loadFriendsData();
+    this.loadAnimalsData();
   }
 
   loadFriendsData(): void {
@@ -75,6 +80,28 @@ export class PersonalPageComponent implements OnInit {
       }
     );
   }
+
+  loadAnimalsData(): void {
+    this.animalService.getAnimalByUserId().subscribe(
+      (animal) => {
+        if (animal !== null) {
+          this.animal = animal;  // Assegna gli animali alla proprietà animal del tuo componente
+        }
+      },
+      (error) => {
+        console.error(
+          'Errore nella chiamata API per ottenere la lista di animali:',
+          error
+        );
+      }
+    );
+  }
+
+  checkAnimal(): boolean {
+    return this.animal ? Object.keys(this.animal).length > 0 : false;
+  }
+  
+  
 
   openModifyPostDialog(post: Post): void {
     const dialogRef = this.dialog.open(ModifyPostDialogComponent, {

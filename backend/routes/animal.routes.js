@@ -6,6 +6,7 @@ async function routes(fastify, options) {
   fastify.post("/", animalController.createAnimal);
   fastify.put("/:id", animalController.updateAnimal);
   fastify.delete("/:id", animalController.deleteAnimal);
+  fastify.get("/user/:userId", animalController.getAnimalByUserId);
 }
 
 module.exports = routes;

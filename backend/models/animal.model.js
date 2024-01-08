@@ -1,21 +1,19 @@
 const mongoose = require("mongoose");
 
-// use trim for remove white space
-
 const AnimalSchema = new mongoose.Schema({
     nome: {
         type: String,
         required: true,
         trim: true,
     },
-    specie: {
+    tipoAnimale: {
         type: String,
         required: true,
         trim: true,
     },
     razza: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
         unique: true,
         lowercase: true,
@@ -25,20 +23,11 @@ const AnimalSchema = new mongoose.Schema({
         required: false,
         trim: true,
     },
-    età: {
-        type: String,
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: false,
-        trim: true,
     },
-    proprietario: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    compleanno: {
-        type: Date,
-        default: Date.now, // Imposta la data di default a quella corrente
-    }
 });
 
 const Animal = mongoose.model("Animal", AnimalSchema);

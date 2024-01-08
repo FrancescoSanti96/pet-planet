@@ -1,28 +1,114 @@
-import { Component } from '@angular/core';
-// import { AuthService } from '../../../auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AnimalService } from '../../services/animal.service';
+import { Animal } from '../../model/animal.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
-  styleUrl: './registration-page.component.scss'
+  styleUrls: ['./registration-page.component.scss']
 })
-export class RegistrationPageComponent {
+export class RegistrationPageComponent implements OnInit {
   datiRegistrazione = {
     nome: '',
-    dataNascita: '',
     tipoAnimale: '',
     sesso: '',
     razza: '',
-    taglia: '',
-    peso: '',
-    nomeUtente: '',
-    password: ''
   };
-  constructor() { }
+  animal: Animal | null = null;
 
-  // registrati() {
-  //   this.authService.registrazioneUtente(this.datiRegistrazione).subscribe(response => {
-  //     console.log(response);
-  //   });
-  // }
+  constructor(
+    private animalService: AnimalService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    // Carica l'animale dell'utente se presente
+    this.loadAnimalData();
+  }
+
+  loadAnimalData(): void {
+    this.animalService.getAnimalByUserId().subscribe(
+      (animal) => {
+        this.animal = animal;
+  
+        if (this.animal) {
+          // Se l'animale è presente, popola i dati di registrazione con i suoi valori
+          this.datiRegistrazione.nome = this.animal.nome || '';
+          this.datiRegistrazione.tipoAnimale = this.animal.tipoAnimale || '';
+          this.datiRegistrazione.sesso = this.animal.sesso || '';
+          this.datiRegistrazione.razza = this.animal.razza || '';
+        }
+      },
+      (error) => {
+        console.error('Errore nel recupero dell\'animale:', error);
+      }
+    );
+  }
+
+  salvaInformazioni() {
+    if (this.animal) {
+      // Se l'animale è già presente, esegui l'aggiornamento
+      this.modificaAnimale();
+    } else {
+      // Altrimenti, crea un nuovo animale
+      this.creaAnimale();
+    }
+  }
+
+  creaAnimale() {
+    const nuovoAnimale: Animal = {
+      _id: '',
+      owner: localStorage.getItem('id')!,
+      nome: this.datiRegistrazione.nome,
+      tipoAnimale: this.datiRegistrazione.tipoAnimale,
+      sesso: this.datiRegistrazione.sesso,
+      razza: this.datiRegistrazione.razza,
+    };
+
+    this.animalService.createAnimal(nuovoAnimale).subscribe(
+      (response) => {
+        console.log('Animale creato con successo:', response);
+        this.router.navigate(['/profile']);
+      },
+      (error) => {
+        console.error('Errore durante la creazione dell\'animale:', error);
+      }
+    );
+  }
+
+  modificaAnimale() {
+    if (this.animal) {
+      const animaleModificato: Partial<Animal> = {
+        nome: this.datiRegistrazione.nome,
+        tipoAnimale: this.datiRegistrazione.tipoAnimale,
+        sesso: this.datiRegistrazione.sesso,
+        razza: this.datiRegistrazione.razza,
+      };
+
+      this.animalService.updateAnimal(this.animal._id, animaleModificato).subscribe(
+        (response) => {
+          console.log('Animale modificato con successo:', response);
+          this.router.navigate(['/profile']);
+        },
+        (error) => {
+          console.error('Errore durante la modifica dell\'animale:', error);
+        }
+      );
+    }
+  }
+
+  eliminaAnimale() {
+    if (this.animal) {
+      this.animalService.deleteAnimal(this.animal._id).subscribe(
+        () => {
+          console.log('Animale eliminato con successo');
+          this.router.navigate(['/profile']);
+        },
+        (error) => {
+          console.error('Errore durante l\'eliminazione dell\'animale:', error);
+        }
+      );
+    }
+  }
 }

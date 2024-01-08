@@ -40,7 +40,12 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Friend',
     required: false,
-  }]
+  }],
+  animal: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Animal',
+    required: false,
+  }
 });
 
 const User = mongoose.model("User", UserSchema);
