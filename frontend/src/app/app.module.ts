@@ -25,7 +25,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommentDialogComponent } from './component/comment-dialog/comment-dialog.component';
 import { ModifyPostDialogComponent } from './component/modify-post-dialog/modify-post-dialog.component';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,8 @@ import { ModifyPostDialogComponent } from './component/modify-post-dialog/modify
     MatDialogModule,
     MatSelectModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
