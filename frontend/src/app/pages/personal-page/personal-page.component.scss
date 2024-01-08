@@ -1,15 +1,10 @@
 .display {
     display: flex;
-    align-content: center;
+    margin: 40px;
     flex-wrap: wrap;
     flex-direction: column;
     gap: 20px;
 }
-
-.margin {
-    margin: 40px auto;
-}
-
 
 .friend-list {
     width: 100%;
@@ -55,11 +50,6 @@
         height: 30px;
         border-radius: 50%;
         margin-right: 10px;
-    }
-
-    span {
-        font-size: 16px;
-        /* Adjust the font size as needed */
     }
 
     .friend-buttons {
@@ -140,4 +130,5 @@
 
   .containerNavbar{
     display: flex;
+    gap: 20px;
   }
