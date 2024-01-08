@@ -10,17 +10,6 @@
     margin: 40px auto;
 }
 
-.example-card {
-    max-width: 400px;
-}
-
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
 
 .friend-list {
     width: 100%;
@@ -99,7 +88,7 @@
     border: 2px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
-    margin-top: 20px;
+    width: 100%;
 }
 
 .post-list-content {
@@ -146,4 +135,9 @@
 .postBox {
     display: flex;
     flex-direction: column;
+  }
+
+
+  .containerNavbar{
+    display: flex;
   }
