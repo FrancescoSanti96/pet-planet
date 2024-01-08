@@ -76,6 +76,9 @@
                                   <li *ngFor="let comment of post.commenti">{{ comment.testo }}</li>
                                 </ul>
                               </div>
+                              <button mat-icon-button color="primary" (click)="openModifyPostDialog(post)">
+                                <mat-icon>edit</mat-icon>
+                              </button>
                               <!-- Aggiungi un pulsante o un'icona per eliminare il post -->
                               <button mat-icon-button color="warn" (click)="deletePost(post._id)">
                                 <mat-icon>delete</mat-icon>

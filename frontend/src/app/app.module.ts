@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommentDialogComponent } from './component/comment-dialog/comment-dialog.component';
+import { ModifyPostDialogComponent } from './component/modify-post-dialog/modify-post-dialog.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { CommentDialogComponent } from './component/comment-dialog/comment-dialo
     ConfirmationDialogComponent,
     ChatComponent,
     NavbarComponent,
-    CommentDialogComponent
+    CommentDialogComponent,
+    ModifyPostDialogComponent
   ],
   imports: [
     BrowserModule,

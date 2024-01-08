@@ -27,7 +27,7 @@ export class PostService {
     }
 
     modifyPost(postId: string, updatedData: { titolo: string; corpo: string }): Observable<Post> {
-        return this.http.put<Post>(`${this.apiUrl}/${postId}`, updatedData);
+        return this.http.put<Post>(`${this.apiUrl}/posts/${postId}`, updatedData);
     }
 
     deletePost(postId: string): Observable<void> {

@@ -3,6 +3,8 @@ import { FriendService } from '../../services/friend.service';
 import { Friend } from '../../model/friend.model';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../model/post.model';
+import { ModifyPostDialogComponent } from '../../component/modify-post-dialog/modify-post-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-personal-page',
@@ -21,7 +23,8 @@ export class PersonalPageComponent implements OnInit {
 
   constructor(
     private friendService: FriendService,
-    private postService: PostService
+    private postService: PostService,
+    private dialog: MatDialog 
   ) {}
 
   ngOnInit(): void {
@@ -71,21 +74,20 @@ export class PersonalPageComponent implements OnInit {
     );
   }
 
-  // Metodo per aggiornare un post
-  updatePost(
-    postId: string,
-    updatedData: { titolo: string; corpo: string }
-  ): void {
-    this.postService.modifyPost(postId, updatedData).subscribe(
-      (updatedPost) => {
-        console.log('Post aggiornato con successo:', updatedPost);
-        // Dopo l'aggiornamento, ricarica i dati dei post
+  openModifyPostDialog(post: Post): void {
+    const dialogRef = this.dialog.open(ModifyPostDialogComponent, {
+      data: { post },  // Passa il post alla dialog
+      width: '400px',  // Imposta la larghezza della dialog (adatta secondo necessità)
+    });
+
+    dialogRef.afterClosed().subscribe((updatedPostData) => {
+      if (updatedPostData) {
+        // Puoi gestire i dati aggiornati qui, ad esempio, aggiornando la lista
+        // o richiamando nuovamente il metodo loadPostsData().
+        console.log('Post aggiornato:', updatedPostData);
         this.loadPostsData();
-      },
-      (error) => {
-        console.error("Errore nell'aggiornamento del post:", error);
       }
-    );
+    });
   }
 
   // Metodo per eliminare un post
