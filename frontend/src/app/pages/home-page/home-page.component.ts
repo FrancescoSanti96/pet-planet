@@ -35,7 +35,9 @@ export class HomePageComponent {
       this.accessToken = params['access_token'];
       this.getUserInfo();
     });
-    this.loadPostsData();
+    setTimeout(() => {
+      this.loadPostsData();
+    },500);
   }
 
   getUserInfo() {
@@ -112,7 +114,7 @@ export class HomePageComponent {
     this.userInfo = JSON.parse(localStorage.getItem('user_info')!);
     this.postService.createPost(this.id, this.titolo, this.corpo, this.userInfo.picture).subscribe(
       (data) => {
-        this.loadPostsData();
+        // this.loadPostsData();
       },
       (error) => {
         // handle the error
