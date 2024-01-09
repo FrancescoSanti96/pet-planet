@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../../model/post.model';
 import { PostService } from '../../services/post.service';
 import { CommentDialogComponent } from '../../component/comment-dialog/comment-dialog.component';
@@ -14,11 +14,12 @@ import { ReloadService } from '../../services/reload.service';
 })
 export class HomePageComponent {
   accessToken!: string;
-  userInfo: any; // TODO definire interfaccia
+  userInfo: any; 
   titolo: string = '';
   corpo: string = '';
   id: string = '';
   posts: Post[] = [];
+  private refreshDone = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,6 +70,7 @@ export class HomePageComponent {
           if (data && data._id) {
             localStorage.setItem('id', data._id);
             this.id = data._id;
+            
           } else {
             console.error("L'ID non è presente nella risposta del server");
           }
@@ -110,12 +112,7 @@ export class HomePageComponent {
     this.userInfo = JSON.parse(localStorage.getItem('user_info')!);
     this.postService.createPost(this.id, this.titolo, this.corpo, this.userInfo.picture).subscribe(
       (data) => {
-        // handle the data
-        console.log(data);
-
-        // Dopo aver creato un post, ricarica i post e i commenti associati
         this.loadPostsData();
-        // this.reloadService.reloadPage();
       },
       (error) => {
         // handle the error
@@ -124,15 +121,14 @@ export class HomePageComponent {
   }
 
   loadPostsData(): void {
-    this.postService.getPosts().subscribe(
+    this.id = localStorage.getItem('id')!;
+    this.postService.getPostsOfFriends(this.id).subscribe(
       (posts) => {
         this.posts = posts;
-  
-        // Dopo aver caricato i post, ricarica i commenti associati a ciascun post
-        this.posts.forEach((post) => {
+          this.posts.forEach((post) => {
           this.getComments(post._id);
         });
-        console.log("e",posts);
+
       },
       (error) => {
         console.error(

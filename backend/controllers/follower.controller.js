@@ -38,35 +38,8 @@ async function addFollower(request, reply) {
     }
 }
 
-// async function removeFollower(request, reply) {
-//     try {
-//         const userId = request.params.userId;
-//         const friendId = request.params.friendId;
-
-//         // Trova il follower in base all'id dell'utente e all'id dell'amico
-//         const removedFollower = await Follower.findOneAndDelete({ utente: userId, amico: friendId });
-
-//         if (removedFollower) {
-//             // Rimuovi l'ID del follower dalla lista dei follower dell'utente
-//             const updatedUser = await User.findByIdAndUpdate(userId, { $pull: { followers: removedFollower._id } }, { new: true });
-
-//             if (updatedUser) {
-//                 reply.send({ message: 'Amico cancellato con successo' });
-//             } else {
-//                 reply.status(404).send({ error: 'Utente non trovato' });
-//             }
-//         } else {
-//             reply.status(404).send({ error: 'Amico non trovato' });
-//         }
-//     } catch (error) {
-//         console.error('Errore durante la cancellazione dell\'amico:', error);
-//         reply.status(500).send({ error: 'Errore durante la cancellazione dell\'amico' });
-//     }
-// }
-
 async function removeFollower(request, reply) {
     try {
-        // Ottenere l'id utente dalla mail fornita
         const userEmail = request.params.email;
         const userId = await User.findOne({ email: userEmail }).select('_id');
 
@@ -75,8 +48,7 @@ async function removeFollower(request, reply) {
             return;
         }
 
-        // Ottenere l'id dell'altro utente dal parametro della richiesta
-        const otherUserId = request.params.userId; // Aggiornato da request.params.id
+        const otherUserId = request.params.userId; 
         const otherUser = await User.findById(otherUserId);
 
         if (!otherUser) {
@@ -84,10 +56,7 @@ async function removeFollower(request, reply) {
             return;
         }
 
-        // Ottenere l'email dell'altro utente
         const otherUserEmail = otherUser.email;
-
-        // Controllare e eliminare il follower
         const removeFollower = await Follower.findOneAndDelete({ utente: userId, amico: otherUserEmail });
 
         if (removeFollower) {
@@ -100,7 +69,6 @@ async function removeFollower(request, reply) {
         reply.status(500).send({ error: 'Errore durante la cancellazione dell\'amico' });
     }
 }
-
 
 
 module.exports = {

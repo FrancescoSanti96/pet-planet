@@ -1,5 +1,6 @@
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
+const Friend = require("../models/friend.model");
 
 
 async function getAllPosts(request, reply) {
@@ -10,6 +11,29 @@ async function getAllPosts(request, reply) {
         reply.status(500).send({ error: 'Errore durante il recupero del post' });
     }
 }
+
+
+async function getPostsOfFriends(request, reply) {
+    try {
+        const userId = request.params.id;
+        const user = await User.findById(userId);
+        console.log(user);
+        if (user) {
+            const friendEmails = await Friend.find({ _id: { $in: user.friends } }).distinct('amico');
+            const friendUsers = await User.find({ email: { $in: friendEmails } });
+            const friendUserIdsFinal = friendUsers.map(user => user._id);
+            const postsOfFriends = await Post.find({ utente: { $in: friendUserIdsFinal } }).populate('commenti');
+            reply.send(postsOfFriends);
+        } else {
+            reply.status(404).send({ error: 'Utente non trovato' });
+        }
+    } catch (error) {
+        console.error(error);
+        reply.status(500).send({ error: 'Errore durante il recupero dei post degli amici' });
+    }
+}
+
+
 
 async function getPostsByUserId(request, reply) {
     try {
@@ -203,5 +227,6 @@ module.exports = {
     createComment,
     getCommentsByPostId,
     deleteComment,
-    getPostsByUserId
+    getPostsByUserId,
+    getPostsOfFriends
 };
