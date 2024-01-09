@@ -9,6 +9,7 @@ import { ReloadService } from '../../services/reload.service';
 import { Animal } from '../../model/animal.model';
 import { AnimalService } from '../../services/animal.service';
 import { HttpClient } from '@angular/common/http';
+import { FollowerService } from '../../services/follower.service';
 interface User {
   _id: string;
   email: string;
@@ -23,6 +24,7 @@ export class PersonalPageComponent implements OnInit {
   
   
   friendsList: Friend[] = [];
+  followersList: Friend[] = [];
   posts: Post[] = [];
   animal: Animal = {} as Animal;
   usersList: User[] = [];
@@ -37,7 +39,8 @@ export class PersonalPageComponent implements OnInit {
     private dialog: MatDialog,
     private reloadService: ReloadService, 
     private animalService: AnimalService,
-    private http: HttpClient
+    private http: HttpClient,
+    private followerService: FollowerService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +48,7 @@ export class PersonalPageComponent implements OnInit {
     this.loadFriendsData();
     this.loadAnimalsData();
     this.loadUsersDataExceptOne();
+    this.loadFollowersData();
   }
 
   loadFriendsData(): void {
@@ -70,6 +74,29 @@ export class PersonalPageComponent implements OnInit {
           error
         );
         this.isLoadingFriends = false;
+      }
+    );
+  }
+
+  loadFollowersData(): void {
+    this.followerService.getFollowers().subscribe(
+      (followers) => {
+        this.followersList = followers.map((follower) => {
+          const { _id, utente, amico } = follower;
+          if (_id && utente && amico) {
+            return new Friend(_id, utente, amico);
+          } else {
+            console.error('Oggetto amico non valido:', follower);
+            return new Friend('', '', '');
+          }
+        });
+      },
+
+      (error) => {
+        console.error(
+          'Errore nella chiamata API per ottenere la lista di amici:',
+          error
+        );
       }
     );
   }
@@ -129,14 +156,12 @@ export class PersonalPageComponent implements OnInit {
 
   openModifyPostDialog(post: Post): void {
     const dialogRef = this.dialog.open(ModifyPostDialogComponent, {
-      data: { post },  // Passa il post alla dialog
-      width: '400px',  // Imposta la larghezza della dialog (adatta secondo necessità)
+      data: { post },  
+      width: '400px',  
     });
 
     dialogRef.afterClosed().subscribe((updatedPostData) => {
       if (updatedPostData) {
-        // Puoi gestire i dati aggiornati qui, ad esempio, aggiornando la lista
-        // o richiamando nuovamente il metodo loadPostsData().
         console.log('Post aggiornato:', updatedPostData);
         this.loadPostsData();
       }
@@ -148,8 +173,6 @@ export class PersonalPageComponent implements OnInit {
     this.postService.deletePost(postId).subscribe(
       () => {
         console.log('Post eliminato con successo');
-        // Dopo l'eliminazione, ricarica i dati dei post
-        // this.loadPostsData();
         this.reloadService.reloadPage();
       },
       (error) => {
@@ -161,24 +184,46 @@ export class PersonalPageComponent implements OnInit {
     );
   }
 
-  unfollow(followId: string): void {
+  unfollow(followId: string, email: string): void {
     this.friendService.unfollow(followId).subscribe(
       (response) => {
-        console.log('Friend deleted successfully. Friend ID:', followId);
+        this.removeFollower(email);
         this.reloadService.reloadPage();
       },
       (error) => {
-        console.error('Error deleting friend:', error);
-        // Gestisci eventuali errori
+      }
+    );
+  }
+  removeFollower( mail: string): void {
+    const id = localStorage.getItem('id')!;
+    this.followerService.removeFollower(id, mail).subscribe(
+        (response) => {
+        },
+        (error) => {
+            console.error('Errore durante la rimozione del follower:', error);
+        }
+    );
+}
+
+
+  followUser( email: string, userId:string): void {
+    const id = localStorage.getItem('id')!;
+    this.friendService.follow(id, email).subscribe(
+      (response) => {
+        this.addFollower(userId);
+        this.reloadService.reloadPage();
+      },
+      (error) => {
+        console.error('Error add friend:', error);
       }
     );
   }
 
-  followUser( email: string): void {
-    const id = localStorage.getItem('id')!;
-    this.friendService.follow(id, email).subscribe(
+  addFollower(userId: string ): void {
+    console.log('addFollower', this.followersList);
+    const email = JSON.parse(localStorage.getItem('user_info') || '{}').email;
+    this.followerService.addFollower(userId, email).subscribe(
       (response) => {
-        this.reloadService.reloadPage();
       },
       (error) => {
         console.error('Error add friend:', error);

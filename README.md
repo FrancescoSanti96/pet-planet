@@ -21,6 +21,7 @@
 1. npm run start-mongodb (lanciando il comando verra istanziato e avviato il container)
 2. npm run stop-mongodb (lanciare il comando prima di chiudere il progetto)
 3. npm run remove-mongodb (lanciare il comando prima di chiudere il progetto)
+- se occorre pulire i dati: npm run remove-data
 
 
 ## Frontend:

@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Post = require("./post.model");
-const Friend = require("./friend.model");
 
 // use trim for remove white space
 
@@ -39,6 +37,11 @@ const UserSchema = new mongoose.Schema({
   friends: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Friend',
+    required: false,
+  }],
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Follower',
     required: false,
   }],
   animal: {

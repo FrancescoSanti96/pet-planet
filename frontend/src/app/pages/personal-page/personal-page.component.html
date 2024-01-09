@@ -21,31 +21,51 @@
   </mat-card>
 
   <div class="containerNavbar">
-    <!-- Lista di Amici condizionalmente visualizzata -->
     <mat-card class="friend-list">
       <mat-card-header>
-        <mat-card-title>Amici</mat-card-title>
+          <mat-card-title>Amici</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <!-- Indicatore di caricamento -->
-        <div *ngIf="isLoadingFriends; else friendsContent">
-          Caricamento in corso...
-        </div>
-        <ng-template #friendsContent>
-          <ul class="friend-list-items">
-            <li *ngFor="let friend of friendsList">
-              <div class="friend-info">
-                <div mat-card-avatar class="friend-avatar"></div>
-                <span>{{ friend.amico }}</span>
-                <div class="friend-buttons">
-                  <button (click)="unfollow(friend._id)">Unfollow</button>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </ng-template>
+          <div *ngIf="isLoadingFriends; else friendsContent">
+              Caricamento in corso...
+          </div>
+          <ng-template #friendsContent>
+              <ul class="friend-list-items">
+                  <li *ngFor="let friend of friendsList">
+                      <div class="friend-info">
+                          <div mat-card-avatar class="friend-avatar"></div>
+                          <span>{{ friend.amico }}</span>
+                          <div class="friend-buttons">
+                              <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </ng-template>
       </mat-card-content>
-    </mat-card>
+  </mat-card>
+  
+  <mat-card class="friend-list">
+      <mat-card-header>
+          <mat-card-title>Followers</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <ng-container *ngIf="followersList && followersList.length > 0; else noFollowersTemplate">
+              <ul class="friend-list-items">
+                  <li *ngFor="let follower of followersList">
+                      <div class="friend-info">
+                          <div mat-card-avatar class="friend-avatar"></div>
+                          <span>{{ follower.amico }}</span>
+                      </div>
+                  </li>
+              </ul>
+          </ng-container>
+          <ng-template #noFollowersTemplate>
+              <p>Nessun follower al momento.</p>
+          </ng-template>
+      </mat-card-content>
+  </mat-card>
+  
 
     <!-- Lista di Post condizionalmente visualizzata -->
     <mat-card class="post-list">
@@ -110,7 +130,7 @@
       <div *ngFor="let user of usersList" class="containerNewFriend">
         <span>{{ user.email }}</span>
         <div class="friend-buttons">
-          <button (click)="followUser( user.email)">
+          <button (click)="followUser( user.email, user._id)">
             Follow
           </button>
         </div>

@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user.routes");
 const animalRoutes = require("./routes/animal.routes");
 const postRoutes = require("./routes/post.routes");
 const friendRoutes = require("./routes/friend.routes");
+const followerRoutes = require("./routes/follower.routes");
 
 // Register fastify-oauth2 plugin
 fastify.register(oauthPlugin, {
@@ -64,6 +65,7 @@ fastify.register(userRoutes, { prefix: "/api/v1/users" });
 fastify.register(animalRoutes, { prefix: "/api/v1/animals" });
 fastify.register(postRoutes, { prefix: "/api/v1/posts" });
 fastify.register(friendRoutes, { prefix: "/api/v1/friends" });
+fastify.register(followerRoutes, { prefix: "/api/v1/followers" });
 
 // Start the server
 const start = async () => {
