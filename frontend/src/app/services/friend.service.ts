@@ -19,9 +19,11 @@ export class FriendService {
             );
     }
 
-    followFriend(friendId: string, followStatus: boolean): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/friends/${friendId}/follow`, { followStatus });
-    }
+    follow(utenteId: string, amico: string): Observable<any> {
+        const body = { utente: utenteId, amico: amico };
+        return this.http.post<any>(`${this.apiUrl}/friends`, body);
+      }
+      
 
     unfollow(followId: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/friends/user/${followId}`);

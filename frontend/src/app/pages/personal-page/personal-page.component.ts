@@ -8,32 +8,43 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
 import { Animal } from '../../model/animal.model';
 import { AnimalService } from '../../services/animal.service';
-
+import { HttpClient } from '@angular/common/http';
+interface User {
+  _id: string;
+  email: string;
+  // Altre proprietà dell'utente se presenti
+}
 @Component({
   selector: 'app-personal-page',
   templateUrl: './personal-page.component.html',
   styleUrls: ['./personal-page.component.scss'],
 })
 export class PersonalPageComponent implements OnInit {
+  
+  
   friendsList: Friend[] = [];
   posts: Post[] = [];
   animal: Animal = {} as Animal;
+  usersList: User[] = [];
 
   isLoadingFriends: boolean = false;
   isLoadingPosts: boolean = false;
+  isFindNewFriends: boolean = false;
 
   constructor(
     private friendService: FriendService,
     private postService: PostService,
     private dialog: MatDialog,
     private reloadService: ReloadService, 
-    private animalService: AnimalService
+    private animalService: AnimalService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.loadPostsData();
     this.loadFriendsData();
     this.loadAnimalsData();
+    this.loadUsersDataExceptOne();
   }
 
   loadFriendsData(): void {
@@ -61,6 +72,23 @@ export class PersonalPageComponent implements OnInit {
         this.isLoadingFriends = false;
       }
     );
+  }
+
+  // TODO anche quelli gia presenti in friend non sono da vedere
+  loadUsersDataExceptOne(): void {
+    const id = localStorage.getItem('id')!;
+    this.http.get<User[]>(`http://localhost:3000/api/v1/users/except/${id}`).subscribe(
+      (users) => {
+        this.usersList = users;
+      },
+      (error) => {
+        console.error('Errore nel recupero degli utenti:', error);
+      }
+    );
+  }
+
+  findNewFriends(): void {
+    this.isFindNewFriends = !this.isFindNewFriends;
   }
 
   loadPostsData(): void {
@@ -133,23 +161,6 @@ export class PersonalPageComponent implements OnInit {
     );
   }
 
-  /*toggleFollowStatus(friend: Friend): void {
-    const followStatus = friend.isFollowing;
-    friend.isFollowing = !followStatus; // Aggiorna immediatamente la UI
-
-    this.friendService.followFriend(friend._id, !followStatus)
-      .subscribe(
-        () => {
-          // Lascia la logica qui se è necessario eseguire ulteriori azioni dopo il successo
-        },
-        error => {
-          console.error('Errore nella chiamata API per aggiornare lo stato di follow:', error);
-          // Ripristina lo stato originale in caso di errore
-          friend.isFollowing = followStatus;
-        }
-      );
-  }*/
-
   unfollow(followId: string): void {
     this.friendService.unfollow(followId).subscribe(
       (response) => {
@@ -159,6 +170,18 @@ export class PersonalPageComponent implements OnInit {
       (error) => {
         console.error('Error deleting friend:', error);
         // Gestisci eventuali errori
+      }
+    );
+  }
+
+  followUser( email: string): void {
+    const id = localStorage.getItem('id')!;
+    this.friendService.follow(id, email).subscribe(
+      (response) => {
+        this.reloadService.reloadPage();
+      },
+      (error) => {
+        console.error('Error add friend:', error);
       }
     );
   }

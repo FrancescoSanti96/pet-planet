@@ -4,6 +4,7 @@ const Post = require("../models/post.model");
 async function getAllUsers(request, reply) {
   try {
     const users = await User.find();
+    // const users = await User.find({}, 'email');
     reply.send(users);
   } catch (error) {
     reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
@@ -33,6 +34,18 @@ async function getUserByEmail(request, reply) {
     }
   } catch (error) {
     reply.status(500).send({ error: 'Errore durante il recupero dell\'utente' });
+  }
+}
+async function getAllUsersExceptOne(request, reply) {
+  try {
+    const userIdToExclude = request.params.id; // Assicurati di ottenere l'ID dall'URL
+
+    // Trova tutti gli utenti tranne quello specificato
+    const users = await User.find({ _id: { $ne: userIdToExclude } });
+
+    reply.send(users);
+  } catch (error) {
+    reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
   }
 }
 async function createUser(request, reply) {
@@ -83,4 +96,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  getAllUsersExceptOne,
 };

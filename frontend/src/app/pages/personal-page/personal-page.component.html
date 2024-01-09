@@ -21,85 +21,100 @@
   </mat-card>
 
   <div class="containerNavbar">
-
- 
-  <!-- Lista di Amici condizionalmente visualizzata -->
-  <mat-card class="friend-list">
-    <mat-card-header>
-      <mat-card-title>Amici</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <!-- Indicatore di caricamento -->
-      <div *ngIf="isLoadingFriends; else friendsContent">
-        Caricamento in corso...
-      </div>
-      <ng-template #friendsContent>
-        <ul class="friend-list-items">
-          <li *ngFor="let friend of friendsList">
-            <div class="friend-info">
-              <div mat-card-avatar class="friend-avatar"></div>
-              <span>{{ friend.amico }}</span>
-              <div class="friend-buttons">
-                <button (click)="unfollow(friend._id)">Unfollow</button>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </ng-template>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Lista di Post condizionalmente visualizzata -->
-  <mat-card class="post-list">
-    <mat-card-header>
-      <mat-card-title>Lista dei miei Post</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <!-- Indicatore di caricamento -->
-      <div *ngIf="isLoadingPosts; else postsContent">
-        Caricamento in corso...
-      </div>
-      <ng-template #postsContent>
-        <div class="display margin">
-          <mat-card class="border" *ngFor="let post of posts">
-            <mat-card-header>
-              <div
-                mat-card-avatar
-                [style.background-image]="'url(' + post.profilePic + ')'"
-              ></div>
-              <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p>{{ post.corpo }}</p>
-              <div *ngIf="post.commenti && post.commenti.length > 0">
-                <h3 class>Commenti:</h3>
-                <ul>
-                  <li *ngFor="let comment of post.commenti">
-                    {{ comment.testo }}
-                  </li>
-                </ul>
-              </div>
-              <button
-                mat-icon-button
-                color="primary"
-                (click)="openModifyPostDialog(post)"
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                color="warn"
-                (click)="deletePost(post._id)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-card-content>
-          </mat-card>
+    <!-- Lista di Amici condizionalmente visualizzata -->
+    <mat-card class="friend-list">
+      <mat-card-header>
+        <mat-card-title>Amici</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Indicatore di caricamento -->
+        <div *ngIf="isLoadingFriends; else friendsContent">
+          Caricamento in corso...
         </div>
-      </ng-template>
-    </mat-card-content>
-  </mat-card>
+        <ng-template #friendsContent>
+          <ul class="friend-list-items">
+            <li *ngFor="let friend of friendsList">
+              <div class="friend-info">
+                <div mat-card-avatar class="friend-avatar"></div>
+                <span>{{ friend.amico }}</span>
+                <div class="friend-buttons">
+                  <button (click)="unfollow(friend._id)">Unfollow</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
 
-  
-</div>
+    <!-- Lista di Post condizionalmente visualizzata -->
+    <mat-card class="post-list">
+      <mat-card-header>
+        <mat-card-title>Lista dei miei Post</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Indicatore di caricamento -->
+        <div *ngIf="isLoadingPosts; else postsContent">
+          Caricamento in corso...
+        </div>
+        <ng-template #postsContent>
+          <div class="display margin">
+            <mat-card class="border" *ngFor="let post of posts">
+              <mat-card-header>
+                <div
+                  mat-card-avatar
+                  [style.background-image]="'url(' + post.profilePic + ')'"
+                ></div>
+                <mat-card-title
+                  ><b>{{ post.titolo }}</b></mat-card-title
+                >
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ post.corpo }}</p>
+                <div *ngIf="post.commenti && post.commenti.length > 0">
+                  <h3 class>Commenti:</h3>
+                  <ul>
+                    <li *ngFor="let comment of post.commenti">
+                      {{ comment.testo }}
+                    </li>
+                  </ul>
+                </div>
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="openModifyPostDialog(post)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deletePost(post._id)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div>
+    <button mat-raised-button color="primary" (click)="findNewFriends()">
+      Cerca nuovi amici
+    </button>
+
+    <div *ngIf="isFindNewFriends">
+      <div *ngFor="let user of usersList" class="containerNewFriend">
+        <span>{{ user.email }}</span>
+        <div class="friend-buttons">
+          <button (click)="followUser( user.email)">
+            Follow
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
