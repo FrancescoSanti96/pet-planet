@@ -21,8 +21,8 @@ export class PostService {
         return this.http.get<Post[]>(`${this.apiUrl}/posts/${userId}/friends`);
     }
 
-    getPostByUserID(): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/posts/${this.id}/user`);
+    getPostByUserID(userId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/posts/${userId}/user`);
     }
 
     createPost(utente: string, titolo: string, corpo: string, profilePic: string): Observable<Post> {

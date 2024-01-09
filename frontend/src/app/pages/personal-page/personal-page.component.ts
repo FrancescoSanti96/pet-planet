@@ -32,6 +32,7 @@ export class PersonalPageComponent implements OnInit {
   isLoadingFriends: boolean = false;
   isLoadingPosts: boolean = false;
   isFindNewFriends: boolean = false;
+  id!: string;
 
   constructor(
     private friendService: FriendService,
@@ -119,7 +120,8 @@ export class PersonalPageComponent implements OnInit {
   }
 
   loadPostsData(): void {
-    this.postService.getPostByUserID().subscribe(
+    this.id = localStorage.getItem('id')!;
+    this.postService.getPostByUserID(this.id).subscribe(
       (posts) => {
         this.posts = posts;
       },

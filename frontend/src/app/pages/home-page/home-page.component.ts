@@ -37,7 +37,7 @@ export class HomePageComponent {
     });
     setTimeout(() => {
       this.loadPostsData();
-    },500);
+    },200);
   }
 
   getUserInfo() {
