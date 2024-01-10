@@ -34,7 +34,6 @@ async function getAllFriendsByUser(request, reply) {
 async function getFriendById(request, reply) {
     try {
         const friend = await Friend.findById(request.params.id);
-        console.log("amico", friend)
         if (friend) {
             reply.send(friend);
         } else {
@@ -56,8 +55,6 @@ async function follow(request, reply) {
         const result = await newFriend.save();
 
         const updatedUser = await User.findByIdAndUpdate(utente, { $push: { friends: newFriend._id } }, { new: true });
-
-        console.log("Post creato:", result);
         console.log("Utente aggiornato:", updatedUser);
 
         reply.status(201).send(result);

@@ -170,14 +170,10 @@ export class PersonalPageComponent implements OnInit {
   deletePost(postId: string): void {
     this.postService.deletePost(postId).subscribe(
       () => {
-        console.log('Post eliminato con successo');
         this.reloadService.reloadPage();
       },
       (error) => {
         console.error("Errore nell'eliminazione del post:", error);
-
-        console.log('Post ID:', postId);
-        console.log('Error Object:', error);
       }
     );
   }
@@ -218,7 +214,6 @@ export class PersonalPageComponent implements OnInit {
   }
 
   addFollower(userId: string ): void {
-    console.log('addFollower', this.followersList);
     const email = JSON.parse(localStorage.getItem('user_info') || '{}').email;
     this.followerService.addFollower(userId, email).subscribe(
       (response) => {

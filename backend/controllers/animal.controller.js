@@ -46,26 +46,18 @@ async function getAnimalById(request, reply) {
 async function createAnimal(request, reply) {
     try {
         const { nome, tipoAnimale, razza, sesso, owner } = request.body;
-
-        // Crea l'animale
         const newAnimal = new Animal({
             nome,
             tipoAnimale,
             razza,
             sesso,
-            owner, // Assumendo che 'owner' sia l'ID dell'utente proprietario
+            owner, 
         });
 
-        // Salva l'animale
         const result = await newAnimal.save();
-
-        // Aggiorna l'utente aggiungendo l'ID del nuovo animale al suo campo 'animal'
         const updatedUser = await User.findByIdAndUpdate(owner, { animal: newAnimal._id }, { new: true });
 
-        // Log per debug
-        console.log("Animale creato:", result);
         console.log("Utente aggiornato:", updatedUser);
-
         reply.status(201).send(result);
     } catch (error) {
         console.error(error);
@@ -90,12 +82,9 @@ async function updateAnimal(request, reply) {
 async function deleteAnimal(request, reply) {
     try {
         const animalId = request.params.id;
-
-        // Trova l'animale da eliminare
         const deletedAnimal = await Animal.findByIdAndDelete(animalId).populate('owner');
 
         if (deletedAnimal) {
-            // Rimuovi l'associazione dell'animale dall'utente proprietario
             const updatedUser = await User.findByIdAndUpdate(
                 deletedAnimal.owner,
                 { animal: null },

@@ -27,7 +27,6 @@ export class ModifyPostDialogComponent {
   onConfirmClick(): void {
     this.postService.modifyPost(this.data.post._id, this.updatedPost).subscribe(
       (updatedPost) => {
-        console.log('Post aggiornato con successo:', updatedPost);
         this.dialogRef.close(updatedPost);
       },
       (error) => {

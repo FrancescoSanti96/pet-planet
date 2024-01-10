@@ -28,8 +28,6 @@ async function addFollower(request, reply) {
         const result = await newFollower.save();
 
         const updatedUser = await User.findByIdAndUpdate(utente, { $push: { followers: newFollower._id } }, { new: true });
-
-        console.log("Post creato:", result);
         console.log("Utente aggiornato:", updatedUser);
 
         reply.status(201).send(result);

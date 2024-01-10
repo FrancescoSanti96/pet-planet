@@ -160,7 +160,6 @@ export class HomePageComponent {
       })
       .subscribe(
         (data) => {
-          console.log(data);
           this.getComments(postId);
           this.reloadService.reloadPage();
         },
