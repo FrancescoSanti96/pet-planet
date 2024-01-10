@@ -19,9 +19,6 @@ export class CommentDialogComponent {
   }
 
   onConfirm(): void {
-    // Puoi eseguire l'azione desiderata qui, ad esempio, chiamare il metodo createComment
-    // e passare il corpo del commento come parametro.
-    // this.data.postId è l'ID del post associato al commento.
     this.dialogRef.close(this.commentBody);
   }
 }

@@ -13,7 +13,6 @@ import { FollowerService } from '../../services/follower.service';
 interface User {
   _id: string;
   email: string;
-  // Altre proprietà dell'utente se presenti
 }
 @Component({
   selector: 'app-personal-page',
@@ -62,7 +61,6 @@ export class PersonalPageComponent implements OnInit {
             return new Friend(_id, utente, amico);
           } else {
             console.error('Oggetto amico non valido:', friend);
-            // Puoi gestire questa situazione restituendo un oggetto Friend con valori predefiniti o ignorando l'oggetto.
             return new Friend('', '', '');
           }
         });
@@ -102,7 +100,6 @@ export class PersonalPageComponent implements OnInit {
     );
   }
 
-  // TODO anche quelli gia presenti in friend non sono da vedere
   loadUsersDataExceptOne(): void {
     const id = localStorage.getItem('id')!;
     this.http.get<User[]>(`http://localhost:3000/api/v1/users/except/${id}`).subscribe(
@@ -138,7 +135,7 @@ export class PersonalPageComponent implements OnInit {
     this.animalService.getAnimalByUserId().subscribe(
       (animal) => {
         if (animal !== null) {
-          this.animal = animal;  // Assegna gli animali alla proprietà animal del tuo componente
+          this.animal = animal; 
         }
       },
       (error) => {
@@ -170,7 +167,6 @@ export class PersonalPageComponent implements OnInit {
     });
   }
 
-  // Metodo per eliminare un post
   deletePost(postId: string): void {
     this.postService.deletePost(postId).subscribe(
       () => {

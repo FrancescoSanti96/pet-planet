@@ -20,6 +20,6 @@ export class GoogleAuthComponent {
   }
 
   getGoogleAuthUrl(): string {
-    return 'http://localhost:3000/oauth2/google'; // Adjust the URL accordingly
+    return 'http://localhost:3000/oauth2/google';
   }
 }

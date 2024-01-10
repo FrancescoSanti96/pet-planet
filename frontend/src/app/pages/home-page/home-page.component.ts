@@ -30,7 +30,7 @@ export class HomePageComponent {
   ) {}
 
   ngOnInit(): void {
-    // Recupera il valore dell'access_token dalla query param dell'URL
+// Recupera il valore dell'access_token dalla query param dell'URL
     this.route.queryParams.subscribe((params) => {
       this.accessToken = params['access_token'];
       this.getUserInfo();
@@ -78,7 +78,6 @@ export class HomePageComponent {
           }
         },
         (error) => {
-          // Se l'errore è dovuto a un utente già registrato, cerca l'utente per email
           if (
             error.status === 400 &&
             error.error &&
@@ -114,10 +113,8 @@ export class HomePageComponent {
     this.userInfo = JSON.parse(localStorage.getItem('user_info')!);
     this.postService.createPost(this.id, this.titolo, this.corpo, this.userInfo.picture).subscribe(
       (data) => {
-        // this.loadPostsData();
       },
       (error) => {
-        // handle the error
       }
     );
   }
@@ -164,8 +161,6 @@ export class HomePageComponent {
       .subscribe(
         (data) => {
           console.log(data);
-
-          // Dopo aver creato un commento, ricarica i commenti associati al post
           this.getComments(postId);
           this.reloadService.reloadPage();
         },

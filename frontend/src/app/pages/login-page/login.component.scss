@@ -4,7 +4,6 @@ body {
     padding: 0;
     background-color: #f0f2f5;
     text-align: center;
-    /* Aggiunto per centrare il testo del footer */
 }
 
 .container {
@@ -22,26 +21,17 @@ body {
 .custom-paragraph {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1em;
-    /* Dimensione del font per il paragrafo */
     color: #606770;
-    /* Colore del testo per il paragrafo */
     line-height: 1.6;
-    /* Altezza della riga per migliorare la leggibilità */
 }
 
 .custom-h1 {
     color: #1877f2;
-    /* Colore blu di Facebook */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Font simile a quello di Facebook */
     font-size: 2em;
-    /* Dimensione del font, puoi regolarla secondo le tue preferenze */
     font-weight: bold;
-    /* Grassetto */
     letter-spacing: -1px;
-    /* Spaziatura delle lettere */
     margin-bottom: 0;
-    /* Rimuovi il margine inferiore predefinito */
 }
 
 .left-side {
@@ -85,8 +75,8 @@ body {
 
 .form-container button {
     width: 100%;
-    height: 40px; /* Regola l'altezza del bottone */
-    padding: 8px; /* Regola il padding del bottone */
+    height: 40px; 
+    padding: 8px; 
     background-color: #1877f2;
     color: #fff;
     border: none;
@@ -97,9 +87,9 @@ body {
 
 .form-container .create-account-button {
     width: 100%;
-    height: 40px; /* Regola l'altezza del bottone */
-    padding: 8px; /* Regola il padding del bottone */
-    background-color: #42b72a; /* Colore verde per il bottone "Crea nuovo account" */
+    height: 40px; 
+    padding: 8px; 
+    background-color: #42b72a; 
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -108,14 +98,13 @@ body {
 }
 
 .form-container .create-account-description {
-    color: #606770; /* Colore del testo */
-    font-size: 14px; /* Dimensione del font */
-    margin-top: 8px; /* Spaziatura superiore */
+    color: #606770; 
+    font-size: 14px; 
+    margin-top: 8px; 
 }
 
 .footer {
     text-align: left;
-    /* Modificato per spostare il testo a sinistra */
     margin-top: 20px;
     font-size: 14px;
     color: #606770;

@@ -7,7 +7,7 @@ import { Animal } from '../model/animal.model';
   providedIn: 'root',
 })
 export class AnimalService {
-  private apiUrl = 'http://localhost:3000/api/v1'; // Sostituisci con l'URL del tuo server API
+  private apiUrl = 'http://localhost:3000/api/v1'; 
 
   private id = localStorage.getItem('id');
 

@@ -1,9 +1,6 @@
 <div class="display margin">
   <mat-card>
     <mat-card-content *ngIf="checkAnimal()">
-      <!-- <div class="animal-image">
-              <img [src]="animal.imageUrl" alt="Immagine dell'animale">
-            </div> -->
       <h2>{{ animal.nome }}</h2>
       <p>Tipo: {{ animal.tipoAnimale }}</p>
       <p *ngIf="animal.razza">Razza: {{ animal.razza }}</p>
@@ -23,49 +20,49 @@
   <div class="containerNavbar">
     <mat-card class="friend-list">
       <mat-card-header>
-          <mat-card-title>Amici</mat-card-title>
+        <mat-card-title>Amici</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-          <div *ngIf="isLoadingFriends; else friendsContent">
-              Caricamento in corso...
-          </div>
-          <ng-template #friendsContent>
-              <ul class="friend-list-items">
-                  <li *ngFor="let friend of friendsList">
-                      <div class="friend-info">
-                          <div mat-card-avatar class="friend-avatar"></div>
-                          <span>{{ friend.amico }}</span>
-                          <div class="friend-buttons">
-                              <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
-                          </div>
-                      </div>
-                  </li>
-              </ul>
-          </ng-template>
+        <div *ngIf="isLoadingFriends; else friendsContent">
+          Caricamento in corso...
+        </div>
+        <ng-template #friendsContent>
+          <ul class="friend-list-items">
+            <li *ngFor="let friend of friendsList">
+              <div class="friend-info">
+                <div mat-card-avatar class="friend-avatar"></div>
+                <span>{{ friend.amico }}</span>
+                <div class="friend-buttons">
+                  <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
       </mat-card-content>
-  </mat-card>
-  
-  <mat-card class="friend-list">
+    </mat-card>
+
+    <mat-card class="friend-list">
       <mat-card-header>
-          <mat-card-title>Followers</mat-card-title>
+        <mat-card-title>Followers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-          <ng-container *ngIf="followersList && followersList.length > 0; else noFollowersTemplate">
-              <ul class="friend-list-items">
-                  <li *ngFor="let follower of followersList">
-                      <div class="friend-info">
-                          <div mat-card-avatar class="friend-avatar"></div>
-                          <span>{{ follower.amico }}</span>
-                      </div>
-                  </li>
-              </ul>
-          </ng-container>
-          <ng-template #noFollowersTemplate>
-              <p>Nessun follower al momento.</p>
-          </ng-template>
+        <ng-container *ngIf="followersList && followersList.length > 0; else noFollowersTemplate">
+          <ul class="friend-list-items">
+            <li *ngFor="let follower of followersList">
+              <div class="friend-info">
+                <div mat-card-avatar class="friend-avatar"></div>
+                <span>{{ follower.amico }}</span>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #noFollowersTemplate>
+          <p>Nessun follower al momento.</p>
+        </ng-template>
       </mat-card-content>
-  </mat-card>
-  
+    </mat-card>
+
 
     <!-- Lista di Post condizionalmente visualizzata -->
     <mat-card class="post-list">
@@ -73,7 +70,7 @@
         <mat-card-title>Lista dei miei Post</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <!-- Indicatore di caricamento -->
+
         <div *ngIf="isLoadingPosts; else postsContent">
           Caricamento in corso...
         </div>
@@ -81,13 +78,8 @@
           <div class="display margin">
             <mat-card class="border" *ngFor="let post of posts">
               <mat-card-header>
-                <div
-                  mat-card-avatar
-                  [style.background-image]="'url(' + post.profilePic + ')'"
-                ></div>
-                <mat-card-title
-                  ><b>{{ post.titolo }}</b></mat-card-title
-                >
+                <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
+                <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <p>{{ post.corpo }}</p>
@@ -99,18 +91,10 @@
                     </li>
                   </ul>
                 </div>
-                <button
-                  mat-icon-button
-                  color="primary"
-                  (click)="openModifyPostDialog(post)"
-                >
+                <button mat-icon-button color="primary" (click)="openModifyPostDialog(post)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="deletePost(post._id)"
-                >
+                <button mat-icon-button color="warn" (click)="deletePost(post._id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </mat-card-content>

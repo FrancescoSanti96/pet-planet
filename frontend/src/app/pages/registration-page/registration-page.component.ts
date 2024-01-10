@@ -23,7 +23,6 @@ export class RegistrationPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Carica l'animale dell'utente se presente
     this.loadAnimalData();
   }
 
@@ -33,7 +32,6 @@ export class RegistrationPageComponent implements OnInit {
         this.animal = animal;
   
         if (this.animal) {
-          // Se l'animale è presente, popola i dati di registrazione con i suoi valori
           this.datiRegistrazione.nome = this.animal.nome || '';
           this.datiRegistrazione.tipoAnimale = this.animal.tipoAnimale || '';
           this.datiRegistrazione.sesso = this.animal.sesso || '';
@@ -48,10 +46,8 @@ export class RegistrationPageComponent implements OnInit {
 
   salvaInformazioni() {
     if (this.animal) {
-      // Se l'animale è già presente, esegui l'aggiornamento
       this.modificaAnimale();
     } else {
-      // Altrimenti, crea un nuovo animale
       this.creaAnimale();
     }
   }

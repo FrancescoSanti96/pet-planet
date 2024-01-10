@@ -15,9 +15,9 @@ export class ModifyPostDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { post: Post },
     public dialogRef: MatDialogRef<ModifyPostDialogComponent>,
-    private postService: PostService // Inietta il servizio direttamente nel componente
+    private postService: PostService 
   ) {
-    this.updatedPost = { ...data.post }; // Inizializza il modello del post con i dati correnti
+    this.updatedPost = { ...data.post }; 
   }
 
   onCancelClick(): void {
@@ -25,7 +25,6 @@ export class ModifyPostDialogComponent {
   }
 
   onConfirmClick(): void {
-    // Esegui l'azione di conferma direttamente nel componente
     this.postService.modifyPost(this.data.post._id, this.updatedPost).subscribe(
       (updatedPost) => {
         console.log('Post aggiornato con successo:', updatedPost);
