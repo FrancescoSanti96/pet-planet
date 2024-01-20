@@ -1,14 +1,69 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.left-container {
+    width: 25%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: baseline;
+}
+
 .title {
     color: #1877f2;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 60px;
+    font-size: 75px;
     font-weight: bold;
     letter-spacing: -1px;
     margin-bottom: 0;
     text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-.display {
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    align-items: baseline;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #3498db;
+}
+
+.action-button .material-icons {
+    font-size: 40px;
+}
+
+.label {
+    font-size: 16px;
+}
+
+.post-container {
+    width: 50%;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.display-post {
     display: flex;
     align-content: center;
     flex-wrap: wrap;
@@ -21,6 +76,63 @@
 }
 
 .border {
+    max-width: 400px;
+    width: 50%;
+    border: aliceblue 5px solid;
+}
+
+.mat-card {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.mat-card-avatar {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+.mat-card-content {
+    margin-top: 10px;
+}
+
+.textMessage {
+    font-size: 17px;
+}
+
+.amici-container {
+    width: 25%;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding: 20px;
+}
+
+.amico {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: -20px;
+    margin-top: 30px;
+}
+
+.amico i {
+    margin-right: 30px;
+}
+
+.segui-link-amico {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+    margin-left: 100px;
+}
+
+/*.border {
     max-width: 400px;
     width: 50%;
     border: aliceblue 5px solid;
@@ -47,10 +159,13 @@
     width: 80px;
 }
 
-.mat-mdc-card-title, .mat-mdc-card-subtitle {
+.mat-mdc-card-title,
+.mat-mdc-card-subtitle {
     font-size: 18px;
 }
 
-.textMessage{
+.textMessage {
     font-size: 17px;
 }
+
+*/
