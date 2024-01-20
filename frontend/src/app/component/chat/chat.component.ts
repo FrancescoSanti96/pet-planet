@@ -19,7 +19,6 @@ export class ChatComponent implements OnInit {
 
     if (friendIdParam !== null) {
       this.friendId = +friendIdParam;
-      console.log('Inizia la chat con l\'amico con ID:', this.friendId);
     } else {
       console.error('Il parametro friendId è nullo. Imposto un valore predefinito.');
       this.friendId = -1;

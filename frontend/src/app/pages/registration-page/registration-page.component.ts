@@ -98,7 +98,6 @@ export class RegistrationPageComponent implements OnInit {
     if (this.animal) {
       this.animalService.deleteAnimal(this.animal._id).subscribe(
         () => {
-          console.log('Animale eliminato con successo');
           this.router.navigate(['/profile']);
         },
         (error) => {
