@@ -3,14 +3,14 @@ const User = require("../models/user.model");
 const Friend = require("../models/friend.model");
 
 
-async function getAllPosts(request, reply) {
-    try {
-        const posts = await Post.find();
-        reply.send(posts);
-    } catch (error) {
-        reply.status(500).send({ error: 'Errore durante il recupero del post' });
-    }
-}
+// async function getAllPosts(request, reply) {
+//     try {
+//         const posts = await Post.find();
+//         reply.send(posts);
+//     } catch (error) {
+//         reply.status(500).send({ error: 'Errore durante il recupero del post' });
+//     }
+// }
 
 
 async function getPostsOfFriends(request, reply) {
@@ -50,6 +50,7 @@ async function getPostsByUserId(request, reply) {
         reply.status(500).send({ error: 'Errore durante il recupero dei commenti' });
     }
 }
+
 async function getPostById(request, reply) {
     try {
         const post = await Post.findById(request.params.id);
@@ -62,6 +63,7 @@ async function getPostById(request, reply) {
         reply.status(500).send({ error: 'Errore durante il recupero del post' });
     }
 }
+
 async function createPost(request, reply) {
     try {
         const { utente,titolo, corpo, profilePic} = request.body;
@@ -200,7 +202,7 @@ async function deleteComment(request, reply) {
 }
 
 module.exports = {
-    getAllPosts,
+    // getAllPosts,
     getPostById,
     createPost,
     updatePost,

@@ -1,14 +1,14 @@
 const Friend = require("../models/friend.model");
 const User = require("../models/user.model");
 
-async function getAllFriends(request, reply) {
-    try {
-        const friends = await Friend.find();
-        reply.send(friends);
-    } catch (error) {
-        reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
-    }
-}
+// async function getAllFriends(request, reply) {
+//     try {
+//         const friends = await Friend.find();
+//         reply.send(friends);
+//     } catch (error) {
+//         reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
+//     }
+// }
 
 async function getAllFriendsByUser(request, reply) {
     try {
@@ -43,6 +43,7 @@ async function getFriendById(request, reply) {
         reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
     }
 }
+
 async function follow(request, reply) {
     try {
         const { utente, amico } = request.body;
@@ -62,16 +63,16 @@ async function follow(request, reply) {
         reply.status(500).send({ error: 'Errore durante la creazione dell\'amico' });
     }
 }
-async function updateFriend(request, reply) {
-    try {
-        const friend = await Friend.findByIdAndUpdate(request.params.id, request.body, {
-            new: true,
-        });
-        reply.send(friend);
-    } catch (error) {
-        reply.status(500).send({ error: 'Errore durante l\'aggiornamento dell\'amico' });
-    }
-}
+// async function updateFriend(request, reply) {
+//     try {
+//         const friend = await Friend.findByIdAndUpdate(request.params.id, request.body, {
+//             new: true,
+//         });
+//         reply.send(friend);
+//     } catch (error) {
+//         reply.status(500).send({ error: 'Errore durante l\'aggiornamento dell\'amico' });
+//     }
+// }
 async function unfollow(request, reply) {
     try {
         const unfollowFriend = await Friend.findByIdAndDelete(request.params.id);
@@ -86,10 +87,10 @@ async function unfollow(request, reply) {
 }
 
 module.exports = {
-    getAllFriends,
+    // getAllFriends,
     getAllFriendsByUser,
     getFriendById,
     follow,
     unfollow,
-    updateFriend,
+    // updateFriend,
 };
