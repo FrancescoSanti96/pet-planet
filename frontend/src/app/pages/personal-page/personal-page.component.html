@@ -1,4 +1,4 @@
-<div class="display margin">
+<!-- <div class="display margin">
   <mat-card>
     <mat-card-content *ngIf="checkAnimal()">
       <h2>{{ animal.nome }}</h2>
@@ -63,8 +63,6 @@
       </mat-card-content>
     </mat-card>
 
-
-    <!-- Lista di Post condizionalmente visualizzata -->
     <mat-card class="post-list">
       <mat-card-header>
         <mat-card-title>Lista dei miei Post</mat-card-title>
@@ -121,4 +119,85 @@
       </div>
     </div>
   </div>
+</div>-->
+
+
+<div class="container">
+  <div class="left-container">
+    <div class="title">PetPlanet</div>
+    <div class="button-container">
+      <div class="action-button">
+        <i class="material-icons" routerLink="/register">create</i>
+        <div class="label">Modifica dati animale</div>
+      </div>
+      <div class="action-button">
+        <i class="material-icons">search</i>
+        <div class="label">Cerca nuovi PetFriend</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-profile-container">
+    <img mat-card-image class="profilePic" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      alt="Photo of a Shiba Inu">
+  </div>
+
+  <div class="info-animale-container">
+
+    <mat-card>
+      <mat-card-content *ngIf="checkAnimal()">
+        <h2>{{ animal.nome }}</h2>
+        <p>Tipo: {{ animal.tipoAnimale }}</p>
+        <p *ngIf="animal.razza">Razza: {{ animal.razza }}</p>
+        <p *ngIf="animal.sesso">Sesso: {{ animal.sesso }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="badge-container">
+    <h1>I tuoi badge</h1>
+
+    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--46c9RZh7--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/236/Thumbs_Up-04.png" vspace="10" hspace="10" alt="badge1">
+
+    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--Sqzy8EDG--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/160/Community_Wellness_Streak_Badge-01.png" vspace="10" hspace="10" alt="badge2">
+
+    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--L0O-vvgc--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/3/Discussion_BAdges-03.png" vspace="10" hspace="10" alt="badge3">
+
+    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--9BR4RYdC--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/2/Version2-08.png" vspace="10" hspace="10" alt="badge4">
+  </div>
 </div>
+
+<footer class="container-footer">
+  <div class="post">
+    <mat-card class="post-list">
+      <mat-card-header>
+        <mat-card-title>Lista dei miei Post</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card *ngFor="let post of posts">
+          <mat-card-header>
+            <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
+            <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="post-content">
+            <p>{{ post.corpo }}</p>
+            <div *ngIf="post.commenti && post.commenti.length > 0">
+              <h3 class>Commenti:</h3>
+              <ul>
+                <li *ngFor="let comment of post.commenti">
+                  {{ comment.testo }}
+                </li>
+              </ul>
+            </div>
+            <button mat-icon-button color="primary" (click)="openModifyPostDialog(post)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deletePost(post._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</footer>

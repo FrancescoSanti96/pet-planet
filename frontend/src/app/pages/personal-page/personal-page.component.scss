@@ -1,4 +1,4 @@
-.display {
+/*.display {
     display: flex;
     margin: 40px;
     flex-wrap: wrap;
@@ -52,8 +52,9 @@
         margin-right: 10px;
     }
 
-    
+
 }
+
 .friend-buttons {
     button {
         margin-left: 10px;
@@ -70,6 +71,7 @@
         background-color: #45a049;
     }
 }
+
 .post-list {
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -135,8 +137,147 @@
     width: 80px;
 }
 
-.containerNewFriend{
+.containerNewFriend {
     margin-top: 20px;
     display: flex;
     align-items: center;
+}*/
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100vh;
+}
+
+.left-container {
+    width: 25%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: baseline;
+    gap: 50px;
+    height: 100vh;
+}
+
+.title {
+    color: #1877f2;
+    font-size: 75px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin-bottom: 0;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+    align-items: baseline;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #3498db;
+}
+
+.action-button .material-icons {
+    font-size: 40px;
+}
+
+.label {
+    font-size: 16px;
+}
+
+.image-profile-container {
+    width: 25%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profilePic {
+    width: 100%;
+    height: 50%;
+}
+
+.info-animale-container {
+    width: 15%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding: 20px;
+    height: 100vh;
+}
+
+.container-footer {
+    height: 70vh;
+    padding: 20px;
+    width: 180vh;
+    display: flex;
+    padding-top: 25%;
+}
+
+.post {
+    background-color: #fff;
+    margin-bottom: 20px;
+    width: 150%;
+    height: 150vh;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.post-content {
+    padding: 20px;
+}
+
+.post-list {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.post-list-content {
+    padding: 10px;
+}
+
+.post-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-list li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.badge-container {
+    width: 25%;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding: 20px;
+}
+
+.badge {
+    width: 15%;
 }
