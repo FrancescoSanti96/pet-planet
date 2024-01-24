@@ -1,10 +1,8 @@
 const User = require("../models/user.model");
-const Post = require("../models/post.model");
 
 async function getAllUsers(request, reply) {
   try {
     const users = await User.find();
-    // const users = await User.find({}, 'email');
     reply.send(users);
   } catch (error) {
     reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
@@ -24,7 +22,7 @@ async function getUserById(request, reply) {
 }
 async function getUserByEmail(request, reply) {
   try {
-    const email = request.params.email; // Assicurati di ottenere l'email dalla richiesta
+    const email = request.params.email; 
     const user = await User.findOne({ email });
 
     if (user) {
@@ -38,7 +36,7 @@ async function getUserByEmail(request, reply) {
 }
 async function getAllUsersExceptOne(request, reply) {
   try {
-    const userIdToExclude = request.params.id; // Assicurati di ottenere l'ID dall'URL
+    const userIdToExclude = request.params.id;
 
     // Trova tutti gli utenti tranne quello specificato
     const users = await User.find({ _id: { $ne: userIdToExclude } });
@@ -66,16 +64,16 @@ async function createUser(request, reply) {
     reply.status(500).send({ error: 'Errore durante la creazione dell\'utente' });
   }
 }
-async function updateUser(request, reply) {
-  try {
-    const user = await User.findByIdAndUpdate(request.params.id, request.body, {
-      new: true,
-    });
-    reply.send(user);
-  } catch (error) {
-    reply.status(500).send({ error: 'Errore durante l\'aggiornamento dell\'utente' });
-  }
-}
+// async function updateUser(request, reply) {
+//   try {
+//     const user = await User.findByIdAndUpdate(request.params.id, request.body, {
+//       new: true,
+//     });
+//     reply.send(user);
+//   } catch (error) {
+//     reply.status(500).send({ error: 'Errore durante l\'aggiornamento dell\'utente' });
+//   }
+// }
 async function deleteUser(request, reply) {
   try {
     const deletedUser = await User.findByIdAndDelete(request.params.id);
@@ -94,7 +92,7 @@ module.exports = {
   getUserById,
   getUserByEmail,
   createUser,
-  updateUser,
+  // updateUser,
   deleteUser,
   getAllUsersExceptOne,
 };

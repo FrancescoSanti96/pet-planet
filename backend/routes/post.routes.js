@@ -2,7 +2,7 @@ const postController = require("../controllers/post.controller");
 
 async function routes(fastify, options) {
     // Rotte per i post
-    fastify.get("/", postController.getAllPosts);
+    // fastify.get("/", postController.getAllPosts);
     fastify.get("/:id", postController.getPostById);
     fastify.post("/", postController.createPost);
     fastify.put("/:id", postController.updatePost);
