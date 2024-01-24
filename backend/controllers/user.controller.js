@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const { decodeAccessToken, deleteAccessToken, setAccessToken } = require("../app.js");
 
 async function getAllUsers(request, reply) {
   try {
@@ -8,6 +9,7 @@ async function getAllUsers(request, reply) {
     reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
   }
 }
+
 async function getUserById(request, reply) {
   try {
     const user = await User.findById(request.params.id).populate('posts');
@@ -20,13 +22,25 @@ async function getUserById(request, reply) {
     reply.status(500).send({ error: 'Errore durante il recupero dell\'utente' });
   }
 }
-async function getUserByEmail(request, reply) {
+// TODO Login
+async function login(request, reply) {
   try {
-    const email = request.params.email; 
+    const email = request.body.email; 
+    const password = request.body.password;
     const user = await User.findOne({ email });
 
     if (user) {
-      reply.send(user);
+      const passwordOk = await bcrypt.compare(user.password, password);
+      if (!passwordOk) {
+        return reply.status(400).send("Credenziali errate.");
+      }
+
+      delete user.password;
+      // setAccessToken(request, reply, user);
+      // reply.send(user);
+      // TODO controllare hash password
+      return reply.json({ message: "Login effettuato con successo" });
+
     } else {
       reply.status(404).send({ error: 'Utente non trovato' });
     }
@@ -46,6 +60,7 @@ async function getAllUsersExceptOne(request, reply) {
     reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
   }
 }
+// TODO Registrazione
 async function createUser(request, reply) {
   try {
     // Verifica se l'email è già presente nel database
@@ -56,6 +71,7 @@ async function createUser(request, reply) {
       reply.status(400).send({ error: 'Utente già registrato con questa email' });
     } else {
       // Se l'email non è presente, crea il nuovo utente
+      // TODO fare hash password e passaere body senza password
       const user = new User(request.body);
       const result = await user.save();
       reply.status(201).send(result);
@@ -90,7 +106,7 @@ async function deleteUser(request, reply) {
 module.exports = {
   getAllUsers,
   getUserById,
-  getUserByEmail,
+  login,
   createUser,
   // updateUser,
   deleteUser,

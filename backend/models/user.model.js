@@ -3,18 +3,18 @@ const mongoose = require("mongoose");
 // use trim for remove white space
 
 const UserSchema = new mongoose.Schema({
-  idGoogle: {
-    type: String,
-    required: true,
-  },
+  // idGoogle: {
+  //   type: String,
+  //   required: true,
+  // },
   firstName: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   email: {
@@ -23,6 +23,11 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     unique: true,
     lowercase: true,
+  },
+  password:{
+    type: String,
+    required: false,
+    trim: true,
   },
   surname: {
     type: String,

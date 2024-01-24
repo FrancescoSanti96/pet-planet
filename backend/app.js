@@ -2,6 +2,7 @@ const fastify = require('fastify')({ logger: true });
 const fastifyCors = require('@fastify/cors');
 const mongoose = require('mongoose');
 const oauthPlugin = require('@fastify/oauth2')
+const fastifyJwt = require('fast-jwt');
 
 // Import my routes
 const userRoutes = require("./routes/user.routes");
@@ -10,32 +11,80 @@ const postRoutes = require("./routes/post.routes");
 const friendRoutes = require("./routes/friend.routes");
 const followerRoutes = require("./routes/follower.routes");
 
-// Register fastify-oauth2 plugin
-fastify.register(oauthPlugin, {
-  name: 'googleOAuth2',
-  scope: ['profile', 'email'],
-  credentials: {
-    client: {
-      id: 'inserisci qui il tuo client id',
-      secret: 'inserisci qui il tuo client secret'
-    },
-    auth: oauthPlugin.GOOGLE_CONFIGURATION
-  },
-  startRedirectPath: '/oauth2/google',
-  callbackUri: `http://localhost:3000/oauth2/google/callback`,
-
+fastify.register(fastifyJwt, {
+  secret: "foo",
 });
 
-fastify.get('/oauth2/google/callback', async function (request, reply) {
+
+const COOKIE_NAME = "access-token";
+
+/**
+ * Codifica l'utente in un access token e lo imposta come cookie.
+ * Usato in fase di registrazione e login.
+ */
+const setAccessToken = (req, res, user) => {
+  // Crea l'access token con fastify-jwt
+  const accessToken = fastify.jwt.sign({ user }, { expiresIn: "1 day" });
+  // Imposta l'access token come cookie
+  res.setCookie(COOKIE_NAME, accessToken, {
+    maxAge: 86400000, // 1 giorno in millisecondi
+    httpOnly: true,
+    sameSite: true,
+    // secure: true
+  });
+};
+
+/**
+ * Decodifica l'access token, ottenendo l'utente.
+ * Usato per verificare se l'utente ha effettuato il login.
+ */
+const decodeAccessToken = (req, res) => {
+  // Ottiene il cookie dell'access token
+  const accessToken = req.cookies[COOKIE_NAME];
+  // Restituisce i dati dell'utente contenuti nell'access token, oppure null se il token è mancante o invalido
+  if (!accessToken) return null;
   try {
-    const { token } = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
-    reply.redirect("http://localhost:4200/homepage/?access_token=" + token.access_token);
-  } catch (error) {
-    console.error("OAuth callback error:", error);
-    reply.code(500).send({ error: 'Internal Server Error' });
+    const decoded = fastify.jwt.verify(accessToken);
+    return decoded.user;
+  } catch {
+    return null;
   }
+};
+
+/**
+ * Cancella il cookie contente l'access token.
+ * Usato per effettuare il logout.
+ */
+const deleteAccessToken = (req, res) => {
+  // Cancella il cookie dell'access token
+  res.clearCookie(COOKIE_NAME);
+};
+// Register fastify-oauth2 plugin
+// fastify.register(oauthPlugin, {
+//   name: 'googleOAuth2',
+//   scope: ['profile', 'email'],
+//   credentials: {
+//     client: {
+//       id: '550193410156-onmeemjnqs49ppdpjh81v7lo6iasobsn.apps.googleusercontent.com',
+//       secret: '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'
+//     },
+//     auth: oauthPlugin.GOOGLE_CONFIGURATION
+//   },
+//   startRedirectPath: '/oauth2/google',
+//   callbackUri: `http://localhost:3000/oauth2/google/callback`,
+
+// });
+
+// fastify.get('/oauth2/google/callback', async function (request, reply) {
+//   try {
+//     const { token } = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
+//     reply.redirect("http://localhost:4200/homepage/?access_token=" + token.access_token);
+//   } catch (error) {
+//     console.error("OAuth callback error:", error);
+//     reply.code(500).send({ error: 'Internal Server Error' });
+//   }
  
-});
+// });
 
 // Connect to my database
 const connectToDatabase = async () => {
