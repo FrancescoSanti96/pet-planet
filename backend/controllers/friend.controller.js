@@ -1,14 +1,14 @@
 const Friend = require("../models/friend.model");
 const User = require("../models/user.model");
 
-// async function getAllFriends(request, reply) {
-//     try {
-//         const friends = await Friend.find();
-//         reply.send(friends);
-//     } catch (error) {
-//         reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
-//     }
-// }
+async function getAllFriends(request, reply) {
+    try {
+        const friends = await Friend.find();
+        reply.send(friends);
+    } catch (error) {
+        reply.status(500).send({ error: 'Errore durante il recupero dell\'amico' });
+    }
+}
 
 async function getAllFriendsByUser(request, reply) {
     try {
@@ -48,6 +48,15 @@ async function follow(request, reply) {
     try {
         const { utente, amico } = request.body;
 
+        // Verifica se l'amico è già un amico dell'utente corrente
+        const isAlreadyFriend = await Friend.exists({ utente, amico });
+
+        if (isAlreadyFriend) {
+            // L'amico è già un amico dell'utente corrente
+            return reply.status(400).send({ error: 'Questo amico è già presente nella tua lista di amici.' });
+        }
+
+        // Procedi con l'aggiunta dell'amico
         const newFriend = new Friend({
             utente,
             amico
@@ -60,9 +69,12 @@ async function follow(request, reply) {
 
         reply.status(201).send(result);
     } catch (error) {
-        reply.status(500).send({ error: 'Errore durante la creazione dell\'amico' });
+        console.error("Errore durante l'aggiunta dell'amico:", error);
+        reply.status(500).send({ error: 'Errore interno del server durante l\'aggiunta dell\'amico' });
     }
 }
+
+
 // async function updateFriend(request, reply) {
 //     try {
 //         const friend = await Friend.findByIdAndUpdate(request.params.id, request.body, {
@@ -87,7 +99,7 @@ async function unfollow(request, reply) {
 }
 
 module.exports = {
-    // getAllFriends,
+    getAllFriends,
     getAllFriendsByUser,
     getFriendById,
     follow,

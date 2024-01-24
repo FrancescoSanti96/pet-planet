@@ -1,14 +1,6 @@
 const Animal = require("../models/animal.model");
 const User = require("../models/user.model");
 
-// async function getAllAnimals(request, reply) {
-//     try {
-//         const animals = await Animal.find().populate('owner');
-//         reply.send(animals);
-//     } catch (error) {
-//         reply.status(500).send({ error: 'Errore durante il recupero degli animali' });
-//     }
-// }
 
 async function getAnimalByUserId(request, reply) {
     try {
@@ -101,7 +93,6 @@ async function deleteAnimal(request, reply) {
 }
 
 module.exports = {
-    // getAllAnimals,
     getAnimalById,
     createAnimal,
     updateAnimal,
