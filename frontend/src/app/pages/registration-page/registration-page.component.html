@@ -1,24 +1,43 @@
 <div class="container">
-    <div class="form-container">
-      <label for="name">Nome</label>
-      <input type="text" id="name" name="name" [(ngModel)]="datiRegistrazione.nome" required>
-  
-      <label for="animal-type">Tipo di animale</label>
-      <input type="text" id="animal-type" name="animal-type" [(ngModel)]="datiRegistrazione.tipoAnimale" required>
-  
-      <label for="gender">Sesso</label>
-      <select id="gender" name="gender" [(ngModel)]="datiRegistrazione.sesso" required>
-        <option value="male">Maschio</option>
-        <option value="female">Femmina</option>
-        <option value="other">Altro</option>
-      </select>
-  
-      <label for="breed">Razza</label>
-      <input type="text" id="breed" name="breed" [(ngModel)]="datiRegistrazione.razza" required>
-  
-      <button type="button" (click)="salvaInformazioni()">Salva informazioni</button>
-  
-      <button type="button" *ngIf="animal" (click)="eliminaAnimale()">Elimina animale</button>
-    </div>
+  <div class="form-container">
+
+    <!-- Name Input -->
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" id="name" name="name" [(ngModel)]="datiRegistrazione.nome" required>
+    </mat-form-field>
+
+    <!-- Animal Type Input -->
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo di animale</mat-label>
+      <input matInput type="text" id="animal-type" name="animal-type" [(ngModel)]="datiRegistrazione.tipoAnimale" required>
+    </mat-form-field>
+
+    <!-- Gender Select -->
+    <mat-form-field appearance="fill">
+      <mat-label>Sesso</mat-label>
+      <mat-select id="gender" name="gender" [(ngModel)]="datiRegistrazione.sesso" required>
+        <mat-option value="male">Maschio</mat-option>
+        <mat-option value="female">Femmina</mat-option>
+        <mat-option value="other">Altro</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Breed Input -->
+    <mat-form-field appearance="fill">
+      <mat-label>Razza</mat-label>
+      <input matInput type="text" id="breed" name="breed" [(ngModel)]="datiRegistrazione.razza" required>
+    </mat-form-field>
+
+    
+    <mat-label>Immagine</mat-label>
+    <input type="file" id="image" name="image" (change)="caricaImmagine($event)" accept="image/*">
+
+    <!-- Save Button -->
+    <button mat-raised-button color="primary" type="button" (click)="salvaInformazioni()" class="confirm">Salva informazioni</button>
+
+    <!-- Delete Button -->
+    <button mat-raised-button color="warn" *ngIf="animal" (click)="eliminaAnimale()">Elimina animale</button>
+
   </div>
-  
+</div>

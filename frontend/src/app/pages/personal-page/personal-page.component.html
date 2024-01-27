@@ -126,8 +126,12 @@
   <div class="left-container">
     <div class="title">PetPlanet</div>
     <div class="button-container">
-      <div class="action-button">
-        <i class="material-icons" routerLink="/register">create</i>
+      <div class="action-button" routerLink="/register" *ngIf="!checkAnimal()">
+        <i class="material-icons">create</i>
+        <div class="label">Inserisci informazioni animale</div>
+      </div> 
+      <div class="action-button" routerLink="/register" *ngIf="checkAnimal()">
+        <i class="material-icons">create</i>
         <div class="label">Modifica dati animale</div>
       </div>
       <div class="action-button">
@@ -138,14 +142,15 @@
   </div>
 
   <div class="image-profile-container">
-    <img mat-card-image class="profilePic" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-      alt="Photo of a Shiba Inu">
+    <img mat-card-image class="profilePic" *ngIf="animal.image && animal.image.data" [src]="imageURL"
+      alt="Photo of the animal">
   </div>
 
   <div class="info-animale-container">
 
     <mat-card>
       <mat-card-content *ngIf="checkAnimal()">
+        <!-- <img *ngIf="animal.image && animal.image.data" [src]="imageURL"> -->
         <h2>{{ animal.nome }}</h2>
         <p>Tipo: {{ animal.tipoAnimale }}</p>
         <p *ngIf="animal.razza">Razza: {{ animal.razza }}</p>
@@ -166,7 +171,6 @@
     <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--9BR4RYdC--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/2/Version2-08.png" vspace="10" hspace="10" alt="badge4">
   </div>
 </div>
-
 <footer class="container-footer">
   <div class="post">
     <mat-card class="post-list">
@@ -201,3 +205,4 @@
     </mat-card>
   </div>
 </footer>
+

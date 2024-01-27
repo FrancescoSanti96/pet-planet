@@ -15,6 +15,7 @@ export class RegistrationPageComponent implements OnInit {
     sesso: '',
     razza: '',
   };
+  img!: string;
   animal: Animal | null = null;
 
   constructor(
@@ -24,6 +25,8 @@ export class RegistrationPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAnimalData();
+    // console.log('Animale da creare:', nuovoAnimale);
+    console.log('Animale da creare:', this.img);
   }
 
   loadAnimalData(): void {
@@ -53,6 +56,7 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   creaAnimale() {
+    console.log('Dati registrazione:', this.img);
     const nuovoAnimale: Animal = {
       _id: '',
       owner: localStorage.getItem('id')!,
@@ -60,8 +64,13 @@ export class RegistrationPageComponent implements OnInit {
       tipoAnimale: this.datiRegistrazione.tipoAnimale,
       sesso: this.datiRegistrazione.sesso,
       razza: this.datiRegistrazione.razza,
+      image: {
+        data: this.img,  
+        contentType: 'image/png',  // Specifica il tipo di contenuto dell'immagine
+      },
     };
-
+    
+  
     this.animalService.createAnimal(nuovoAnimale).subscribe(
       (response) => {
         console.log('Animale creato con successo:', response);
@@ -72,6 +81,7 @@ export class RegistrationPageComponent implements OnInit {
       }
     );
   }
+  
 
   modificaAnimale() {
     if (this.animal) {
@@ -80,6 +90,10 @@ export class RegistrationPageComponent implements OnInit {
         tipoAnimale: this.datiRegistrazione.tipoAnimale,
         sesso: this.datiRegistrazione.sesso,
         razza: this.datiRegistrazione.razza,
+        image: {
+          data: this.img,  
+          contentType: 'image/png',  // Specifica il tipo di contenuto dell'immagine
+        },
       };
 
       this.animalService.updateAnimal(this.animal._id, animaleModificato).subscribe(
@@ -106,4 +120,20 @@ export class RegistrationPageComponent implements OnInit {
       );
     }
   }
+
+  caricaImmagine(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      this.img = reader.result as string;
+      console.log('Immagine caricata:', this.img);
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+  
+  
 }

@@ -10,6 +10,7 @@ import { Animal } from '../../model/animal.model';
 import { AnimalService } from '../../services/animal.service';
 import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 interface User {
   _id: string;
   email: string;
@@ -32,6 +33,7 @@ export class PersonalPageComponent implements OnInit {
   isLoadingPosts: boolean = false;
   isFindNewFriends: boolean = false;
   id!: string;
+  imageURL!: SafeUrl;
 
   constructor(
     private friendService: FriendService,
@@ -40,7 +42,8 @@ export class PersonalPageComponent implements OnInit {
     private reloadService: ReloadService, 
     private animalService: AnimalService,
     private http: HttpClient,
-    private followerService: FollowerService
+    private followerService: FollowerService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -135,7 +138,11 @@ export class PersonalPageComponent implements OnInit {
     this.animalService.getAnimalByUserId().subscribe(
       (animal) => {
         if (animal !== null) {
-          this.animal = animal; 
+          this.animal = animal;
+        // Sanitize the URL to make it safe
+        const test = animal.image.data;
+        console.log(animal);
+        this.imageURL = this.sanitizer.bypassSecurityTrustUrl(animal.image.data);
         }
       },
       (error) => {

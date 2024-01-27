@@ -28,6 +28,10 @@ const AnimalSchema = new mongoose.Schema({
         ref: 'User',
         required: false,
     },
+    image: {
+        data: String,
+        contentType: String,
+    },
 });
 
 const Animal = mongoose.model("Animal", AnimalSchema);

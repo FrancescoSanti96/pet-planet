@@ -37,13 +37,19 @@ async function getAnimalById(request, reply) {
 
 async function createAnimal(request, reply) {
     try {
-        const { nome, tipoAnimale, razza, sesso, owner } = request.body;
+        const { nome, tipoAnimale, razza, sesso, owner, image } = request.body;
+
+        // Creare un oggetto Animal con dati immagine
         const newAnimal = new Animal({
             nome,
             tipoAnimale,
             razza,
             sesso,
-            owner, 
+            owner,
+            image: {
+                data: image.data,  
+                contentType: image.contentType,
+            },
         });
 
         const result = await newAnimal.save();
