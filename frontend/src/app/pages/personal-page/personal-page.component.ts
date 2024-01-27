@@ -140,9 +140,7 @@ export class PersonalPageComponent implements OnInit {
         if (animal !== null) {
           this.animal = animal;
         // Sanitize the URL to make it safe
-        const test = animal.image.data;
-        console.log(animal);
-        this.imageURL = this.sanitizer.bypassSecurityTrustUrl(animal.image.data);
+        this.imageURL = this.sanitizer.bypassSecurityTrustUrl(animal.image);
         }
       },
       (error) => {
@@ -168,7 +166,6 @@ export class PersonalPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((updatedPostData) => {
       if (updatedPostData) {
-        console.log('Post aggiornato:', updatedPostData);
         this.loadPostsData();
       }
     });

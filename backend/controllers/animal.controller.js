@@ -46,10 +46,7 @@ async function createAnimal(request, reply) {
             razza,
             sesso,
             owner,
-            image: {
-                data: image.data,  
-                contentType: image.contentType,
-            },
+            image,
         });
 
         const result = await newAnimal.save();

@@ -25,8 +25,6 @@ export class RegistrationPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAnimalData();
-    // console.log('Animale da creare:', nuovoAnimale);
-    console.log('Animale da creare:', this.img);
   }
 
   loadAnimalData(): void {
@@ -56,7 +54,6 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   creaAnimale() {
-    console.log('Dati registrazione:', this.img);
     const nuovoAnimale: Animal = {
       _id: '',
       owner: localStorage.getItem('id')!,
@@ -64,10 +61,7 @@ export class RegistrationPageComponent implements OnInit {
       tipoAnimale: this.datiRegistrazione.tipoAnimale,
       sesso: this.datiRegistrazione.sesso,
       razza: this.datiRegistrazione.razza,
-      image: {
-        data: this.img,  
-        contentType: 'image/png',  // Specifica il tipo di contenuto dell'immagine
-      },
+      image: this.img, 
     };
     
   
@@ -90,10 +84,7 @@ export class RegistrationPageComponent implements OnInit {
         tipoAnimale: this.datiRegistrazione.tipoAnimale,
         sesso: this.datiRegistrazione.sesso,
         razza: this.datiRegistrazione.razza,
-        image: {
-          data: this.img,  
-          contentType: 'image/png',  // Specifica il tipo di contenuto dell'immagine
-        },
+        image: this.img,
       };
 
       this.animalService.updateAnimal(this.animal._id, animaleModificato).subscribe(
@@ -127,7 +118,6 @@ export class RegistrationPageComponent implements OnInit {
 
     reader.onloadend = () => {
       this.img = reader.result as string;
-      console.log('Immagine caricata:', this.img);
     }
 
     if (file) {

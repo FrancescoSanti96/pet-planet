@@ -4,7 +4,7 @@ export class Animal {
         public owner: string,
         public nome: string,
         public tipoAnimale: string,
-        public image: { data: string; contentType: string },
+        public image: string,
         public razza?: string,
         public sesso?: string,
         
