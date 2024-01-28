@@ -6,6 +6,7 @@ import { PostService } from '../../services/post.service';
 import { CommentDialogComponent } from '../../component/comment-dialog/comment-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
+import { CreatePostDialogComponent } from '../../component/create-post-dialog/create-post-dialog.component';
 
 @Component({
   selector: 'app-home-page',
@@ -14,7 +15,7 @@ import { ReloadService } from '../../services/reload.service';
 })
 export class HomePageComponent {
   accessToken!: string;
-  userInfo: any; 
+  userInfo: any;
   titolo: string = '';
   corpo: string = '';
   id: string = '';
@@ -27,17 +28,17 @@ export class HomePageComponent {
     private postService: PostService,
     private dialog: MatDialog,
     private reloadService: ReloadService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-// Recupera il valore dell'access_token dalla query param dell'URL
+    // Recupera il valore dell'access_token dalla query param dell'URL
     this.route.queryParams.subscribe((params) => {
       this.accessToken = params['access_token'];
       this.getUserInfo();
     });
     setTimeout(() => {
       this.loadPostsData();
-    },200);
+    }, 200);
   }
 
   getUserInfo() {
@@ -72,7 +73,7 @@ export class HomePageComponent {
           if (data && data._id) {
             localStorage.setItem('id', data._id);
             this.id = data._id;
-            
+
           } else {
             console.error("L'ID non è presente nella risposta del server");
           }
@@ -124,7 +125,7 @@ export class HomePageComponent {
     this.postService.getPostsOfFriends(this.id).subscribe(
       (posts) => {
         this.posts = posts;
-          this.posts.forEach((post) => {
+        this.posts.forEach((post) => {
           this.getComments(post._id);
         });
 
@@ -137,7 +138,7 @@ export class HomePageComponent {
       }
     );
   }
-  
+
 
   openCommentDialog(postId: string): void {
     const dialogRef = this.dialog.open(CommentDialogComponent, {
@@ -149,6 +150,24 @@ export class HomePageComponent {
       if (commentBody) {
         this.createComment(postId, commentBody);
       }
+    });
+  }
+
+  openCreatePostDialog(titolo: string, corpo: string): void {
+    const dialogRef = this.dialog.open(CreatePostDialogComponent, {
+      width: '400px',
+      data: { titolo: titolo, corpo: corpo },
+    });
+
+    dialogRef.afterClosed().subscribe((corpo) => {
+      if (corpo) {
+        this.createPost();
+      }
+    });
+    dialogRef.componentInstance.dialogRef = dialogRef;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog chiuso', result);
     });
   }
 

@@ -3,7 +3,7 @@
     <div class="title">PetPlanet</div>
     <div class="button-container">
       <div class="action-button">
-        <i class="material-icons">add_circle</i>
+        <i class="material-icons" (click)="openCreatePostDialog(titolo, corpo)">add_circle</i>
         <div class="label">Aggiungi Post</div>
       </div>
       <div class="action-button">
@@ -15,18 +15,6 @@
 
   <div class="post-container">
     <div class="display-post margin postBox">
-      <mat-form-field>
-        <mat-label>Titolo</mat-label>
-        <input matInput [(ngModel)]="titolo">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Corpo</mat-label>
-        <textarea matInput [(ngModel)]="corpo"></textarea>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="createPost()">Crea un nuovo post</button>
-    </div>
-
-    <div class="display margin">
       <mat-card class="border" *ngFor="let post of posts">
         <mat-card-header>
           <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
@@ -50,16 +38,16 @@
 
   <div class="amici-container">
     <h1>Amici di Amici</h1>
-        <div class="amico">
-          <i class="material-icons">person</i>
-          <span>Amico 1</span>
-          <a href="#" class="segui-link-amico">Segui</a> 
-        </div>
-        <div class="amico">
-          <i class="material-icons">person</i>
-          <span>Amico 2</span>
-          <a href="#" class="segui-link-amico">Segui</a>
-        </div>
+    <div class="amico">
+      <i class="material-icons">person</i>
+      <span>Amico 1</span>
+      <a href="#" class="segui-link-amico">Segui</a>
+    </div>
+    <div class="amico">
+      <i class="material-icons">person</i>
+      <span>Amico 2</span>
+      <a href="#" class="segui-link-amico">Segui</a>
+    </div>
   </div>
 </div>
 
