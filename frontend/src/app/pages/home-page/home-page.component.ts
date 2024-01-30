@@ -7,6 +7,7 @@ import { CommentDialogComponent } from '../../component/comment-dialog/comment-d
 import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
 import { CreatePostDialogComponent } from '../../component/create-post-dialog/create-post-dialog.component';
+import { SearchFriendDialogComponent } from '../../component/search-friend-dialog/search-friend-dialog.component';
 
 @Component({
   selector: 'app-home-page',
@@ -156,6 +157,7 @@ export class HomePageComponent {
   openCreatePostDialog(titolo: string, corpo: string): void {
     const dialogRef = this.dialog.open(CreatePostDialogComponent, {
       width: '400px',
+      height: '400px',
       data: { titolo: titolo, corpo: corpo },
     });
 
@@ -168,6 +170,14 @@ export class HomePageComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog chiuso', result);
+    });
+  }
+
+  openSearchFriendDialog(): void {
+    const dialogRef = this.dialog.open(SearchFriendDialogComponent, {
+      width: '400px',
+      height: '400px',
+      data: {},
     });
   }
 

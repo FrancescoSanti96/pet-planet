@@ -1,0 +1,31 @@
+<mat-card class="friend-list">
+    <mat-card-header>
+        <mat-card-title>PetFriend</mat-card-title>
+    </mat-card-header>
+    <mat-form-field appearance="fill">
+        <textarea matInput placeholder="Inserisci il testo" class="custom-textarea"></textarea>
+        <button mat-icon-button matSuffix>
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-card class="friend-list">
+        <mat-card-content>
+            <div *ngIf="isLoadingFriends; else friendsContent">
+                Caricamento in corso...
+            </div>
+            <ng-template #friendsContent>
+                <ul class="friend-list-items">
+                    <li *ngFor="let friend of friendsList">
+                        <div class="friend-info">
+                            <div mat-card-avatar class="friend-avatar"></div>
+                            <span>{{ friend.amico }}</span>
+                            <div class="friend-buttons">
+                                <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </ng-template>
+        </mat-card-content>
+    </mat-card>
+</mat-card>

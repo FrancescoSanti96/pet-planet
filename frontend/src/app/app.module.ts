@@ -27,6 +27,8 @@ import { CommentDialogComponent } from './component/comment-dialog/comment-dialo
 import { ModifyPostDialogComponent } from './component/modify-post-dialog/modify-post-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreatePostDialogComponent } from './component/create-post-dialog/create-post-dialog.component';
+import { SearchFriendDialogComponent } from './component/search-friend-dialog/search-friend-dialog.component';
+import { PetFriendDialogComponent } from './component/pet-friend-dialog/pet-friend-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { CreatePostDialogComponent } from './component/create-post-dialog/create
     NavbarComponent,
     CommentDialogComponent,
     ModifyPostDialogComponent,
-    CreatePostDialogComponent
+    CreatePostDialogComponent,
+    SearchFriendDialogComponent,
+    PetFriendDialogComponent
   ],
   imports: [
     BrowserModule,
