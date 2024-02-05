@@ -112,9 +112,7 @@
       <div *ngFor="let user of usersList" class="containerNewFriend">
         <span>{{ user.email }}</span>
         <div class="friend-buttons">
-          <button (click)="followUser( user.email, user._id)">
-            Follow
-          </button>
+          <button (click)="followUser( user.email, user._id)">Follow</button>
         </div>
       </div>
     </div>
@@ -129,7 +127,7 @@
       <div class="action-button" routerLink="/register" *ngIf="!checkAnimal()">
         <i class="material-icons">create</i>
         <div class="label">Inserisci informazioni animale</div>
-      </div> 
+      </div>
       <div class="action-button" routerLink="/register" *ngIf="checkAnimal()">
         <i class="material-icons">create</i>
         <div class="label">Modifica dati animale</div>
@@ -162,13 +160,21 @@
   <div class="badge-container">
     <h1>I tuoi badge</h1>
 
-    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--46c9RZh7--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/236/Thumbs_Up-04.png" vspace="10" hspace="10" alt="badge1">
+    <img class="badge"
+      src="https://res.cloudinary.com/practicaldev/image/fetch/s--46c9RZh7--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/236/Thumbs_Up-04.png"
+      vspace="10" hspace="10" alt="badge1">
 
-    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--Sqzy8EDG--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/160/Community_Wellness_Streak_Badge-01.png" vspace="10" hspace="10" alt="badge2">
+    <img class="badge"
+      src="https://res.cloudinary.com/practicaldev/image/fetch/s--Sqzy8EDG--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/160/Community_Wellness_Streak_Badge-01.png"
+      vspace="10" hspace="10" alt="badge2">
 
-    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--L0O-vvgc--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/3/Discussion_BAdges-03.png" vspace="10" hspace="10" alt="badge3">
+    <img class="badge"
+      src="https://res.cloudinary.com/practicaldev/image/fetch/s--L0O-vvgc--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/3/Discussion_BAdges-03.png"
+      vspace="10" hspace="10" alt="badge3">
 
-    <img class="badge" src="https://res.cloudinary.com/practicaldev/image/fetch/s--9BR4RYdC--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/2/Version2-08.png" vspace="10" hspace="10" alt="badge4">
+    <img class="badge"
+      src="https://res.cloudinary.com/practicaldev/image/fetch/s--9BR4RYdC--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/2/Version2-08.png"
+      vspace="10" hspace="10" alt="badge4">
   </div>
 </div>
 <footer class="container-footer">
@@ -205,4 +211,3 @@
     </mat-card>
   </div>
 </footer>
-

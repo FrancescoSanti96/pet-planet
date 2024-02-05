@@ -1,10 +1,14 @@
-import { Component, Inject } from '@angular/core';
-import { Friend } from '../../model/friend.model';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FriendService } from '../../services/friend.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Friend } from '../../model/friend.model';
 import { ReloadService } from '../../services/reload.service';
+import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+interface User {
+  _id: string;
+  email: string;
+}
 @Component({
   selector: 'app-search-friend-dialog',
   templateUrl: './search-friend-dialog.component.html',
@@ -13,11 +17,17 @@ import { FollowerService } from '../../services/follower.service';
 export class SearchFriendDialogComponent {
   friendsList: Friend[] = [];
   followersList: Friend[] = [];
+  usersList: User[] = [];
+
   isLoadingFriends: boolean = false;
+  isLoadingPosts: boolean = false;
+  isFindNewFriends: boolean = false;
+  id!: string;
 
   constructor(
     private friendService: FriendService,
     private reloadService: ReloadService,
+    private http: HttpClient,
     private followerService: FollowerService,
 
     public dialogRef: MatDialogRef<SearchFriendDialogComponent>,
@@ -26,6 +36,8 @@ export class SearchFriendDialogComponent {
 
   ngOnInit(): void {
     this.loadFriendsData();
+    this.loadUsersDataExceptOne();
+    this.loadFollowersData();
   }
 
   loadFriendsData(): void {
@@ -77,25 +89,20 @@ export class SearchFriendDialogComponent {
     );
   }
 
-  unfollow(followId: string, email: string): void {
-    this.friendService.unfollow(followId).subscribe(
-      (response) => {
-        this.removeFollower(email);
-        this.reloadService.reloadPage();
+  loadUsersDataExceptOne(): void {
+    const id = localStorage.getItem('id')!;
+    this.http.get<User[]>(`http://localhost:3000/api/v1/users/except/${id}`).subscribe(
+      (users) => {
+        this.usersList = users;
       },
       (error) => {
+        console.error('Errore nel recupero degli utenti:', error);
       }
     );
   }
-  removeFollower(mail: string): void {
-    const id = localStorage.getItem('id')!;
-    this.followerService.removeFollower(id, mail).subscribe(
-      (response) => {
-      },
-      (error) => {
-        console.error('Errore durante la rimozione del follower:', error);
-      }
-    );
+
+  findNewFriends(): void {
+    this.isFindNewFriends = !this.isFindNewFriends;
   }
 
   followUser(email: string, userId: string): void {
