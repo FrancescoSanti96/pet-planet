@@ -29,6 +29,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreatePostDialogComponent } from './component/create-post-dialog/create-post-dialog.component';
 import { SearchFriendDialogComponent } from './component/search-friend-dialog/search-friend-dialog.component';
 import { PetFriendDialogComponent } from './component/pet-friend-dialog/pet-friend-dialog.component';
+import { FilterPipe } from '../utils/filter.pipe';
+import { HighlightDirective } from '../utils/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { PetFriendDialogComponent } from './component/pet-friend-dialog/pet-frie
     ModifyPostDialogComponent,
     CreatePostDialogComponent,
     SearchFriendDialogComponent,
-    PetFriendDialogComponent
+    PetFriendDialogComponent,
+    FilterPipe,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,21 @@ export class SearchFriendDialogComponent {
   isFindNewFriends: boolean = false;
   id!: string;
 
+  searchText = '';
+
+  //TODO: da sistemare con lista utenti
+
+  characters = [
+    'Ant-Man',
+    'Aquaman',
+    'Asterix',
+    'The Atom',
+    'The Avengers',
+    'Batgirl',
+    'Batman',
+    'Batwoman'
+  ]
+
   constructor(
     private friendService: FriendService,
     private reloadService: ReloadService,

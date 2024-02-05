@@ -2,12 +2,21 @@
     <mat-card-header>
         <mat-card-title>PetFriend</mat-card-title>
     </mat-card-header>
+
     <mat-form-field appearance="fill">
-        <textarea matInput placeholder="Inserisci il testo" class="custom-textarea"></textarea>
-        <button mat-icon-button matSuffix>
-            <mat-icon>search</mat-icon>
-        </button>
+        <input matInput placeholder="Inserisci il testo" class="custom-textarea" type="email" class="form-control"
+            id="search-text" aria-describedby="search-text" [(ngModel)]="searchText" autofocus>
+            <span matSuffix><mat-icon>search</mat-icon></span>
     </mat-form-field>
+
+    <!-- TODO: questo è un esempio, da usare nella lista utenti-->
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let c of characters | appFilter: searchText" appHighlight
+            [searchedWord]="searchText" [content]="c" [classToApply]="'font-weight-bold'" [setTitle]=true>
+            {{c}}
+        </li>
+    </ul>
+
     <div *ngFor="let user of usersList" class="containerNewFriend">
         <span>{{ user.email }}</span>
         <div class="friend-buttons">
