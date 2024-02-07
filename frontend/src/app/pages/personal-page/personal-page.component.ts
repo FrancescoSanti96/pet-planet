@@ -11,6 +11,7 @@ import { AnimalService } from '../../services/animal.service';
 import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { PetFriendDialogComponent } from '../../component/pet-friend-dialog/pet-friend-dialog.component';
 interface User {
   _id: string;
   email: string;
@@ -41,7 +42,8 @@ export class PersonalPageComponent implements OnInit {
     private animalService: AnimalService,
     private http: HttpClient,
     private followerService: FollowerService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,14 @@ export class PersonalPageComponent implements OnInit {
     this.loadFollowersData();
   }
 
+  openPetFriendDialog(): void {
+    const dialogRef = this.dialog.open(PetFriendDialogComponent, {
+      width: '400px',
+      height: '400px',
+      data: {},
+    });
+  }
+  
   loadFriendsData(): void {
     this.isLoadingFriends = true;
     this.friendService.getFriends().subscribe(
