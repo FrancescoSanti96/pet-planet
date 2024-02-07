@@ -14,10 +14,12 @@ interface User {
   templateUrl: './search-friend-dialog.component.html',
   styleUrl: './search-friend-dialog.component.scss'
 })
+
 export class SearchFriendDialogComponent {
   friendsList: Friend[] = [];
   followersList: Friend[] = [];
   usersList: User[] = [];
+  filteredUsers: User[] | undefined 
 
   isLoadingFriends: boolean = false;
   isLoadingPosts: boolean = false;
@@ -25,19 +27,6 @@ export class SearchFriendDialogComponent {
   id!: string;
 
   searchText = '';
-
-  //TODO: da sistemare con lista utenti
-
-  characters = [
-    'Ant-Man',
-    'Aquaman',
-    'Asterix',
-    'The Atom',
-    'The Avengers',
-    'Batgirl',
-    'Batman',
-    'Batwoman'
-  ]
 
   constructor(
     private friendService: FriendService,
@@ -53,6 +42,16 @@ export class SearchFriendDialogComponent {
     this.loadFriendsData();
     this.loadUsersDataExceptOne();
     this.loadFollowersData();
+  }
+
+  filterUsers(): void {
+    // Filtra gli utenti in base alla searchText
+    const filteredUsers = this.usersList.filter(user =>
+      user.email.toLowerCase().startsWith(this.searchText.toLowerCase())
+    );
+
+    // Assegna i risultati filtrati a una variabile visualizzata nell'HTML
+    this.filteredUsers = filteredUsers;
   }
 
   loadFriendsData(): void {

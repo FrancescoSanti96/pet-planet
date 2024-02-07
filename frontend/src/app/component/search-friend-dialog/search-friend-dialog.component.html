@@ -4,23 +4,30 @@
     </mat-card-header>
 
     <mat-form-field appearance="fill">
-        <input matInput placeholder="Inserisci il testo" class="custom-textarea" type="email" class="form-control"
-            id="search-text" aria-describedby="search-text" [(ngModel)]="searchText" autofocus>
-            <span matSuffix><mat-icon>search</mat-icon></span>
+        <input matInput placeholder="Inserisci il nome del pet" class="custom-textarea" type="text" id="search-text"
+            aria-describedby="search-text" [(ngModel)]="searchText" (input)="filterUsers()">
+        <span matSuffix><mat-icon>search</mat-icon></span>
     </mat-form-field>
 
-    <!-- TODO: questo è un esempio, da usare nella lista utenti-->
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item" *ngFor="let c of characters | appFilter: searchText" appHighlight
-            [searchedWord]="searchText" [content]="c" [classToApply]="'font-weight-bold'" [setTitle]=true>
-            {{c}}
-        </li>
-    </ul>
+    <div *ngIf="filteredUsers && filteredUsers.length">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let user of filteredUsers">
+                {{user.email}}
+                <div class="friend-buttons">
+                    <button (click)="followUser(user.email, user._id)">Follow</button>
+                </div>
+            </li>
+        </ul>
+    </div>
 
-    <div *ngFor="let user of usersList" class="containerNewFriend">
-        <span>{{ user.email }}</span>
-        <div class="friend-buttons">
-            <button (click)="followUser( user.email, user._id)">Follow</button>
-        </div>
+    <div *ngIf="!filteredUsers">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let user of usersList">
+                {{user.email}}
+                <div class="friend-buttons">
+                    <button (click)="followUser(user.email, user._id)">Follow</button>
+                </div>
+            </li>
+        </ul>
     </div>
 </mat-card>
