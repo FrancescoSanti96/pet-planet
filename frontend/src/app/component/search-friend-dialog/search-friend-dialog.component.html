@@ -1,6 +1,6 @@
 <mat-card class="friend-list">
     <mat-card-header>
-        <mat-card-title>PetFriend</mat-card-title>
+        <mat-card-title>petUser</mat-card-title>
     </mat-card-header>
 
     <mat-form-field appearance="fill">
@@ -13,7 +13,7 @@
         <ul class="friend-list-items">
             <li *ngFor="let user of filteredUsers">
                 <div class="friend-info">
-                    <div mat-card-avatar class="friend-avatar"></div>
+                    <div mat-card-avatar [style.background-image]="'url(' + user.profilePicture + ')'"></div>
                     <span>{{ user.email }}</span>
                     <div class="friend-buttons">
                         <button  (click)="followUser(user.email, user._id)">Follow</button>
@@ -27,7 +27,7 @@
         <ul class="friend-list-items">
             <li *ngFor="let user of usersList">
                 <div class="friend-info">
-                    <div mat-card-avatar class="friend-avatar"></div>
+                    <div mat-card-avatar [style.background-image]="'url(' + user.profilePicture + ')'"></div>
                     <span>{{ user.email }}</span>
                     <div class="friend-buttons">
                         <button  (click)="followUser(user.email, user._id)">Follow</button>

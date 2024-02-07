@@ -5,10 +5,8 @@ import { ReloadService } from '../../services/reload.service';
 import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-interface User {
-  _id: string;
-  email: string;
-}
+import { User } from '../../model/user.model';
+
 @Component({
   selector: 'app-search-friend-dialog',
   templateUrl: './search-friend-dialog.component.html',

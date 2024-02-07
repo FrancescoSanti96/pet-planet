@@ -2,12 +2,12 @@
   <div class="left-container">
     <div class="title">PetPlanet</div>
     <div class="button-container">
-      <div class="action-button">
-        <i class="material-icons"(click)="openCreatePostDialog(titolo, corpo)">add_circle</i>
+      <div class="action-button" (click)="openCreatePostDialog(titolo, corpo)">
+        <i class="material-icons">add_circle</i>
         <div class="label">Aggiungi Post</div>
       </div>
-      <div class="action-button">
-        <i class="material-icons"(click)="openSearchFriendDialog()">search</i>
+      <div class="action-button" (click)="openSearchFriendDialog()">
+        <i class="material-icons">search</i>
         <div class="label">Cerca nuovi PetFriend</div>
       </div>
     </div>

@@ -48,7 +48,12 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Animal',
     required: false,
-  }
+  },
+  profilePicture: {
+    type: String,
+    required: false,
+    trim: true,
+  },
 });
 
 const User = mongoose.model("User", UserSchema);
