@@ -10,22 +10,28 @@
     </mat-form-field>
 
     <div *ngIf="filteredUsers && filteredUsers.length">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let user of filteredUsers">
-                {{user.email}}
-                <div class="friend-buttons">
-                    <button (click)="followUser(user.email, user._id)">Follow</button>
+        <ul class="friend-list-items">
+            <li *ngFor="let user of filteredUsers">
+                <div class="friend-info">
+                    <div mat-card-avatar class="friend-avatar"></div>
+                    <span>{{ user.email }}</span>
+                    <div class="friend-buttons">
+                        <button  (click)="followUser(user.email, user._id)">Follow</button>
+                    </div>
                 </div>
             </li>
         </ul>
     </div>
 
     <div *ngIf="!filteredUsers">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let user of usersList">
-                {{user.email}}
-                <div class="friend-buttons">
-                    <button (click)="followUser(user.email, user._id)">Follow</button>
+        <ul class="friend-list-items">
+            <li *ngFor="let user of usersList">
+                <div class="friend-info">
+                    <div mat-card-avatar class="friend-avatar"></div>
+                    <span>{{ user.email }}</span>
+                    <div class="friend-buttons">
+                        <button  (click)="followUser(user.email, user._id)">Follow</button>
+                    </div>
                 </div>
             </li>
         </ul>
