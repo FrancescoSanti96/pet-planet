@@ -37,8 +37,6 @@ export class PersonalPageComponent implements OnInit {
 
   constructor(
     private friendService: FriendService,
-    private postService: PostService,
-    private dialog: MatDialog,
     private reloadService: ReloadService, 
     private animalService: AnimalService,
     private http: HttpClient,
@@ -47,7 +45,6 @@ export class PersonalPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadPostsData();
     this.loadFriendsData();
     this.loadAnimalsData();
     this.loadUsersDataExceptOne();
@@ -119,20 +116,6 @@ export class PersonalPageComponent implements OnInit {
     this.isFindNewFriends = !this.isFindNewFriends;
   }
 
-  loadPostsData(): void {
-    this.id = localStorage.getItem('id')!;
-    this.postService.getPostByUserID(this.id).subscribe(
-      (posts) => {
-        this.posts = posts;
-      },
-      (error) => {
-        console.error(
-          'Errore nella chiamata API per ottenere la lista di post:',
-          error
-        );
-      }
-    );
-  }
 
   loadAnimalsData(): void {
     this.animalService.getAnimalByUserId().subscribe(
@@ -158,29 +141,29 @@ export class PersonalPageComponent implements OnInit {
   
   
 
-  openModifyPostDialog(post: Post): void {
-    const dialogRef = this.dialog.open(ModifyPostDialogComponent, {
-      data: { post },  
-      width: '400px',  
-    });
+  // openModifyPostDialog(post: Post): void {
+  //   const dialogRef = this.dialog.open(ModifyPostDialogComponent, {
+  //     data: { post },  
+  //     width: '400px',  
+  //   });
 
-    dialogRef.afterClosed().subscribe((updatedPostData) => {
-      if (updatedPostData) {
-        this.loadPostsData();
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((updatedPostData) => {
+  //     if (updatedPostData) {
+  //       this.loadPostsData();
+  //     }
+  //   });
+  // }
 
-  deletePost(postId: string): void {
-    this.postService.deletePost(postId).subscribe(
-      () => {
-        this.reloadService.reloadPage();
-      },
-      (error) => {
-        console.error("Errore nell'eliminazione del post:", error);
-      }
-    );
-  }
+  // deletePost(postId: string): void {
+  //   this.postService.deletePost(postId).subscribe(
+  //     () => {
+  //       this.reloadService.reloadPage();
+  //     },
+  //     (error) => {
+  //       console.error("Errore nell'eliminazione del post:", error);
+  //     }
+  //   );
+  // }
 
   unfollow(followId: string, email: string): void {
     this.friendService.unfollow(followId).subscribe(

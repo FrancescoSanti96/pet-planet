@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="left-container">
+      <div class="title">PetPlanet</div>
+      <div class="button-container">
+        <div class="action-button" routerLink="/homepage">
+          <i class="material-icons">home</i>
+          <div class="label">Homepage</div>
+        </div>
+        <div class="action-button" routerLink="/profile">
+            <i class="material-icons">person_pin</i>
+            <div class="label">Profile</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="post">
+        <mat-card class="post-list">
+          <mat-card-header>
+            <mat-card-title>Lista dei miei Post</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-card *ngFor="let post of posts" class="postContainer">
+              <mat-card-header>
+                <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
+                <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="post-content">
+                <p>{{ post.corpo }}</p>
+                <div *ngIf="post.commenti && post.commenti.length > 0">
+                  <h3 class>Commenti:</h3>
+                  <ul>
+                    <li *ngFor="let comment of post.commenti">
+                      {{ comment.testo }}
+                    </li>
+                  </ul>
+                </div>
+                <button mat-icon-button color="primary" (click)="openModifyPostDialog(post)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deletePost(post._id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-card-content>
+            </mat-card>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  </div>
+  

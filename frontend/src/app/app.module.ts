@@ -31,6 +31,7 @@ import { SearchFriendDialogComponent } from './component/search-friend-dialog/se
 import { PetFriendDialogComponent } from './component/pet-friend-dialog/pet-friend-dialog.component';
 import { FilterPipe } from '../utils/filter.pipe';
 import { HighlightDirective } from '../utils/highlight.directive';
+import { PersonalPostComponent } from './pages/personal-post/personal-post.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { HighlightDirective } from '../utils/highlight.directive';
     SearchFriendDialogComponent,
     PetFriendDialogComponent,
     FilterPipe,
-    HighlightDirective
+    HighlightDirective,
+    PersonalPostComponent
   ],
   imports: [
     BrowserModule,

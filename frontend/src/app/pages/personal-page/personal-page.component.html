@@ -1,125 +1,3 @@
-<!-- <div class="display margin">
-  <mat-card>
-    <mat-card-content *ngIf="checkAnimal()">
-      <h2>{{ animal.nome }}</h2>
-      <p>Tipo: {{ animal.tipoAnimale }}</p>
-      <p *ngIf="animal.razza">Razza: {{ animal.razza }}</p>
-      <p *ngIf="animal.sesso">Sesso: {{ animal.sesso }}</p>
-
-      <button routerLink="/register" mat-raised-button color="primary">
-        Modifica informazioni animale
-      </button>
-    </mat-card-content>
-    <div *ngIf="!checkAnimal()">
-      <button routerLink="/register" mat-raised-button color="primary">
-        Inserisci informazioni animale
-      </button>
-    </div>
-  </mat-card>
-
-  <div class="containerNavbar">
-    <mat-card class="friend-list">
-      <mat-card-header>
-        <mat-card-title>Amici</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div *ngIf="isLoadingFriends; else friendsContent">
-          Caricamento in corso...
-        </div>
-        <ng-template #friendsContent>
-          <ul class="friend-list-items">
-            <li *ngFor="let friend of friendsList">
-              <div class="friend-info">
-                <div mat-card-avatar class="friend-avatar"></div>
-                <span>{{ friend.amico }}</span>
-                <div class="friend-buttons">
-                  <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </ng-template>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="friend-list">
-      <mat-card-header>
-        <mat-card-title>Followers</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <ng-container *ngIf="followersList && followersList.length > 0; else noFollowersTemplate">
-          <ul class="friend-list-items">
-            <li *ngFor="let follower of followersList">
-              <div class="friend-info">
-                <div mat-card-avatar class="friend-avatar"></div>
-                <span>{{ follower.amico }}</span>
-              </div>
-            </li>
-          </ul>
-        </ng-container>
-        <ng-template #noFollowersTemplate>
-          <p>Nessun follower al momento.</p>
-        </ng-template>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="post-list">
-      <mat-card-header>
-        <mat-card-title>Lista dei miei Post</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-
-        <div *ngIf="isLoadingPosts; else postsContent">
-          Caricamento in corso...
-        </div>
-        <ng-template #postsContent>
-          <div class="display margin">
-            <mat-card class="border" *ngFor="let post of posts">
-              <mat-card-header>
-                <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
-                <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <p>{{ post.corpo }}</p>
-                <div *ngIf="post.commenti && post.commenti.length > 0">
-                  <h3 class>Commenti:</h3>
-                  <ul>
-                    <li *ngFor="let comment of post.commenti">
-                      {{ comment.testo }}
-                    </li>
-                  </ul>
-                </div>
-                <button mat-icon-button color="primary" (click)="openModifyPostDialog(post)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="deletePost(post._id)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </ng-template>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <div>
-    <button mat-raised-button color="primary" (click)="findNewFriends()">
-      Cerca nuovi amici
-    </button>
-
-    <div *ngIf="isFindNewFriends">
-      <div *ngFor="let user of usersList" class="containerNewFriend">
-        <span>{{ user.email }}</span>
-        <div class="friend-buttons">
-          <button (click)="followUser( user.email, user._id)">Follow</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
-
-
 <div class="container">
   <div class="left-container">
     <div class="title">PetPlanet</div>
@@ -131,6 +9,10 @@
       <div class="action-button" routerLink="/register" *ngIf="checkAnimal()">
         <i class="material-icons">create</i>
         <div class="label">Modifica dati animale</div>
+      </div>
+      <div class="action-button" routerLink="/post">
+        <i class="material-icons">local_post_office</i>
+        <div class="label">I miei post</div>
       </div>
       <div class="action-button">
         <i class="material-icons">search</i>
@@ -177,37 +59,3 @@
       vspace="10" hspace="10" alt="badge4">
   </div>
 </div>
-<footer class="container-footer">
-  <div class="post">
-    <mat-card class="post-list">
-      <mat-card-header>
-        <mat-card-title>Lista dei miei Post</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-card *ngFor="let post of posts">
-          <mat-card-header>
-            <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
-            <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="post-content">
-            <p>{{ post.corpo }}</p>
-            <div *ngIf="post.commenti && post.commenti.length > 0">
-              <h3 class>Commenti:</h3>
-              <ul>
-                <li *ngFor="let comment of post.commenti">
-                  {{ comment.testo }}
-                </li>
-              </ul>
-            </div>
-            <button mat-icon-button color="primary" (click)="openModifyPostDialog(post)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="deletePost(post._id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</footer>

@@ -5,6 +5,7 @@ import { RegistrationPageComponent } from './pages/registration-page/registratio
 import { LoginComponent } from './pages/login-page/login.component';
 import { PersonalPageComponent } from './pages/personal-page/personal-page.component';
 import { ChatComponent } from './component/chat/chat.component';
+import { PersonalPostComponent } from './pages/personal-post/personal-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'homepage', component: HomePageComponent },
   { path: 'register', component: RegistrationPageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: PersonalPageComponent }
+  { path: 'profile', component: PersonalPageComponent },
+  { path: 'post', component: PersonalPostComponent },
 ];
 
 @NgModule({
