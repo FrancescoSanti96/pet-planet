@@ -1,3 +1,4 @@
+const Friend = require("../models/friend.model");
 const User = require("../models/user.model");
 
 async function getAllUsers(request, reply) {
@@ -34,18 +35,32 @@ async function getUserByEmail(request, reply) {
     reply.status(500).send({ error: 'Errore durante il recupero dell\'utente' });
   }
 }
+
 async function getAllUsersExceptOne(request, reply) {
   try {
     const userIdToExclude = request.params.id;
 
-    // Trova tutti gli utenti tranne quello specificato
-    const users = await User.find({ _id: { $ne: userIdToExclude } });
+    // Trova tutti gli amici dell'utente
+    const user = await User.findById(userIdToExclude);
+    const friendIds = user.friends.map(friend => friend);
+    // Trova tutti gli amici corrispondenti agli ID direttamente in Friend
+    const friends = await Friend.find({ _id: { $in: friendIds } });
+    // Estrai gli indirizzi email dagli amici
+    const friendEmails = friends.map(friend => friend.amico);
+    // Trova tutti gli utenti tranne quello specificato e i suoi amici
+    const users = await User.find({
+      $and: [
+        { _id: { $ne: userIdToExclude } },
+        { email: { $nin: friendEmails } },
+      ],
+    });
 
     reply.send(users);
   } catch (error) {
     reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
   }
 }
+
 async function createUser(request, reply) {
   try {
     // Verifica se l'email è già presente nel database
