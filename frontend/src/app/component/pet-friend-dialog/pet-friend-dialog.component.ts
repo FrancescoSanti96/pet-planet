@@ -14,6 +14,9 @@ export class PetFriendDialogComponent {
   friendsList: Friend[] = [];
   followersList: Friend[] = [];
   isLoadingFriends: boolean = false;
+  filteredFriends: Friend[] | undefined 
+
+  searchText = '';
 
   constructor(
     private friendService: FriendService,
@@ -26,6 +29,17 @@ export class PetFriendDialogComponent {
 
   ngOnInit(): void {
     this.loadFriendsData();
+    this.loadFollowersData();
+  }
+
+  filterFriends(): void {
+    // Filtra gli utenti in base alla searchText
+    const filteredFriends = this.friendsList.filter(friend =>
+      friend.amico.toLowerCase().startsWith(this.searchText.toLowerCase())
+    );
+
+    // Assegna i risultati filtrati a una variabile visualizzata nell'HTML
+    this.filteredFriends = filteredFriends;
   }
 
   loadFriendsData(): void {
