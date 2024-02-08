@@ -110,17 +110,6 @@ export class HomePageComponent {
       );
   }
 
-  createPost() {
-    this.id = localStorage.getItem('id')!;
-    this.userInfo = JSON.parse(localStorage.getItem('user_info')!);
-    this.postService.createPost(this.id, this.titolo, this.corpo, this.userInfo.picture).subscribe(
-      (data) => {
-      },
-      (error) => {
-      }
-    );
-  }
-
   loadPostsData(): void {
     this.id = localStorage.getItem('id')!;
     this.postService.getPostsOfFriends(this.id).subscribe(
@@ -159,12 +148,6 @@ export class HomePageComponent {
       width: '400px',
       height: '400px',
       data: { titolo: titolo, corpo: corpo },
-    });
-
-    dialogRef.afterClosed().subscribe((corpo) => {
-      if (corpo) {
-        this.createPost();
-      }
     });
     dialogRef.componentInstance.dialogRef = dialogRef;
 

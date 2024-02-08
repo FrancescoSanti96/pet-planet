@@ -66,13 +66,14 @@ async function getPostById(request, reply) {
 
 async function createPost(request, reply) {
     try {
-        const { utente,titolo, corpo, profilePic} = request.body;
+        const { utente,titolo, corpo, profilePic, img} = request.body;
 
         const newPost = new Post({
             utente,
             titolo,
             corpo,
             profilePic,
+            img
         });
 
         const result = await newPost.save();

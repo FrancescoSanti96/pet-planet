@@ -36,6 +36,9 @@ const PostSchema = new mongoose.Schema({
       required: false,
       trim: true,
     },
+    img: {
+      type: String,
+  },
     commenti: [CommentSchema], 
 });
 

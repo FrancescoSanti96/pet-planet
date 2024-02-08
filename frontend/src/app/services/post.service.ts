@@ -25,8 +25,8 @@ export class PostService {
         return this.http.get<any>(`${this.apiUrl}/posts/${userId}/user`);
     }
 
-    createPost(utente: string, titolo: string, corpo: string, profilePic: string): Observable<Post> {
-        const postData = { utente, titolo, corpo,  profilePic };
+    createPost(utente: string, titolo: string, corpo: string, profilePic: string, img: string): Observable<Post> {
+        const postData = { utente, titolo, corpo,  profilePic, img };
         return this.http.post<Post>(`${this.apiUrl}/posts`, postData);
     }
 
