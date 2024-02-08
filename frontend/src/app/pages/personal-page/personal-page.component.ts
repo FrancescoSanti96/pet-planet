@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { PetFriendDialogComponent } from '../../component/pet-friend-dialog/pet-friend-dialog.component';
+import { FollowerDialogComponent } from '../../component/follower-dialog/follower-dialog.component';
 interface User {
   _id: string;
   email: string;
@@ -55,6 +56,14 @@ export class PersonalPageComponent implements OnInit {
 
   openPetFriendDialog(): void {
     const dialogRef = this.dialog.open(PetFriendDialogComponent, {
+      width: '400px',
+      height: '400px',
+      data: {},
+    });
+  }
+
+  openFollowerDialogComponent(): void {
+    const dialogRef = this.dialog.open(FollowerDialogComponent, {
       width: '400px',
       height: '400px',
       data: {},

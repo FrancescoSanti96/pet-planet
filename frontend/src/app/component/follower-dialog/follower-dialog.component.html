@@ -1,0 +1,33 @@
+<mat-card class="friend-list">
+    <mat-card-header>
+        <mat-card-title>PetFollower</mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field appearance="fill">
+        <input matInput placeholder="Inserisci il nome del pet" class="custom-textarea" type="text" id="search-text"
+            aria-describedby="search-text" [(ngModel)]="searchText" (input)="filterFollowers()">
+        <span matSuffix><mat-icon>search</mat-icon></span>
+    </mat-form-field>
+
+    <div *ngIf="filteredFollowers && filteredFollowers.length">
+        <ul class="friend-list-items">
+            <li *ngFor="let follower of filteredFollowers">
+                <div class="friend-info">
+                    <div mat-card-avatar class="friend-avatar"></div>
+                    <span>{{ follower.amico }}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="!filteredFollowers">
+        <ul class="friend-list-items">
+            <li *ngFor="let follower of followersList">
+                <div class="friend-info">
+                    <div mat-card-avatar class="friend-avatar"></div>
+                    <span>{{ follower.amico}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</mat-card>
