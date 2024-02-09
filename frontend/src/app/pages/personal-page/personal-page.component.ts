@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendService } from '../../services/friend.service';
-import { Friend } from '../../model/friend.model';
-import { PostService } from '../../services/post.service';
 import { Post } from '../../model/post.model';
-import { ModifyPostDialogComponent } from '../../component/modify-post-dialog/modify-post-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
 import { Animal } from '../../model/animal.model';
@@ -13,6 +10,7 @@ import { FollowerService } from '../../services/follower.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { PetFriendDialogComponent } from '../../component/pet-friend-dialog/pet-friend-dialog.component';
 import { FollowerDialogComponent } from '../../component/follower-dialog/follower-dialog.component';
+import { Friend } from '../../model/friend.model';
 interface User {
   _id: string;
   email: string;
@@ -23,8 +21,8 @@ interface User {
   styleUrls: ['./personal-page.component.scss'],
 })
 export class PersonalPageComponent implements OnInit {
-  
-  
+
+
   friendsList: Friend[] = [];
   followersList: Friend[] = [];
   posts: Post[] = [];
@@ -39,13 +37,13 @@ export class PersonalPageComponent implements OnInit {
 
   constructor(
     private friendService: FriendService,
-    private reloadService: ReloadService, 
+    private reloadService: ReloadService,
     private animalService: AnimalService,
     private http: HttpClient,
     private followerService: FollowerService,
     private sanitizer: DomSanitizer,
     private dialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadFriendsData();
@@ -69,7 +67,7 @@ export class PersonalPageComponent implements OnInit {
       data: {},
     });
   }
-  
+
   loadFriendsData(): void {
     this.isLoadingFriends = true;
     this.friendService.getFriends().subscribe(
@@ -141,8 +139,8 @@ export class PersonalPageComponent implements OnInit {
       (animal) => {
         if (animal !== null) {
           this.animal = animal;
-        // Sanitize the URL to make it safe
-        this.imageURL = this.sanitizer.bypassSecurityTrustUrl(animal.image);
+          // Sanitize the URL to make it safe
+          this.imageURL = this.sanitizer.bypassSecurityTrustUrl(animal.image);
         }
       },
       (error) => {
@@ -157,32 +155,7 @@ export class PersonalPageComponent implements OnInit {
   checkAnimal(): boolean {
     return this.animal ? Object.keys(this.animal).length > 0 : false;
   }
-  
-  
 
-  // openModifyPostDialog(post: Post): void {
-  //   const dialogRef = this.dialog.open(ModifyPostDialogComponent, {
-  //     data: { post },  
-  //     width: '400px',  
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((updatedPostData) => {
-  //     if (updatedPostData) {
-  //       this.loadPostsData();
-  //     }
-  //   });
-  // }
-
-  // deletePost(postId: string): void {
-  //   this.postService.deletePost(postId).subscribe(
-  //     () => {
-  //       this.reloadService.reloadPage();
-  //     },
-  //     (error) => {
-  //       console.error("Errore nell'eliminazione del post:", error);
-  //     }
-  //   );
-  // }
 
   unfollow(followId: string, email: string): void {
     this.friendService.unfollow(followId).subscribe(
@@ -194,19 +167,19 @@ export class PersonalPageComponent implements OnInit {
       }
     );
   }
-  removeFollower( mail: string): void {
+  removeFollower(mail: string): void {
     const id = localStorage.getItem('id')!;
     this.followerService.removeFollower(id, mail).subscribe(
-        (response) => {
-        },
-        (error) => {
-            console.error('Errore durante la rimozione del follower:', error);
-        }
+      (response) => {
+      },
+      (error) => {
+        console.error('Errore durante la rimozione del follower:', error);
+      }
     );
-}
+  }
 
 
-  followUser( email: string, userId:string): void {
+  followUser(email: string, userId: string): void {
     const id = localStorage.getItem('id')!;
     this.friendService.follow(id, email).subscribe(
       (response) => {
@@ -219,7 +192,7 @@ export class PersonalPageComponent implements OnInit {
     );
   }
 
-  addFollower(userId: string ): void {
+  addFollower(userId: string): void {
     const email = JSON.parse(localStorage.getItem('user_info') || '{}').email;
     this.followerService.addFollower(userId, email).subscribe(
       (response) => {
