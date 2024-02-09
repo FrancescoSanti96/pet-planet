@@ -4,6 +4,7 @@ import { PostService } from '../../services/post.service';
 import { ModifyPostDialogComponent } from '../../component/modify-post-dialog/modify-post-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-personal-post',
@@ -14,11 +15,14 @@ export class PersonalPostComponent implements OnInit{
 
   posts: Post[] = [];
   id!: string;
+  imageURL!: SafeUrl;
+  imagesURL!: SafeUrl[];
 
   constructor(
     private postService: PostService,
     private dialog: MatDialog,
     private reloadService: ReloadService, 
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +59,11 @@ export class PersonalPostComponent implements OnInit{
     this.postService.getPostByUserID(this.id).subscribe(
       (posts) => {
         this.posts = posts;
+        // per ongi post dentro posts fai 
+        // this.imageURL = this.sanitizer.bypassSecurityTrustUrl(post.image);
+        console.log(posts)
+        this.imagesURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.img));
+        console.log("2xiamgeursl",this.imagesURL)
       },
       (error) => {
         console.error(
@@ -65,4 +74,12 @@ export class PersonalPostComponent implements OnInit{
     );
   }
 
+  imgPost(post: Post): void {
+    this.imageURL = this.sanitizer.bypassSecurityTrustUrl(post.img);
+  }
+
+  test(i: number) {
+    console.log('1',i)
+    console.log('2',this,this.imagesURL[i])
+  }
 }

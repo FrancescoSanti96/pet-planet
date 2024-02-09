@@ -11,4 +11,5 @@ export interface Comment {
     corpo: string;
     profilePic: string;
     commenti: Comment[];
+    img: string;
   }

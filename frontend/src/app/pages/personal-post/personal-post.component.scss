@@ -68,7 +68,6 @@
     background-color: #fff;
     margin: auto;
     width: 50%;
-    height: 150vh;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -115,5 +114,28 @@
 }
 
 .postContainer {
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: aliceblue 5px solid;
+}
+
+.title-my-posts {
+    color: #3498db;
+    font-size: 28px;
+}
+
+.mat-mdc-card-avatar {
+    height: 80px;
+    width: 80px;
+}
+
+.title-my-post {
+    font-size: 24px;
+}
+
+.corpo-my-post {
+    font-size: 18px;
 }

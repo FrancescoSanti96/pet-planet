@@ -16,16 +16,17 @@
     <div class="post">
         <mat-card class="post-list">
           <mat-card-header>
-            <mat-card-title>Lista dei miei Post</mat-card-title>
+            <mat-card-title> <b class="title-my-posts">Lista dei miei Post</b></mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <mat-card *ngFor="let post of posts" class="postContainer">
+            <mat-card *ngFor="let post of posts let i = index" class="postContainer">
               <mat-card-header>
                 <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
-                <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
+                <mat-card-title><b class="title-my-post">{{ post.titolo }}</b></mat-card-title>
               </mat-card-header>
+              <img mat-card-image [src]="imagesURL[i]" (click)="test(i)" *ngIf="post.img" alt="Photo">
               <mat-card-content class="post-content">
-                <p>{{ post.corpo }}</p>
+                <p class="corpo-my-post">{{ post.corpo }}</p>
                 <div *ngIf="post.commenti && post.commenti.length > 0">
                   <h3 class>Commenti:</h3>
                   <ul>
