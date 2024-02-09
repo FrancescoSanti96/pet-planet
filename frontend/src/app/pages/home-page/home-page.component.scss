@@ -73,11 +73,11 @@
 }
 
 .margin {
-    margin: 40px auto;
+    margin: 20px auto;
 }
 
 .border {
-    max-width: 400px;
+    max-width: 550px;
     width: 50%;
     border: aliceblue 5px solid;
 }
@@ -101,6 +101,7 @@
 
 .textMessage {
     font-size: 17px;
+    color: darkgrey;
 }
 
 .amici-container {
@@ -136,4 +137,8 @@
 .mat-mdc-card-avatar {
     height: 80px;
     width: 80px;
+}
+
+.utenteCommento {
+    color: darkgrey;
 }

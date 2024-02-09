@@ -78,8 +78,4 @@ export class PersonalPostComponent implements OnInit{
     this.imageURL = this.sanitizer.bypassSecurityTrustUrl(post.img);
   }
 
-  test(i: number) {
-    console.log('1',i)
-    console.log('2',this,this.imagesURL[i])
-  }
 }

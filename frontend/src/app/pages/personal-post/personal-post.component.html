@@ -24,7 +24,7 @@
                 <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
                 <mat-card-title><b class="title-my-post">{{ post.titolo }}</b></mat-card-title>
               </mat-card-header>
-              <img mat-card-image [src]="imagesURL[i]" (click)="test(i)" *ngIf="post.img" alt="Photo">
+              <img mat-card-image [src]="imagesURL[i]" *ngIf="post.img" alt="Photo">
               <mat-card-content class="post-content">
                 <p class="corpo-my-post">{{ post.corpo }}</p>
                 <div *ngIf="post.commenti && post.commenti.length > 0">

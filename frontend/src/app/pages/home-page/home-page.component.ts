@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
 import { CreatePostDialogComponent } from '../../component/create-post-dialog/create-post-dialog.component';
 import { SearchFriendDialogComponent } from '../../component/search-friend-dialog/search-friend-dialog.component';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home-page',
@@ -21,7 +22,8 @@ export class HomePageComponent {
   corpo: string = '';
   id: string = '';
   posts: Post[] = [];
-  private refreshDone = false;
+  imageURL!: SafeUrl;
+  imagesURL!: SafeUrl[];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class HomePageComponent {
     private postService: PostService,
     private dialog: MatDialog,
     private reloadService: ReloadService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -115,6 +118,7 @@ export class HomePageComponent {
     this.postService.getPostsOfFriends(this.id).subscribe(
       (posts) => {
         this.posts = posts;
+        this.imagesURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.img));
         this.posts.forEach((post) => {
           this.getComments(post._id);
         });
