@@ -29,8 +29,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreatePostDialogComponent } from './component/create-post-dialog/create-post-dialog.component';
 import { SearchFriendDialogComponent } from './component/search-friend-dialog/search-friend-dialog.component';
 import { PetFriendDialogComponent } from './component/pet-friend-dialog/pet-friend-dialog.component';
-import { FilterPipe } from '../utils/filter.pipe';
-import { HighlightDirective } from '../utils/highlight.directive';
 import { PersonalPostComponent } from './pages/personal-post/personal-post.component';
 import { OtherPetProfileComponent } from './pages/other-pet-profile/other-pet-profile.component';
 import { FollowerDialogComponent } from './component/follower-dialog/follower-dialog.component';
@@ -51,8 +49,6 @@ import { FollowerDialogComponent } from './component/follower-dialog/follower-di
     CreatePostDialogComponent,
     SearchFriendDialogComponent,
     PetFriendDialogComponent,
-    FilterPipe,
-    HighlightDirective,
     PersonalPostComponent,
     OtherPetProfileComponent,
     FollowerDialogComponent
