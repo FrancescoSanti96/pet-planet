@@ -11,10 +11,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { PetFriendDialogComponent } from '../../component/pet-friend-dialog/pet-friend-dialog.component';
 import { FollowerDialogComponent } from '../../component/follower-dialog/follower-dialog.component';
 import { Friend } from '../../model/friend.model';
-interface User {
-  _id: string;
-  email: string;
-}
+import { User } from '../../model/user.model';
 @Component({
   selector: 'app-personal-page',
   templateUrl: './personal-page.component.html',
