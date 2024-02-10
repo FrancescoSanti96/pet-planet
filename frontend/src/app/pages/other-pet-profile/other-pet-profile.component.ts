@@ -1,16 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FriendService } from '../../services/friend.service';
 import { Friend } from '../../model/friend.model';
-import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../model/user.model';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AnimalService } from '../../services/animal.service';
 import { Animal } from '../../model/animal.model';
-import { PetFriendDialogComponent } from '../../component/pet-friend-dialog/pet-friend-dialog.component';
-import { FollowerDialogComponent } from '../../component/follower-dialog/follower-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-other-pet-profile',
@@ -34,6 +32,7 @@ export class OtherPetProfileComponent {
     private animalService: AnimalService,
     private sanitizer: DomSanitizer,
     private dialog: MatDialog,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -43,13 +42,13 @@ export class OtherPetProfileComponent {
       this.loadAnimalsData();
       this.loadFriendsData();
       this.loadFollowersData();
-      }
+    }
     );
 
-    }
+  }
 
-    loadFriendsData(): void {
-      this.isLoadingFriends = true;
+  loadFriendsData(): void {
+    this.isLoadingFriends = true;
     this.friendService.getFriendsOtherProfile(this.userId).subscribe(
       (friends) => {
         this.friendsList = friends.map((friend) => {
@@ -117,5 +116,9 @@ export class OtherPetProfileComponent {
 
   checkAnimal(): boolean {
     return this.animal ? Object.keys(this.animal).length > 0 : false;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

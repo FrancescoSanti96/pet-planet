@@ -14,7 +14,7 @@
             <li *ngFor="let follower of filteredFollowers">
                 <div class="friend-info">
                     <div mat-card-avatar class="friend-avatar"></div>
-                    <span>{{ follower.amico }}</span>
+                    <span (click)="redirectToFriendProfile(follower.amico)">{{ follower.amico }}</span>
                 </div>
             </li>
         </ul>
@@ -25,7 +25,7 @@
             <li *ngFor="let follower of followersList">
                 <div class="friend-info">
                     <div mat-card-avatar class="friend-avatar"></div>
-                    <span>{{ follower.amico}}</span>
+                    <span (click)="redirectToFriendProfile(follower.amico)">{{ follower.amico}}</span>
                 </div>
             </li>
         </ul>
