@@ -144,5 +144,6 @@ export class SearchFriendDialogComponent {
 
   redirectToFriendProfile(userId: string) {
     this.router.navigate(['/other-pet-profile', userId]);
+    this.dialogRef.close();
   }
 }

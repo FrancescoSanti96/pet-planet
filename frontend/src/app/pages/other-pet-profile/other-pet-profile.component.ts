@@ -115,22 +115,6 @@ export class OtherPetProfileComponent {
     );
   }
 
-  openPetFriendDialog(): void {
-    const dialogRef = this.dialog.open(PetFriendDialogComponent, {
-      width: '400px',
-      height: '400px',
-      data: {},
-    });
-  }
-
-  openFollowerDialogComponent(): void {
-    const dialogRef = this.dialog.open(FollowerDialogComponent, {
-      width: '400px',
-      height: '400px',
-      data: {},
-    });
-  }
-
   checkAnimal(): boolean {
     return this.animal ? Object.keys(this.animal).length > 0 : false;
   }

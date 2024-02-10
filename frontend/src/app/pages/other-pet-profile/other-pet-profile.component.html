@@ -2,15 +2,13 @@
     <div class="left-container">
         <div class="title">PetPlanet</div>
         <div class="button-container">
-            <div class="action-button" (click)="openPetFriendDialog()">
+            <div class="action-button">
                 <i class="material-icons">group</i>
-                <p (click)="openPetFriendDialog()">petFriend: <span class="colorButtonPet">{{ friendsList.length
-                        }}</span> </p>
+                <p>petFriend: <span class="colorButtonPet">{{ friendsList.length}}</span> </p>
             </div>
-            <div class="action-button" (click)="openFollowerDialogComponent()">
+            <div class="action-button">
                 <i class="material-icons">people_outline</i>
-                <p (click)="openFollowerDialogComponent()">petFollower: <span class="colorButtonPet">{{
-                        followersList.length }}</span></p>
+                <p>petFollower: <span class="colorButtonPet">{{followersList.length }}</span></p>
             </div>
         </div>
     </div>
