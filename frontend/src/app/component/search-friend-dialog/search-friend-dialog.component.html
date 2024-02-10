@@ -14,12 +14,12 @@
             <li *ngFor="let user of filteredUsers">
                 <div class="friend-info">
                     <div mat-card-avatar [style.background-image]="'url(' + user.profilePicture + ')'"></div>
-                    <span>{{ user.email }}</span>
+                    <span (click)="redirectToFriendProfile(user._id)">{{ user.email }}</span>
                     <div class="friend-buttons">
                         <button  (click)="followUser(user.email, user._id)">Follow</button>
                     </div>
                 </div>
-            </li>
+            </li>        
         </ul>
     </div>
 
@@ -28,7 +28,7 @@
             <li *ngFor="let user of usersList">
                 <div class="friend-info">
                     <div mat-card-avatar [style.background-image]="'url(' + user.profilePicture + ')'"></div>
-                    <span>{{ user.email }}</span>
+                    <span (click)="redirectToFriendProfile(user._id)">{{ user.email }}</span>
                     <div class="friend-buttons">
                         <button  (click)="followUser(user.email, user._id)">Follow</button>
                     </div>

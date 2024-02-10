@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login-page/login.component';
 import { PersonalPageComponent } from './pages/personal-page/personal-page.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { PersonalPostComponent } from './pages/personal-post/personal-post.component';
+import { OtherPetProfileComponent } from './pages/other-pet-profile/other-pet-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: PersonalPageComponent },
   { path: 'post', component: PersonalPostComponent },
+  { path: 'other-pet-profile/:userId', component: OtherPetProfileComponent },
 ];
 
 @NgModule({

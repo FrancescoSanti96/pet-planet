@@ -5,8 +5,8 @@ import { ReloadService } from '../../services/reload.service';
 import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { User } from '../../model/user.model';
-
 @Component({
   selector: 'app-search-friend-dialog',
   templateUrl: './search-friend-dialog.component.html',
@@ -27,6 +27,7 @@ export class SearchFriendDialogComponent {
   searchText = '';
 
   constructor(
+    private router: Router,
     private friendService: FriendService,
     private reloadService: ReloadService,
     private http: HttpClient,
@@ -139,5 +140,9 @@ export class SearchFriendDialogComponent {
         console.error('Error add friend:', error);
       }
     );
+  }
+
+  redirectToFriendProfile(userId: string) {
+    this.router.navigate(['/other-pet-profile', userId]);
   }
 }
