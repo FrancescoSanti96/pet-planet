@@ -14,30 +14,35 @@
         <i class="material-icons">local_post_office</i>
         <div class="label">I miei post</div>
       </div>
-      <!-- TODO -->
-      <div class="action-button">
-        <i class="material-icons" (click)="openPetFriendDialog()">search</i>
-        <div class="label">I miei petFriend</div>
+      <div class="action-button" (click)="openPetFriendDialog()">
+        <i class="material-icons">group</i>
+        <p (click)="openPetFriendDialog()">petFriend: <span class="colorButtonPet">{{ friendsList.length }}</span> </p>
+      </div>
+      <div class="action-button" (click)="openPetFriendDialog()">
+        <i class="material-icons">people_outline</i>
+        <p (click)="openFollowerDialogComponent()">petFollower: <span class="colorButtonPet">{{ followersList.length }}</span></p>
       </div>
     </div>
   </div>
 
-  <div class="image-profile-container">
-    <img mat-card-image class="profilePic" *ngIf="animal.image && animal.image" [src]="imageURL"
-      alt="Photo of the animal">
-  </div>
-
-  <div class="info-animale-container">
-
-    <mat-card>
-      <mat-card-content *ngIf="checkAnimal()">
-        <!-- <img *ngIf="animal.image && animal.image.data" [src]="imageURL"> -->
-        <h2>{{ animal.nome }}</h2>
-        <p>Tipo: {{ animal.tipoAnimale }}</p>
-        <p *ngIf="animal.razza">Razza: {{ animal.razza }}</p>
-        <p *ngIf="animal.sesso">Sesso: {{ animal.sesso }}</p>
-      </mat-card-content>
-    </mat-card>
+  <div class="imageAndIndoContainer">
+    <div class="image-profile-container">
+      <img mat-card-image class="profilePic" *ngIf="animal.image && animal.image" [src]="imageURL"
+        alt="Photo of the animal">
+    </div>
+  
+    <div class="info-animale-container">
+  
+      <mat-card class="info-animale-position">
+        <mat-card-content *ngIf="checkAnimal()">
+          <!-- <img *ngIf="animal.image && animal.image.data" [src]="imageURL"> -->
+          <h2>{{ animal.nome }}</h2>
+          <p>Tipo: {{ animal.tipoAnimale }}</p>
+          <p *ngIf="animal.razza">Razza: {{ animal.razza }}</p>
+          <p *ngIf="animal.sesso">Sesso: {{ animal.sesso }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 
   <div class="badge-container">
@@ -59,12 +64,4 @@
       src="https://res.cloudinary.com/practicaldev/image/fetch/s--9BR4RYdC--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/2/Version2-08.png"
       vspace="10" hspace="10" alt="badge4">
   </div>
-</div>
-
-<div class="action-button">
-  <p (click)="openPetFriendDialog()">petFriend: {{ friendsList.length }}</p>
-</div>
-
-<div class="action-button">
-  <p (click)="openFollowerDialogComponent()">petFollower: {{ followersList.length }}</p>
 </div>

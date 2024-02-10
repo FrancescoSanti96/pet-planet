@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
-    height: 100vh;
+    height: 90vh;
 }
 
 .left-container {
@@ -15,8 +15,7 @@
     flex-direction: column;
     align-items: center;
     align-items: baseline;
-    gap: 50px;
-    height: 100vh;
+    gap: 20px;
 }
 
 .title {
@@ -35,7 +34,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 100px;
+    gap: 75px;
     align-items: baseline;
 }
 
@@ -56,27 +55,40 @@
 }
 
 .image-profile-container {
-    width: 25%;
+    // width: 25%;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 60px;
+    padding-top: 15px;
+    padding-bottom: 5px;
 }
 
 .profilePic {
     width: 100%;
     height: 50%;
+    border: aliceblue 5px solid;
 }
 
 .info-animale-container {
-    width: 15%;
+    // width: 15%;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    padding: 20px;
-    height: 100vh;
+    padding: 25px;
+    padding-top: 10px;
+}
+
+.info-animale-position{
+    margin: auto;
+    width: 100%;
+    border: aliceblue 5px solid;
+}
+
+.imageAndIndoContainer{
+    width: 45%;
 }
 
 .container-footer {
@@ -101,4 +113,34 @@
 
 .badge {
     width: 15%;
+}
+
+// .petFriend {
+//     position: absolute;
+//     bottom: 80px;
+//     left: 450px;
+//     border: aliceblue 3px solid;
+//     border-radius: 25%;
+//     padding: 5px;
+// }
+
+// .petFriend:hover {
+//     border: rgb(225, 239, 252) 3px solid;
+// }
+
+// .petFollower {
+//     position: absolute;
+//     bottom: 80px;
+//     left: 650px;
+//     border: aliceblue 3px solid;
+//     border-radius: 25%;
+//     padding: 5px;
+// }
+
+// .petFollower:hover {
+//     border: rgb(225, 239, 252) 3px solid;
+// }
+
+.colorButtonPet {
+    color: rgb(235, 138, 138)
 }
