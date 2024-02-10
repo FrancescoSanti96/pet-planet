@@ -19,6 +19,13 @@ export class FriendService {
             );
     }
 
+    getFriendsOtherProfile(userId: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/friends/user/${userId}`)
+            .pipe(
+                tap(friends => console.log('Friends from API:', friends))
+            );
+    }
+
     follow(utenteId: string, amico: string): Observable<any> {
         const body = { utente: utenteId, amico: amico };
         return this.http.post<any>(`${this.apiUrl}/friends`, body);

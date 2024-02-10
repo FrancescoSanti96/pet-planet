@@ -37,12 +37,12 @@ export class OtherPetProfileComponent {
   ) { }
 
   ngOnInit(): void {
-    this.loadFriendsData();
-    
-    this.loadFollowersData();
+
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('userId')!;
       this.loadAnimalsData();
+      this.loadFriendsData();
+      this.loadFollowersData();
       }
     );
 
@@ -50,7 +50,7 @@ export class OtherPetProfileComponent {
 
     loadFriendsData(): void {
       this.isLoadingFriends = true;
-    this.friendService.getFriends().subscribe(
+    this.friendService.getFriendsOtherProfile(this.userId).subscribe(
       (friends) => {
         this.friendsList = friends.map((friend) => {
           const { _id, utente, amico } = friend;
@@ -75,7 +75,7 @@ export class OtherPetProfileComponent {
   }
 
   loadFollowersData(): void {
-    this.followerService.getFollowers().subscribe(
+    this.followerService.getFollowersOtherProfile(this.userId).subscribe(
       (followers) => {
         this.followersList = followers.map((follower) => {
           const { _id, utente, amico } = follower;

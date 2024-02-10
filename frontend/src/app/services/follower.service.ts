@@ -16,6 +16,10 @@ export class FollowerService {
         return this.http.get<any[]>(`${this.apiUrl}/followers/user/${this.id}`)
     }
 
+    getFollowersOtherProfile(userId: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/followers/user/${userId}`)
+    }
+
     addFollower(utenteId: string, amico: string): Observable<any> {
         const body = { utente: utenteId, amico: amico };
         return this.http.post<any>(`${this.apiUrl}/followers`, body);
