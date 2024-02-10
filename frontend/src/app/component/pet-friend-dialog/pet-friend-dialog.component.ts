@@ -4,6 +4,9 @@ import { FriendService } from '../../services/friend.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReloadService } from '../../services/reload.service';
 import { FollowerService } from '../../services/follower.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-pet-friend-dialog',
@@ -22,7 +25,8 @@ export class PetFriendDialogComponent {
     private friendService: FriendService,
     private reloadService: ReloadService,
     private followerService: FollowerService,
-
+    private router: Router,
+    private http: HttpClient,
     public dialogRef: MatDialogRef<PetFriendDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -132,6 +136,18 @@ export class PetFriendDialogComponent {
       },
       (error) => {
         console.error('Error add friend:', error);
+      }
+    );
+  }
+
+  redirectToFriendProfile(userId: string) {
+    this.http.get<User>(`http://localhost:3000/api/v1/users/email/${userId}`).subscribe(
+      (user) => {
+        this.router.navigate(['/other-pet-profile', user._id]);
+        this.dialogRef.close();
+      },
+      (error) => {
+        console.error('Errore nel recupero dell\'utente:', error);
       }
     );
   }
