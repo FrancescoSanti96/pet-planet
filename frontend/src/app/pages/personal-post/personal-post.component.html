@@ -2,13 +2,9 @@
     <div class="left-container">
       <div class="title">PetPlanet</div>
       <div class="button-container">
-        <div class="action-button" routerLink="/homepage">
-          <i class="material-icons">home</i>
-          <div class="label">Homepage</div>
-        </div>
         <div class="action-button" routerLink="/profile">
-            <i class="material-icons">person_pin</i>
-            <div class="label">Profile</div>
+            <i class="material-icons">keyboard_backspace</i>
+            <div class="label">Indietro</div>
           </div>
       </div>
     </div>
@@ -21,10 +17,10 @@
           <mat-card-content>
             <mat-card *ngFor="let post of posts let i = index" class="postContainer">
               <mat-card-header>
-                <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
+                <img mat-card-avatar [src]="imagesUserPostsURL[i]" >
                 <mat-card-title><b class="title-my-post">{{ post.titolo }}</b></mat-card-title>
               </mat-card-header>
-              <img mat-card-image [src]="imagesURL[i]" *ngIf="post.img" alt="Photo">
+              <img mat-card-image [src]="imagesPostsURL[i]" *ngIf="post.img" alt="Photo">
               <mat-card-content class="post-content">
                 <p class="corpo-my-post">{{ post.corpo }}</p>
                 <div *ngIf="post.commenti && post.commenti.length > 0">

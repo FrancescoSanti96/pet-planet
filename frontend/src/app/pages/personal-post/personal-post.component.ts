@@ -15,9 +15,8 @@ export class PersonalPostComponent implements OnInit{
 
   posts: Post[] = [];
   id!: string;
-  imageURL!: SafeUrl;
-  imagesURL!: SafeUrl[];
-
+  imagesPostsURL!: SafeUrl[];
+  imagesUserPostsURL!: SafeUrl[];
   constructor(
     private postService: PostService,
     private dialog: MatDialog,
@@ -59,11 +58,8 @@ export class PersonalPostComponent implements OnInit{
     this.postService.getPostByUserID(this.id).subscribe(
       (posts) => {
         this.posts = posts;
-        // per ongi post dentro posts fai 
-        // this.imageURL = this.sanitizer.bypassSecurityTrustUrl(post.image);
-        console.log(posts)
-        this.imagesURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.img));
-        console.log("2xiamgeursl",this.imagesURL)
+        this.imagesUserPostsURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.profilePic));
+        this.imagesPostsURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.img));
       },
       (error) => {
         console.error(
@@ -73,9 +69,4 @@ export class PersonalPostComponent implements OnInit{
       }
     );
   }
-
-  imgPost(post: Post): void {
-    this.imageURL = this.sanitizer.bypassSecurityTrustUrl(post.img);
-  }
-
 }

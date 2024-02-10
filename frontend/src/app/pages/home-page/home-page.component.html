@@ -17,10 +17,10 @@
     <div class="display-post margin postBox">
       <mat-card class="border" *ngFor="let post of posts let i = index">
         <mat-card-header>
-          <div mat-card-avatar [style.background-image]="'url(' + post.profilePic + ')'"></div>
+            <img mat-card-avatar [src]="imagesUserPostsURL[i]" >
           <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
         </mat-card-header>
-        <img mat-card-image [src]="imagesURL[i]" *ngIf="post.img" alt="Photo">
+        <img mat-card-image [src]="imagesPostsURL[i]" *ngIf="post.img" alt="Photo">
         <mat-card-content>
           <p>{{ post.corpo }}</p>
           <div *ngIf="post.commenti && post.commenti.length > 0">

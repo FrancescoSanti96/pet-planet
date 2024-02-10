@@ -22,8 +22,9 @@ export class HomePageComponent {
   corpo: string = '';
   id: string = '';
   posts: Post[] = [];
-  imageURL!: SafeUrl;
-  imagesURL!: SafeUrl[];
+  // imageURL!: SafeUrl;
+  imagesPostsURL!: SafeUrl[];
+  imagesUserPostsURL!: SafeUrl[];
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +53,27 @@ export class HomePageComponent {
       this.http.get(url).subscribe(
         (data: any) => {
           this.userInfo = data;
+          // const url = this.userInfo.picture;
+          this.http.get(url, { responseType: 'blob' }).subscribe(
+            (blob: Blob) => {
+              // Scarica l'immagine come blob
+              const reader = new FileReader();
+          
+              reader.onloadend = () => {
+                // Converti l'immagine in formato base64
+                this.userInfo.picture = reader.result as string;
+          
+                // Ora puoi chiamare this.postLogin(this.userInfo)
+                this.postLogin(this.userInfo);
+              };
+          
+              reader.readAsDataURL(blob);
+            },
+            (error) => {
+              console.error('Errore durante il recupero dell\'immagine:', error);
+            }
+          );
+          
           localStorage.setItem('user_info', JSON.stringify(this.userInfo));
           this.postLogin(this.userInfo);
         },
@@ -118,7 +140,8 @@ export class HomePageComponent {
     this.postService.getPostsOfFriends(this.id).subscribe(
       (posts) => {
         this.posts = posts;
-        this.imagesURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.img));
+        this.imagesUserPostsURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.profilePic));
+        this.imagesPostsURL = this.posts.map(post => this.sanitizer.bypassSecurityTrustUrl(post.img));
         this.posts.forEach((post) => {
           this.getComments(post._id);
         });
