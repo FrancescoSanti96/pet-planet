@@ -17,7 +17,14 @@
         </div>
     </div>
 
-    <div class="imageAndIndoContainer">
+    <div class="imageAndIndoContainer"  *ngIf="!checkAnimal()">
+        <mat-card class="info-animale-position">
+            <mat-card-content>
+                <h2 class="textInsertData">Dati animale da inserire</h2>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="imageAndIndoContainer" *ngIf="checkAnimal()">
         <div class="image-profile-container">
             <img mat-card-image class="profilePic" *ngIf="animal.image && animal.image" [src]="imageURL"
                 alt="Photo of the animal">
