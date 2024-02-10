@@ -17,13 +17,20 @@ export class AnimalService {
     return this.http.get<Animal[]>(`${this.apiUrl}/animals`);
   }
 
+
   getAnimalById(animalId: string): Observable<Animal> {
     return this.http.get<Animal>(`${this.apiUrl}/animals/${animalId}`);
   }
+  
 
   getAnimalByUserId(): Observable<Animal | null> {
     return this.http.get<Animal | null>(`${this.apiUrl}/animals/user/${this.id}`);
   }
+
+  getAnimalOtherProfileByUserId(userId: string): Observable<Animal | null> {
+    return this.http.get<Animal | null>(`${this.apiUrl}/animals/user/${userId}`);
+  }
+
 
   createAnimal(animal: Animal): Observable<Animal> {
     return this.http.post<Animal>(`${this.apiUrl}/animals`, animal);

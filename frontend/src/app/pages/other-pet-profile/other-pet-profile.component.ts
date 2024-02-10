@@ -3,7 +3,7 @@ import { FriendService } from '../../services/friend.service';
 import { Friend } from '../../model/friend.model';
 import { HttpClient } from '@angular/common/http';
 import { FollowerService } from '../../services/follower.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../model/user.model';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AnimalService } from '../../services/animal.service';
@@ -25,11 +25,11 @@ export class OtherPetProfileComponent {
   animal: Animal = {} as Animal;
   isLoadingFriends: boolean = false;
   imageURL!: SafeUrl;
+  userId!: string;
 
   constructor(
-    private router: Router,
+    private route: ActivatedRoute,
     private friendService: FriendService,
-    private http: HttpClient,
     private followerService: FollowerService,
     private animalService: AnimalService,
     private sanitizer: DomSanitizer,
@@ -38,12 +38,18 @@ export class OtherPetProfileComponent {
 
   ngOnInit(): void {
     this.loadFriendsData();
-    this.loadAnimalsData();
+    
     this.loadFollowersData();
-  }
+    this.route.paramMap.subscribe(params => {
+      this.userId = params.get('userId')!;
+      this.loadAnimalsData();
+      }
+    );
 
-  loadFriendsData(): void {
-    this.isLoadingFriends = true;
+    }
+
+    loadFriendsData(): void {
+      this.isLoadingFriends = true;
     this.friendService.getFriends().subscribe(
       (friends) => {
         this.friendsList = friends.map((friend) => {
@@ -92,7 +98,7 @@ export class OtherPetProfileComponent {
   }
 
   loadAnimalsData(): void {
-    this.animalService.getAnimalByUserId().subscribe(
+    this.animalService.getAnimalOtherProfileByUserId(this.userId).subscribe(
       (animal) => {
         if (animal !== null) {
           this.animal = animal;

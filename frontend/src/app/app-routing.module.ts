@@ -10,7 +10,6 @@ import { OtherPetProfileComponent } from './pages/other-pet-profile/other-pet-pr
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'chat/:friendId', component: ChatComponent },
   { path: 'homepage', component: HomePageComponent },
   { path: 'register', component: RegistrationPageComponent },
   { path: 'login', component: LoginComponent },
