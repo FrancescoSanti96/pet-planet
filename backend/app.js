@@ -111,6 +111,10 @@ start();
 // curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/friends -d '{"utente":"Umberto", "amico":"Francesco"}'
 // curl localhost:3000/api/v1/friends/...id -X DELETE
 
+//Commenti
+// curl http://localhost:3000/api/v1/posts
+// curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/posts/65c91303df7e521664e07eff/comment -d '{utente":"65c8aea4677f7a4b522fc24d", "testo":"ciao", "email": "oreolabraddor@.com}'
+
 // npm install @fastify/cors    
 
 // curl -H 'Content-type: application/json' -X POST http://localhost:3000/api/v1/posts -d '{"utente":"659addc83a738caa847ff15c", "titolo":"Terzo post!", "corpo":"2023-11-26T12:00:00"}'
