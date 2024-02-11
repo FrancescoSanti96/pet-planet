@@ -6,9 +6,7 @@
           <img [src]="img" alt="Photo of the user" class="user-photo">
           {{ userInfo?.email }}
         </div>
-        <!-- <a (click)="logout()" class="logout-link">Logout</a> -->
-
-        <div class="action-button" (click)="logout()">
+        <div class="action-button" (click)="logout()" title="Logout">
           <i class="material-icons">exit_to_app</i>
         </div>
       </div>
