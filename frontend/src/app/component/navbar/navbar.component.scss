@@ -31,3 +31,25 @@ nav a {
 .infoColor{
     color: rgba(209, 209, 209, 0.783);
 }
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.action-button .material-icons {
+    font-size: 40px;
+}
+
+.label {
+    font-size: 16px;
+}
+
+.wrapper-nav{
+    width: 97vw;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}

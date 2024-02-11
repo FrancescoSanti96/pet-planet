@@ -2,6 +2,10 @@
   <div class="left-container">
     <div class="title">PetPlanet</div>
     <div class="button-container">
+      <div class="action-button" routerLink="/homepage">
+        <i class="material-icons">home</i>
+        <div class="label">Homepage</div>
+      </div>
       <div class="action-button" routerLink="/register" *ngIf="!checkAnimal()">
         <i class="material-icons">create</i>
         <div class="label">Inserisci informazioni animale</div>
