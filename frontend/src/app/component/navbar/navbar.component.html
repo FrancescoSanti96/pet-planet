@@ -2,9 +2,13 @@
   <mat-toolbar color="primary">
     <nav>
       <ng-container *ngIf="isUserAuthenticated(); else loginNav">
+        <span class="infoColor" *ngIf=[isVisible]> 
+          <img [src]="img" alt="Photo of the user" class="user-photo">
+          {{ userInfo?.email }}
+        </span>
         <a routerLink="/homepage">Homepage</a>
         <a routerLink="/profile">Profile</a>
-        <a (click)="logout()">Logout</a>
+        <a (click)="logout()" class="logout-link">Logout</a>
       </ng-container>
       <ng-template #loginNav>
         <a routerLink="/login">Login</a>

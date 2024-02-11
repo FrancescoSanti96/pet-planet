@@ -84,3 +84,7 @@ mat-form-field {
     height: 70px;
     border-radius: 50%;
 }
+
+::ng-deep .mat-mdc-dialog-container{
+    width: fit-content;
+}
