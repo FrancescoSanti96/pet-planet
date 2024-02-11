@@ -24,9 +24,11 @@
               <mat-card-content class="post-content">
                 <p class="corpo-my-post">{{ post.corpo }}</p>
                 <div *ngIf="post.commenti && post.commenti.length > 0">
-                  <h3 class>Commenti:</h3>
+                  <h3 class class="textMessage">Commenti:</h3>
                   <ul>
                     <li *ngFor="let comment of post.commenti">
+                      <span class="utenteCommento"> {{ comment.email }}</span>
+                      <br>
                       {{ comment.testo }}
                     </li>
                   </ul>

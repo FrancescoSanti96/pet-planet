@@ -60,7 +60,7 @@ export class HomePageComponent {
     });
     setTimeout(() => {
       this.loadPostsData();
-    }, 200);
+    }, 300);
   }
 
   loadUsersDataExceptOne(): void {
