@@ -50,7 +50,7 @@
           <div class="friend-info">
             <div mat-card-avatar class="friend-avatar" *ngIf="!user.profilePicture"></div>
             <div mat-card-avatar *ngIf="user.profilePicture"
-              [style.background-image]="'url(' + user.profilePicture + ')'" class="center-amici-consigliati"></div>
+              [style.background-image]="'url(' + user.profilePicture + ')'"></div>
             <span (click)="redirectToFriendProfile(user._id)">{{ user.email }}</span>
             <div class="friend-buttons">
               <button (click)="followUser(user.email, user._id)">Follow</button>
@@ -60,7 +60,7 @@
       </ul>
     </div>
     <div *ngIf="!usersList || usersList.length === 0">
-      <p>Nessun amico da consigliare.</p>
+      <h2 class="center-amici-consigliati">Nessun amico da consigliare.</h2>
     </div>
   </div>
 </div>
