@@ -3,6 +3,8 @@
         <mat-card-title>PetFriend</mat-card-title>
     </mat-card-header>
 
+    <mat-icon class="close-icon" (click)="closeDialogPetFriend()">clear</mat-icon>
+
     <mat-form-field appearance="fill">
         <input matInput placeholder="Inserisci il nome del pet" class="custom-textarea" type="text" id="search-text"
             aria-describedby="search-text" [(ngModel)]="searchText" (input)="filterFriends()">

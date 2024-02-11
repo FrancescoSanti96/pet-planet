@@ -152,4 +152,8 @@ export class PetFriendDialogComponent {
     );
   }
 
+  closeDialogPetFriend(): void {
+    this.dialogRef.close();
+  }
+
 }

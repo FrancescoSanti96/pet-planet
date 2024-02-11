@@ -108,4 +108,8 @@ export class FollowerDialogComponent {
     );
   }
 
+  closeDialogPetFollower(): void {
+    this.dialogRef.close();
+  }
+
 }

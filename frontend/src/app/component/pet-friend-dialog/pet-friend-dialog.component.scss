@@ -2,6 +2,12 @@ mat-form-field {
     width: 100%;
 }
 
+.close-icon{
+    position: absolute;
+    right: 0;
+    color: #d51608;
+}
+
 .custom-textarea {
     height: 50px;
     resize: none;
