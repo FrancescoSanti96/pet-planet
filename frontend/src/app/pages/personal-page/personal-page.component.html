@@ -57,19 +57,39 @@
     <h1>I tuoi badge</h1>
 
     <img class="badge"
-      src="https://res.cloudinary.com/practicaldev/image/fetch/s--46c9RZh7--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/236/Thumbs_Up-04.png"
-      vspace="10" hspace="10" alt="badge1">
+      src="../../../assets/positive-vote.png"
+      vspace="10" hspace="10" alt="badge1"
+      *ngIf="checkAnimal()"
+      >
 
-    <img class="badge"
-      src="https://res.cloudinary.com/practicaldev/image/fetch/s--Sqzy8EDG--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/160/Community_Wellness_Streak_Badge-01.png"
-      vspace="10" hspace="10" alt="badge2">
+      <img class="badge"
+      src="../../../assets/unlike.png"
+      vspace="10" hspace="10" alt="badge1"
+      *ngIf="!checkAnimal()"
+      >
 
-    <img class="badge"
-      src="https://res.cloudinary.com/practicaldev/image/fetch/s--L0O-vvgc--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/3/Discussion_BAdges-03.png"
-      vspace="10" hspace="10" alt="badge3">
+      <img class="badge"
+      src="../../../assets/picture.png"
+      vspace="10" hspace="10" alt="badge4"
+      *ngIf="animal.image"
+      >
 
-    <img class="badge"
-      src="https://res.cloudinary.com/practicaldev/image/fetch/s--9BR4RYdC--/c_limit,f_auto,fl_progressive,q_80,w_192/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/2/Version2-08.png"
-      vspace="10" hspace="10" alt="badge4">
+      <img class="badge"
+      src="../../../assets/forecasting.png"
+      vspace="10" hspace="10" alt="badge4"
+      *ngIf="friendsList.length"
+      >
+
+      <img class="badge"
+      src="../../../assets/follow.png"
+      vspace="10" hspace="10" alt="badge4"
+      *ngIf="followersList.length"
+      >
+
+      <img class="badge"
+      src="../../../assets/quality.png"
+      vspace="10" hspace="10" alt="badge4"
+      *ngIf="friendsList.length && followersList && animal.image && checkAnimal()"
+      >
   </div>
 </div>
