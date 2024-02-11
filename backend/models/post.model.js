@@ -13,6 +13,9 @@ const CommentSchema = new mongoose.Schema({
       required: true,
       trim: true,
     },
+    email: {
+      type: String
+    }
   });
 
 const PostSchema = new mongoose.Schema({

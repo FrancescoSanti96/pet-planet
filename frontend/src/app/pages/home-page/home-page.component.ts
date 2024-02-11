@@ -25,6 +25,7 @@ export class HomePageComponent {
   titolo: string = '';
   corpo: string = '';
   id: string = '';
+  email: string = '';
   posts: Post[] = [];
   // imageURL!: SafeUrl;
   imagesPostsURL!: SafeUrl[];
@@ -251,6 +252,7 @@ export class HomePageComponent {
       .createComment(postId, {
         utente: this.id,
         testo: commentBody,
+        email: this.userInfo.email
       })
       .subscribe(
         (data) => {

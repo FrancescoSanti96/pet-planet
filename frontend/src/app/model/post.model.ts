@@ -2,6 +2,7 @@ export interface Comment {
     _id: string;
     utente: string;
     testo: string;
+    email: string;
   }
   
   export interface Post {

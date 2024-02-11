@@ -38,7 +38,7 @@ export class PostService {
         return this.http.delete<void>(`${this.apiUrl}/posts/${postId}`);
     }
     
-    createComment(postId: string, commentData: { utente: string; testo: string }): Observable<any> {
+    createComment(postId: string, commentData: { utente: string; testo: string; email: string }): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/posts/${postId}/comment`, commentData);
     }
 

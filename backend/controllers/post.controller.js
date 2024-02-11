@@ -133,12 +133,13 @@ async function deletePost(request, reply) {
 
 async function createComment(request, reply) {
     try {
-        const { utente, testo } = request.body;
+        const { utente, testo, email} = request.body;
         const postId = request.params.id;
 
         const newComment = {
             utente,
             testo,
+            email
         };
 
         const updatedPost = await Post.findByIdAndUpdate(
@@ -149,6 +150,7 @@ async function createComment(request, reply) {
 
         const updatedUser = await User.findByIdAndUpdate(
             utente,
+            email,
             { $push: { comments: { post: postId, testo: newComment.testo } } },
             { new: true }
         );
