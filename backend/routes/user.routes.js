@@ -5,6 +5,7 @@ async function routes(fastify, options) {
   fastify.get("/:id", userController.getUserById);
   fastify.get("/email/:email", userController.getUserByEmail);
   fastify.get("/except/:id", userController.getAllUsersExceptOne);
+  fastify.get("/except/random/:id", userController.getAllUsersRandomExceptOne);
   fastify.post("/", userController.createUser);
   // fastify.put("/:id", userController.updateUser);
   fastify.delete("/:id", userController.deleteUser);

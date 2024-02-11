@@ -61,6 +61,53 @@ async function getAllUsersExceptOne(request, reply) {
   }
 }
 
+async function getRandomUsers(userList) {
+  const selectedUsers = [];
+
+  // Ottieni un indice casuale per l'utente
+  const getRandomIndex = () => Math.floor(Math.random() * userList.length);
+
+  // Seleziona casualmente tre utenti unici
+  while (selectedUsers.length < 3) {
+    const randomIndex = getRandomIndex();
+    selectedUsers.push(userList[randomIndex]);
+    // Rimuovi l'utente selezionato dalla lista per assicurarti di non selezionarlo di nuovo
+    userList.splice(randomIndex, 1);
+  }
+
+  return selectedUsers;
+}
+
+async function getAllUsersRandomExceptOne(request, reply) {
+  try {
+    const userIdToExclude = request.params.id;
+
+    // Trova tutti gli amici dell'utente
+    const user = await User.findById(userIdToExclude);
+    const friendIds = user.friends.map(friend => friend);
+    // Trova tutti gli amici corrispondenti agli ID direttamente in Friend
+    const friends = await Friend.find({ _id: { $in: friendIds } });
+    // Estrai gli indirizzi email dagli amici
+    const friendEmails = friends.map(friend => friend.amico);
+    // Trova tutti gli utenti tranne quello specificato e i suoi amici
+    let users = await User.find({
+      $and: [
+        { _id: { $ne: userIdToExclude } },
+        { email: { $nin: friendEmails } },
+      ],
+    });
+
+    // Se ci sono più di tre utenti, seleziona casualmente tre utenti
+    if (users.length > 3) {
+      users = await getRandomUsers(users);
+    }
+
+    reply.send(users);
+  } catch (error) {
+    reply.status(500).send({ error: 'Errore durante il recupero degli utenti' });
+  }
+}
+
 async function createUser(request, reply) {
   try {
     // Verifica se l'email è già presente nel database
@@ -110,4 +157,6 @@ module.exports = {
   // updateUser,
   deleteUser,
   getAllUsersExceptOne,
+  getRandomUsers,
+  getAllUsersRandomExceptOne
 };

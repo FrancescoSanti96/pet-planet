@@ -17,7 +17,7 @@
     <div class="display-post margin postBox">
       <mat-card class="border" *ngFor="let post of posts let i = index">
         <mat-card-header>
-            <img mat-card-avatar [src]="imagesUserPostsURL[i]" >
+          <img mat-card-avatar [src]="imagesUserPostsURL[i]">
           <mat-card-title><b>{{ post.titolo }}</b></mat-card-title>
         </mat-card-header>
         <img mat-card-image [src]="imagesPostsURL[i]" *ngIf="post.img" alt="Photo">
@@ -35,7 +35,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          
+
           <button mat-button (click)="openCommentDialog(post._id)"><mat-icon>add_comment</mat-icon></button>
         </mat-card-actions>
       </mat-card>
@@ -43,17 +43,24 @@
   </div>
 
   <div class="amici-container">
-    <h1>Amici di Amici</h1>
-    <div class="amico">
-      <i class="material-icons">person</i>
-      <span>Amico 1</span>
-      <a href="#" class="segui-link-amico">Segui</a>
+    <div *ngIf="usersList && usersList.length > 0">
+      <h2>Amici consigliati</h2>
+      <ul class="friend-list-items">
+        <li *ngFor="let user of usersList">
+          <div class="friend-info">
+            <div mat-card-avatar class="friend-avatar" *ngIf="!user.profilePicture"></div>
+            <div mat-card-avatar *ngIf="user.profilePicture"
+              [style.background-image]="'url(' + user.profilePicture + ')'"></div>
+            <span (click)="redirectToFriendProfile(user._id)">{{ user.email }}</span>
+            <div class="friend-buttons">
+              <button (click)="followUser(user.email, user._id)">Follow</button>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="amico">
-      <i class="material-icons">person</i>
-      <span>Amico 2</span>
-      <a href="#" class="segui-link-amico">Segui</a>
+    <div *ngIf="!usersList || usersList.length === 0">
+      <p>Nessun amico da consigliare.</p>
     </div>
   </div>
 </div>
- 

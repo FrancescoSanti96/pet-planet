@@ -9,6 +9,10 @@ import { ReloadService } from '../../services/reload.service';
 import { CreatePostDialogComponent } from '../../component/create-post-dialog/create-post-dialog.component';
 import { SearchFriendDialogComponent } from '../../component/search-friend-dialog/search-friend-dialog.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { User } from '../../model/user.model';
+import { Friend } from '../../model/friend.model';
+import { FriendService } from '../../services/friend.service';
+import { FollowerService } from '../../services/follower.service';
 
 @Component({
   selector: 'app-home-page',
@@ -27,17 +31,27 @@ export class HomePageComponent {
   imagesUserPostsURL!: SafeUrl[];
   imgUser!: string;
   // imgUserURL
-
+  usersList: User[] = [];
+  followersList: Friend[] = [];
+  friendsList: Friend[] = [];
+  isLoadingFriends: boolean = false;
+  randomUsers: any[] | undefined;
+  
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
     private postService: PostService,
     private dialog: MatDialog,
     private reloadService: ReloadService,
     private sanitizer: DomSanitizer,
+    private friendService: FriendService,
+    private followerService: FollowerService,
   ) { }
 
   ngOnInit(): void {
+    this.loadUsersDataExceptOne();
+
     // Recupera il valore dell'access_token dalla query param dell'URL
     this.route.queryParams.subscribe((params) => {
       this.accessToken = params['access_token'];
@@ -46,6 +60,46 @@ export class HomePageComponent {
     setTimeout(() => {
       this.loadPostsData();
     }, 200);
+  }
+
+  loadUsersDataExceptOne(): void {
+    const id = localStorage.getItem('id')!;
+    this.http.get<User[]>(`http://localhost:3000/api/v1/users/except/random/${id}`).subscribe(
+      (users) => {
+        this.usersList = users;
+      },
+      (error) => {
+        console.error('Errore nel recupero degli utenti:', error);
+      }
+    );
+  }
+
+  redirectToFriendProfile(userId: string) {
+    this.router.navigate(['/other-pet-profile', userId]);
+  }
+
+  followUser(email: string, userId: string): void {
+    const id = localStorage.getItem('id')!;
+    this.friendService.follow(id, email).subscribe(
+      (response) => {
+        this.addFollower(userId);
+        this.reloadService.reloadPage();
+      },
+      (error) => {
+        console.error('Error add friend:', error);
+      }
+    );
+  }
+
+  addFollower(userId: string): void {
+    const email = JSON.parse(localStorage.getItem('user_info') || '{}').email;
+    this.followerService.addFollower(userId, email).subscribe(
+      (response) => {
+      },
+      (error) => {
+        console.error('Error add friend:', error);
+      }
+    );
   }
 
   getUserInfo() {
@@ -60,16 +114,16 @@ export class HomePageComponent {
             (blob: Blob) => {
               // Scarica l'immagine come blob
               const reader = new FileReader();
-          
+
               reader.onloadend = () => {
                 // Converti l'immagine in formato base64
                 this.userInfo.picture = reader.result as string;
-          
+
                 // Ora puoi chiamare this.postLogin(this.userInfo)
                 this.postLogin(this.userInfo);
                 localStorage.setItem('user_info', JSON.stringify(this.userInfo));
               };
-          
+
               reader.readAsDataURL(blob);
             },
             (error) => {
@@ -217,5 +271,4 @@ export class HomePageComponent {
       }
     );
   }
-
 }
