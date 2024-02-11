@@ -51,8 +51,6 @@ export class HomePageComponent {
   ) { }
 
   ngOnInit(): void {
-    this.loadUsersDataExceptOne();
-
     // Recupera il valore dell'access_token dalla query param dell'URL
     this.route.queryParams.subscribe((params) => {
       this.accessToken = params['access_token'];
@@ -60,10 +58,11 @@ export class HomePageComponent {
     });
     setTimeout(() => {
       this.loadPostsData();
+      this.getAllUsersRandomExceptOne();
     }, 300);
   }
 
-  loadUsersDataExceptOne(): void {
+  getAllUsersRandomExceptOne(): void {
     const id = localStorage.getItem('id')!;
     this.http.get<User[]>(`http://localhost:3000/api/v1/users/except/random/${id}`).subscribe(
       (users) => {
