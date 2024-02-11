@@ -13,9 +13,10 @@
 
     <div *ngIf="filteredFollowers && filteredFollowers.length">
         <ul class="friend-list-items">
-            <li *ngFor="let follower of filteredFollowers">
+            <li *ngFor="let follower of filteredFollowers let i = index">
                 <div class="friend-info">
-                    <div mat-card-avatar class="friend-avatar"></div>
+                    <img mat-card-avatar [src]="imagesUserURL[i]" *ngIf="imagesUserURL && imagesUserURL[i]" >
+                    <div mat-card-avatar class="friend-avatar" *ngIf="!imagesUserURL[i]"></div>
                     <span (click)="redirectToFriendProfile(follower.amico)">{{ follower.amico }}</span>
                 </div>
             </li>
@@ -24,9 +25,10 @@
 
     <div *ngIf="!filteredFollowers">
         <ul class="friend-list-items">
-            <li *ngFor="let follower of followersList">
+            <li *ngFor="let follower of followersList let i = index">
                 <div class="friend-info">
-                    <div mat-card-avatar class="friend-avatar"></div>
+                    <img mat-card-avatar [src]="imagesUserURL[i]" *ngIf="imagesUserURL && imagesUserURL[i]" >
+                    <div mat-card-avatar class="friend-avatar" *ngIf="!imagesUserURL[i]"></div>
                     <span (click)="redirectToFriendProfile(follower.amico)">{{ follower.amico}}</span>
                 </div>
             </li>

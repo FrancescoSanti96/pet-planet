@@ -7,6 +7,7 @@ import { FollowerService } from '../../services/follower.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../model/user.model';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-follower-dialog',
@@ -18,6 +19,7 @@ export class FollowerDialogComponent {
   followersList: Friend[] = [];
   isLoadingFriends: boolean = false;
   filteredFollowers: Friend[] | undefined
+  imagesUserURL: SafeUrl[] = [];
 
   searchText = '';
 
@@ -27,6 +29,7 @@ export class FollowerDialogComponent {
     private followerService: FollowerService,
     private http: HttpClient,
     private router: Router,
+    private sanitizer: DomSanitizer,
 
     public dialogRef: MatDialogRef<FollowerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -77,6 +80,21 @@ export class FollowerDialogComponent {
     this.followerService.getFollowers().subscribe(
       (followers) => {
         this.followersList = followers.map((follower) => {
+          this.http.get<User>(`http://localhost:3000/api/v1/users/email/${follower.amico}`).subscribe(
+            (user) => {
+              if (user.profilePicture){
+                this.imagesUserURL.push(this.sanitizer.bypassSecurityTrustUrl(user.profilePicture!));
+                console.log("test", this.imagesUserURL);
+              }
+              else{
+                this.imagesUserURL.push((''));
+              }
+            },
+            (error) => {
+              console.error('Errore nel recupero dell\'utente:', error);
+            }
+          );
+
           const { _id, utente, amico } = follower;
           if (_id && utente && amico) {
             return new Friend(_id, utente, amico);

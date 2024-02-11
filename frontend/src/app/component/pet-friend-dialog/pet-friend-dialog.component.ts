@@ -7,6 +7,7 @@ import { FollowerService } from '../../services/follower.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../model/user.model';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pet-friend-dialog',
@@ -18,14 +19,16 @@ export class PetFriendDialogComponent {
   followersList: Friend[] = [];
   isLoadingFriends: boolean = false;
   filteredFriends: Friend[] | undefined 
+  imagesUserURL: SafeUrl[] = [];
 
   searchText = '';
 
   constructor(
     private friendService: FriendService,
-    private reloadService: ReloadService,
-    private followerService: FollowerService,
     private router: Router,
+    private followerService: FollowerService,
+    private reloadService: ReloadService,
+    private sanitizer: DomSanitizer,
     private http: HttpClient,
     public dialogRef: MatDialogRef<PetFriendDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -51,6 +54,22 @@ export class PetFriendDialogComponent {
     this.friendService.getFriends().subscribe(
       (friends) => {
         this.friendsList = friends.map((friend) => {
+          this.http.get<User>(`http://localhost:3000/api/v1/users/email/${friend.amico}`).subscribe(
+            (user) => {
+              if (user.profilePicture){
+                this.imagesUserURL.push(this.sanitizer.bypassSecurityTrustUrl(user.profilePicture!));
+                console.log("test", this.imagesUserURL);
+              }
+              else{
+                this.imagesUserURL.push((''));
+              }
+
+            },
+            (error) => {
+              console.error('Errore nel recupero dell\'utente:', error);
+            }
+          );
+  
           const { _id, utente, amico } = friend;
           if (_id && utente && amico) {
             return new Friend(_id, utente, amico);
@@ -61,16 +80,14 @@ export class PetFriendDialogComponent {
         });
         this.isLoadingFriends = false;
       },
-
       (error) => {
-        console.error(
-          'Errore nella chiamata API per ottenere la lista di amici:',
-          error
-        );
+        console.error('Errore nella chiamata API per ottenere la lista di amici:', error);
         this.isLoadingFriends = false;
       }
     );
   }
+
+  
 
   loadFollowersData(): void {
     this.followerService.getFollowers().subscribe(

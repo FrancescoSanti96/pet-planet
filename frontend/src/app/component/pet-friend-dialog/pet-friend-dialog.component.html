@@ -13,9 +13,10 @@
 
     <div *ngIf="filteredFriends && filteredFriends.length">
         <ul class="friend-list-items">
-            <li *ngFor="let friend of filteredFriends">
+            <li *ngFor="let friend of filteredFriends let i = index">
                 <div class="friend-info">
-                    <div mat-card-avatar class="friend-avatar"></div>
+                    <img mat-card-avatar [src]="imagesUserURL[i]" *ngIf="imagesUserURL && imagesUserURL[i]" >
+                    <div mat-card-avatar class="friend-avatar" *ngIf="!imagesUserURL[i]"></div>
                     <span (click)="redirectToFriendProfile(friend.amico)">{{ friend.amico }}</span>
                     <div class="friend-buttons">
                         <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
@@ -27,10 +28,10 @@
 
     <div *ngIf="!filteredFriends">
         <ul class="friend-list-items">
-            <li *ngFor="let friend of friendsList">
+            <li *ngFor="let friend of friendsList let i = index">
                 <div class="friend-info">
-                    <div mat-card-avatar class="friend-avatar"></div>
-                    <span (click)="redirectToFriendProfile(friend.amico)">{{ friend.amico }}</span>
+                    <img mat-card-avatar [src]="imagesUserURL[i]" *ngIf="imagesUserURL && imagesUserURL[i]">
+                    <div mat-card-avatar class="friend-avatar" *ngIf="!imagesUserURL[i]"></div>                    <span (click)="redirectToFriendProfile(friend.amico)">{{ friend.amico }}</span>
                     <div class="friend-buttons">
                         <button (click)="unfollow(friend._id, friend.amico)">Unfollow</button>
                     </div>

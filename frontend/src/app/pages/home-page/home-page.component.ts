@@ -25,6 +25,8 @@ export class HomePageComponent {
   // imageURL!: SafeUrl;
   imagesPostsURL!: SafeUrl[];
   imagesUserPostsURL!: SafeUrl[];
+  imgUser!: string;
+  // imgUserURL
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +56,7 @@ export class HomePageComponent {
         (data: any) => {
           this.userInfo = data;
           // const url = this.userInfo.picture;
-          this.http.get(url, { responseType: 'blob' }).subscribe(
+          this.http.get(data.picture, { responseType: 'blob' }).subscribe(
             (blob: Blob) => {
               // Scarica l'immagine come blob
               const reader = new FileReader();
@@ -65,6 +67,7 @@ export class HomePageComponent {
           
                 // Ora puoi chiamare this.postLogin(this.userInfo)
                 this.postLogin(this.userInfo);
+                localStorage.setItem('user_info', JSON.stringify(this.userInfo));
               };
           
               reader.readAsDataURL(blob);
@@ -74,8 +77,6 @@ export class HomePageComponent {
             }
           );
           
-          localStorage.setItem('user_info', JSON.stringify(this.userInfo));
-          this.postLogin(this.userInfo);
         },
         (error) => {
           console.error('Error fetching user info:', error);
@@ -216,4 +217,5 @@ export class HomePageComponent {
       }
     );
   }
+
 }
