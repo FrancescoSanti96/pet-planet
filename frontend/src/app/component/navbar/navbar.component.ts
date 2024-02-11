@@ -25,7 +25,7 @@ export class NavbarComponent {
       if (this.isUserAuthenticated()) {
         this.loadUserInfo();
       }
-    }, 200)
+    }, 350)
   }
 
   loadUserInfo(): void {
