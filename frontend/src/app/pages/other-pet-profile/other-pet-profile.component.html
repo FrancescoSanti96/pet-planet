@@ -42,7 +42,7 @@
     </div>
 
     <div class="badge-container">
-        <h1>I tuoi badge</h1>
+        <h1 class="title-badge">I tuoi badge</h1>
 
         <img class="badge"
         src="../../../assets/document.gif"
@@ -77,7 +77,7 @@
         <img class="badge"
         src="../../../assets/trophy.gif"
         vspace="10" hspace="10" alt="badge4"
-        *ngIf="friendsList.length && followersList && animal.image && checkAnimal()"
+        *ngIf="friendsList.length && followersList.length && animal.image && checkAnimal()"
         >
     </div>
 </div>
