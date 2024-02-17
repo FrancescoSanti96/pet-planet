@@ -29,8 +29,11 @@ export class NavbarComponent {
   }
 
   loadUserInfo(): void {
+    // TODO
     this.userInfo = JSON.parse(localStorage.getItem('user_info')!);
     this.img = this.sanitizer.bypassSecurityTrustUrl(this.userInfo.picture);
+    //  TODO scommentare
+    // this.img = "url"
     this.isVisible = true;
   }
 

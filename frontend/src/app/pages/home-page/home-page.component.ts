@@ -62,6 +62,10 @@ export class HomePageComponent {
     }, 300);
   }
 
+  navigateToProfile() {
+    window.location.href = '/profile';
+  }
+
   getAllUsersRandomExceptOne(): void {
     const id = localStorage.getItem('id')!;
     this.http.get<User[]>(`http://localhost:3000/api/v1/users/except/random/${id}`).subscribe(
@@ -108,6 +112,7 @@ export class HomePageComponent {
 
       this.http.get(url).subscribe(
         (data: any) => {
+          console.log('User info: quiiii', data);
           this.userInfo = data;
           // const url = this.userInfo.picture;
           this.http.get(data.picture, { responseType: 'blob' }).subscribe(
@@ -115,6 +120,7 @@ export class HomePageComponent {
               // Scarica l'immagine come blob
               const reader = new FileReader();
 
+              // TODO commentare
               reader.onloadend = () => {
                 // Converti l'immagine in formato base64
                 this.userInfo.picture = reader.result as string;
@@ -123,8 +129,10 @@ export class HomePageComponent {
                 this.postLogin(this.userInfo);
                 localStorage.setItem('user_info', JSON.stringify(this.userInfo));
               };
-
               reader.readAsDataURL(blob);
+              // TODO scommentare
+              // this.postLogin(this.userInfo);
+              // localStorage.setItem('user_info', JSON.stringify(this.userInfo));
             },
             (error) => {
               console.error('Errore durante il recupero dell\'immagine:', error);
@@ -149,9 +157,10 @@ export class HomePageComponent {
         surname: response.name,
         profilePicture: response.picture,
       })
-      .subscribe(
+      .subscribe(     
         (data: any) => {
           if (data && data._id) {
+            console.log('ID: qua non ci sono 1', data._id);
             localStorage.setItem('id', data._id);
             this.id = data._id;
 
@@ -192,6 +201,7 @@ export class HomePageComponent {
 
   loadPostsData(): void {
     this.id = localStorage.getItem('id')!;
+    if(this.id !== null) {
     this.postService.getPostsOfFriends(this.id).subscribe(
       (posts) => {
         this.posts = posts;
@@ -209,6 +219,7 @@ export class HomePageComponent {
         );
       }
     );
+    }
   }
 
 
@@ -228,7 +239,7 @@ export class HomePageComponent {
   openCreatePostDialog(titolo: string, corpo: string): void {
     const dialogRef = this.dialog.open(CreatePostDialogComponent, {
       width: '400px',
-      height: '400px',
+      height: '450px',
       data: { titolo: titolo, corpo: corpo },
     });
     dialogRef.componentInstance.dialogRef = dialogRef;
