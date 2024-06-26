@@ -2,7 +2,7 @@
 
 ## Progetto per corso universitario 'Ingegneria dei Sistemi Web'
 
-### Demo artefatto : [link]([https://docs.google.com/spreadsheets/d/1G9oLz_bKWgwMbyfGtw65hdhxsh4LwvkI_dvgdrF2wcg/edit?usp=sharing](https://www.youtube.com/watch?v=vM7iD80ckWk&t=36s)
+### Demo artefatto : [link](https://www.youtube.com/watch?v=vM7iD80ckWk&t=36s)
 
 ### User Stories : [link](https://docs.google.com/spreadsheets/d/1G9oLz_bKWgwMbyfGtw65hdhxsh4LwvkI_dvgdrF2wcg/edit?usp=sharing)
 
